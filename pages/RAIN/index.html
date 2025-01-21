@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+    content="Deformable Neural Radiance Fields creates free-viewpoint portraits (nerfies) from casually captured videos.">
+  <meta name="keywords" content="Nerfies, D-NeRF, NeRF">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>
+    RAIN: Real-time Animation Of Infinite Video Stream
+  </title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/favicon.svg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+
+<body>
+
+
+
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <h1 class="title is-1 publication-title">
+              RAIN: Real-time Animation Of Infinite Video Stream
+            </h1>
+            <div class="is-size-5 publication-authors">
+              <span class="author-block">
+                <a href="https://pscgylotti.github.io/">Zhilei Shu</a><sup>1</sup>,</span>
+              <span class="author-block">
+                <a href="https://openreview.net/profile?id=~Ruili_Feng1">Ruili Feng</a><sup>1</sup>,</span>
+              <span class="author-block">
+                <a href="http://staff.ustc.edu.cn/~forrest/">Yang Cao</a><sup>1</sup>,
+              </span>
+              <span class="author-block">
+                <a href="https://en.auto.ustc.edu.cn/2021/0616/c26828a513174/page.htm">Zheng-Jun Zha</a><sup>1</sup>
+              </span>
+            </div>
+
+            <div class="is-size-5 publication-authors">
+              <span class="author-block"><sup>1</sup>University of Science and Technology of China,</span>
+              
+            </div>
+
+            <div class="column has-text-centered">
+              <div class="publication-links">
+                <span class="link-block">
+                  <a href="https://arxiv.org/abs/2412.19489" class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                    </span>
+                    <span>arXiv</span>
+                  </a>
+                </span>
+                <!-- Video Link. -->
+                <span class="link-block">
+                  <a href="https://www.youtube.com/" class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fab fa-youtube"></i>
+                    </span>
+                    <span>Video</span>
+                  </a>
+                </span>
+                <!-- Code Link. -->
+                <span class="link-block">
+                  <a href="https://github.com/Pscgylotti/RAIN"
+                    class="external-link button is-normal is-rounded is-dark">
+                    <span class="icon">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <span>Code</span>
+                  </a>
+                </span>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="hero teaser">
+    <div class="container is-max-desktop">
+      <div class="hero-body">
+        <video id="teaser" muted autoplay loop playsinline height="100%">
+          <source src="./videos/video_span1.mp4" type="video/mp4">
+        </video>
+        <video id="teaser" muted autoplay loop playsinline height="100%">
+          <source src="./videos/video_span2.mp4" type="video/mp4">
+        </video>
+        <h2 class="subtitle has-text-centered">
+          <span class="dnerf">RAIN</span> can make real-time animation on customer-level devices.
+        </h2>
+      </div>
+    </div>
+  </section>
+
+
+
+
+  <section class="section">
+    <div class="container is-max-desktop">
+      <!-- Abstract. -->
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <h2 class="title is-3">Abstract</h2>
+          <div class="content has-text-justified">
+            <p>Live animation has gained immense popularity for enhancing online engagement, yet achieving high-quality,
+              real-time, and stable animation with diffusion models remains challenging, especially on consumer-grade
+              GPUs. Existing methods struggle with generating long, consistent video streams efficiently, often being
+              limited by latency issues and degraded visual quality over extended periods. In this paper, we introduce
+              RAIN, a pipeline solution capable of animating infinite video streams in real-time with low latency using
+              a single RTX 4090 GPU. The core idea of RAIN is to efficiently compute frame-token attention across
+              different noise levels and long time-intervals while simultaneously denoising a significantly larger
+              number of frame-tokens than previous stream-based methods. This design allows RAIN to generate video
+              frames with much shorter latency and faster speed, while maintaining long-range attention over extended
+              video streams, resulting in enhanced continuity and consistency. Consequently, a Stable Diffusion model
+              fine-tuned with RAIN in just a few epochs can produce video streams in real-time and low latency without
+              much compromise in quality or consistency, up to infinite long. Despite its advanced capabilities, the
+              RAIN only introduces a few additional 1D attention blocks, imposing minimal additional burden. Experiments
+              in benchmark datasets and generating super-long videos demonstrating that RAIN can animate characters in
+              real-time with much better quality, accuracy, and consistency than competitors while costing less latency.
+              All code and models will be made publicly available.
+            </p>
+          </div>
+        </div>
+      </div>
+      <!--/ Abstract. -->
+
+      <!-- Paper video. 
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Video</h2>
+        <div class="publication-video">
+          <iframe src="https://www.youtube.com/embed/MrKrnHhk8IA?rel=0&amp;showinfo=0"
+                  frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        </div>
+      </div>
+    </div>
+    --/ Paper video. -->
+    </div>
+  </section>
+
+
+  <section class="section">
+    <div class="container is-max-desktop">
+
+      <div class="columns is-centered">
+
+        <div class="column">
+          <div class="content">
+            <h2 class="title" style="text-align: center;">Framework</h2>
+            <img src="images/pipeline.png" style="max-width: 85%;margin: auto; display: block;" />
+            <p>
+              <i>RAIN</i> adopts a pipeline-like design for inferencing on streaming video. The latent states are filled
+              with frames with stepped noise levels. Each time the denoising process will be performed on a group of
+              frames. Therefore <i>RAIN</i> supports generation of infinite long video.
+            </p>
+            <p>
+              For speeding up, <i>RAIN</i> adopts several methods of acceleration. We perform LCM Distillation on the
+              UNet model, and adopts <a href="https://github.com/madebyollin/taesdv">TAESDV</a> as VAE Decoder. With
+              TensorRT acceleration, <i>RAIN</i> generally runs at 18 fps with latency ~ 1.5s on single RTX 4090 with
+              resolution of 512x512 and DWPose as feature extractor.
+            </p>
+          </div>
+        </div>
+      </div>
+
+        <div class="column">
+          <h2 class="title" style="text-align: center;">Wholebody Animation</h2>
+          <div class="columns is-centered">
+            <div class="column content">
+              <p>
+                Test Example from UBC-Fashion Dataset, the model is only trained on 500 video clips from training
+                dataset.
+              </p>
+              <section class="hero is-light is-small">
+                <div class="hero-body">
+                  <div class="container">
+                    <div id="results-carousel" class="carousel results-carousel">
+                      <div class="item item-01">
+                        <video poster="" id="wholebody01" autoplay controls muted loop playsinline height="100%">
+                          <source src="./videos/wholebody01.mp4" type="video/mp4">
+                        </video>
+                      </div>
+                      <div class="item item-02">
+                        <video poster="" id="wholebody02" autoplay controls muted loop playsinline height="100%">
+                          <source src="./videos/wholebody02.mp4" type="video/mp4">
+                        </video>
+                      </div>
+                      <div class="item item-03">
+                        <video poster="" id="test03" controls autoplay muted loop playsinline height="100%">
+                          <source src="./videos/wholebody03.mp4" type="video/mp4">
+                        </video>
+                      </div>
+                      <div class="item item-04">
+                        <video poster="" id="test04" controls autoplay muted loop playsinline height="100%">
+                          <source src="./videos/wholebody04.mp4" type="video/mp4">
+                        </video>
+                      </div>
+                      <div class="item item-05">
+                        <video poster="" id="wholebody05" controls muted loop playsinline height="100%">
+                          <source src="./videos/wholebody05.mp4" type="video/mp4">
+                        </video>
+                      </div>
+                      <div class="item item-06">
+                        <video poster="" id="wholebody06" controls muted loop playsinline height="100%">
+                          <source src="./videos/wholebody06.mp4" type="video/mp4">
+                        </video>
+                      </div>
+                      <div class="item item-07">
+                        <video poster="" id="wholebody07" controls muted loop playsinline height="100%">
+                          <source src="./videos/wholebody07.mp4" type="video/mp4">
+                        </video>
+                      </div>
+                      <div class="item item-08">
+                        <video poster="" id="wholebody08" controls muted loop playsinline height="100%">
+                          <source src="./videos/wholebody08.mp4" type="video/mp4">
+                        </video>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+            </div>
+
+          </div>
+        </div>
+      <div class="column">
+        <h2 class="title" style="text-align: center;">Cross Domain Face Morphing</h2>
+        <div class="columns is-centered">
+          <div class="column content">
+            <p>
+              Face morphing examples, expressions and head positions of real face are mapped into anime faces.
+            </p>
+
+            <section class="hero is-light is-small">
+              <div class="hero-body">
+                <div class="container">
+                  <div id="results-carousel" class="carousel results-carousel">
+                    <div class="item item-01">
+                      <video poster="" id="test01" controls autoplay muted loop playsinline height="100%">
+                        <source src="./videos/test01.mp4" type="video/mp4">
+                      </video>
+                    </div>
+                    <div class="item item-02">
+                      <video poster="" id="test02" controls autoplay muted loop playsinline height="100%">
+                        <source src="./videos/test02.mp4" type="video/mp4">
+                      </video>
+                    </div>
+                    <div class="item item-03">
+                      <video poster="" id="test03" controls autoplay muted loop playsinline height="100%">
+                        <source src="./videos/test03.mp4" type="video/mp4">
+                      </video>
+                    </div>
+                    <div class="item item-04">
+                      <video poster="" id="test04" controls autoplay muted loop playsinline height="100%">
+                        <source src="./videos/test04.mp4" type="video/mp4">
+                      </video>
+                    </div>
+                    <div class="item item-05">
+                      <video poster="" id="test05" controls muted loop playsinline height="100%">
+                        <source src="./videos/test05.mp4" type="video/mp4">
+                      </video>
+                    </div>
+                    <div class="item item-06">
+                      <video poster="" id="test06" controls muted loop playsinline height="100%">
+                        <source src="./videos/test06.mp4" type="video/mp4">
+                      </video>
+                    </div>
+                    <div class="item item-07">
+                      <video poster="" id="test07" controls muted loop playsinline height="100%">
+                        <source src="./videos/test07.mp4" type="video/mp4">
+                      </video>
+                    </div>
+                    <div class="item item-08">
+                      <video poster="" id="test08" controls muted loop playsinline height="100%">
+                        <source src="./videos/test08.mp4" type="video/mp4">
+                      </video>
+                    </div>
+                    <div class="item item-09">
+                      <video poster="" id="test09" controls muted loop playsinline height="100%">
+                        <source src="./videos/test09.mp4" type="video/mp4">
+                      </video>
+                    </div>
+                    <div class="item item-10">
+                      <video poster="" id="test10" controls muted loop playsinline height="100%">
+                        <source src="./videos/test10.mp4" type="video/mp4">
+                      </video>
+                    </div>
+                    <div class="item item-11">
+                      <video poster="" id="test11" controls muted loop playsinline height="100%">
+                        <source src="./videos/test11.mp4" type="video/mp4">
+                      </video>
+                    </div>
+                    <div class="item item-12">
+                      <video poster="" id="test12" controls muted loop playsinline height="100%">
+                        <source src="./videos/test12.mp4" type="video/mp4">
+                      </video>
+                    </div>
+                    <div class="item item-13">
+                      <video poster="" id="test13" controls muted loop playsinline height="100%">
+                        <source src="./videos/test13.mp4" type="video/mp4">
+                      </video>
+                    </div>
+                    <div class="item item-14">
+                      <video poster="" id="test14" controls muted loop playsinline height="100%">
+                        <source src="./videos/test14.mp4" type="video/mp4">
+                      </video>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="column">
+      <div class="content">
+        <h2 class="title" style="text-align: center;">Future</h2>
+        <p>
+          <i>RAIN</i> provides a possible way of rendering real-time animation with AI. We could expecting the future of
+          combining AI together with CG in rendering games, live streams and virtual realities. In which we could take
+          the great advantage of generalization from AI in rendering countless new scenes and objects, and also provide
+          a more interactive way to participate in the synthesized world.
+        </p>
+      </div>
+    </div>
+
+    </div>
+  </section>
+
+  <!--
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@article{park2021nerfies,
+  author    = {Park, Keunhong and Sinha, Utkarsh and Barron, Jonathan T. and Bouaziz, Sofien and Goldman, Dan B and Seitz, Steven M. and Martin-Brualla, Ricardo},
+  title     = {Nerfies: Deformable Neural Radiance Fields},
+  journal   = {ICCV},
+  year      = {2021},
+}</code></pre>
+  </div>
+</section>-->
+
+
+  <footer class="footer">
+    <div class="container">
+      <div class="content has-text-centered">
+        <a class="icon-link" href="https://arxiv.org/abs/2412.19489">
+          <i class="fas fa-file-pdf"></i>
+        </a>
+        <a class="icon-link" href="https://github.com/Pscgylotti/RAIN" class="external-link" disabled>
+          <i class="fab fa-github"></i>
+        </a>
+      </div>
+      <div class="columns is-centered">
+        <div class="column is-8">
+          <div class="content">
+            <p>
+              This website is licensed under a <a rel="license"
+                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+                Commons Attribution-ShareAlike 4.0 International License</a>.
+            </p>
+            <p>
+              Thanks to <a href="https://github.com/nerfies/nerfies.github.io">nerfies</a> for website template.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+
+</html>
