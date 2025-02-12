@@ -1,0 +1,144 @@
+
+    <div class="slide">
+      <h2>Video Title</h2>
+      <video preload="none" poster="videos_icon/generalization_img_0.png" onclick="setControls(this)">
+        <source src="videos/generalization_processed_0.mp4" type="video/mp4" />
+      </video>
+      <p onclick="clickToCopy(this)"><span>Prompt: </span>A black SUV is driving on the city streets at night.
+      </p>
+    </div>
+
+    <div class="slide">
+      <h2>Video Title</h2>
+      <video preload="none" poster="videos_icon/generalization_img_1.png" onclick="setControls(this)">
+        <source src="videos/generalization_processed_1.mp4" type="video/mp4" />
+      </video>
+      <p onclick="clickToCopy(this)"><span>Prompt: </span>A car is driving on the beach.
+      </p>
+    </div>
+
+    <div class="slide">
+      <h2>Video Title</h2>
+      <video preload="none" poster="videos_icon/generalization_img_2.png" onclick="setControls(this)">
+        <source src="videos/generalization_processed_2.mp4" type="video/mp4" />
+      </video>
+      <p onclick="clickToCopy(this)"><span>Prompt: </span>A vehicle is cruising along the beach.
+      </p>
+    </div>
+
+    <div class="slide">
+      <h2>Video Title</h2>
+      <video preload="none" poster="videos_icon/generalization_img_3.png" onclick="setControls(this)">
+        <source src="videos/generalization_processed_3.mp4" type="video/mp4" />
+      </video>
+      <p onclick="clickToCopy(this)"><span>Prompt: </span>The video shows a yellow vehicle driving along a winding mountain road.
+      </p>
+    </div>
+
+    <div class="slide">
+      <h2>Video Title</h2>
+      <video preload="none" poster="videos_icon/generalization_img_4.png" onclick="setControls(this)">
+        <source src="videos/generalization_processed_4.mp4" type="video/mp4" />
+      </video>
+      <p onclick="clickToCopy(this)"><span>Prompt: </span>A car is driving indoors.
+      </p>
+    </div>
+
+    <div class="slide">
+      <h2>Video Title</h2>
+      <video preload="none" poster="videos_icon/generalization_img_5.png" onclick="setControls(this)">
+        <source src="videos/generalization_processed_5.mp4" type="video/mp4" />
+      </video>
+      <p onclick="clickToCopy(this)"><span>Prompt: </span>A car is driving through the small town.
+      </p>
+    </div>
+
+    <div class="slide">
+      <h2>Video Title</h2>
+      <video preload="none" poster="videos_icon/generalization_img_6.png" onclick="setControls(this)">
+        <source src="videos/generalization_processed_6.mp4" type="video/mp4" />
+      </video>
+      <p onclick="clickToCopy(this)"><span>Prompt: </span>A car is driving in the park.
+      </p>
+    </div>
+
+    <div class="slide">
+      <h2>Video Title</h2>
+      <video preload="none" poster="videos_icon/generalization_img_7.png" onclick="setControls(this)">
+        <source src="videos/generalization_processed_7.mp4" type="video/mp4" />
+      </video>
+      <p onclick="clickToCopy(this)"><span>Prompt: </span>A vehicle is driving in the sea.
+      </p>
+    </div>
+
+    <div class="slide">
+      <h2>Video Title</h2>
+      <video preload="none" poster="videos_icon/generalization_img_8.png" onclick="setControls(this)">
+        <source src="videos/generalization_processed_8.mp4" type="video/mp4" />
+      </video>
+      <p onclick="clickToCopy(this)"><span>Prompt: </span>A red car is driving on the grass.
+      </p>
+    </div>
+
+    <div class="slide">
+      <h2>Video Title</h2>
+      <video preload="none" poster="videos_icon/generalization_img_9.png" onclick="setControls(this)">
+        <source src="videos/generalization_processed_9.mp4" type="video/mp4" />
+      </video>
+      <p onclick="clickToCopy(this)"><span>Prompt: </span>A car is driving on the city streets.
+      </p>
+    </div>
+
+    <div class="slide">
+      <h2>Video Title</h2>
+      <video preload="none" poster="videos_icon/generalization_img_10.png" onclick="setControls(this)">
+        <source src="videos/generalization_processed_10.mp4" type="video/mp4" />
+      </video>
+      <p onclick="clickToCopy(this)"><span>Prompt: </span>A male character dressed in a formal suit is walking in the office.
+      </p>
+    </div>
+
+    <div class="slide">
+      <h2>Video Title</h2>
+      <video preload="none" poster="videos_icon/generalization_img_11.png" onclick="setControls(this)">
+        <source src="videos/generalization_processed_11.mp4" type="video/mp4" />
+      </video>
+      <p onclick="clickToCopy(this)"><span>Prompt: </span>A black car is driving on the path in the middle of the lake.
+      </p>
+    </div>
+
+    <div class="slide">
+      <h2>Video Title</h2>
+      <video preload="none" poster="videos_icon/generalization_img_12.png" onclick="setControls(this)">
+        <source src="videos/generalization_processed_12.mp4" type="video/mp4" />
+      </video>
+      <p onclick="clickToCopy(this)"><span>Prompt: </span>At night, a silver car is driving on the highway.
+      </p>
+    </div>
+
+    <div class="slide">
+      <h2>Video Title</h2>
+      <video preload="none" poster="videos_icon/generalization_img_13.png" onclick="setControls(this)">
+        <source src="videos/generalization_processed_13.mp4" type="video/mp4" />
+      </video>
+      <p onclick="clickToCopy(this)"><span>Prompt: </span>A white car is driving on a narrow street.
+      </p>
+    </div>
+
+    <div class="slide">
+      <h2>Video Title</h2>
+      <video preload="none" poster="videos_icon/generalization_img_14.png" onclick="setControls(this)">
+        <source src="videos/generalization_processed_14.mp4" type="video/mp4" />
+      </video>
+      <p onclick="clickToCopy(this)"><span>Prompt: </span>The video features a close-up of a woman inside a car, wearing oversized sunglasses and dressed in black.
+      </p>
+    </div>
+
+    <div class="slide">
+      <h2>Video Title</h2>
+      <video preload="none" poster="videos_icon/generalization_img_15.png" onclick="setControls(this)">
+        <source src="videos/generalization_processed_15.mp4" type="video/mp4" />
+      </video>
+      <p onclick="clickToCopy(this)"><span>Prompt: </span>The video shows a little girl using a vacuum cleaner to move across the wooden floor at home.
+      </p>
+    </div>

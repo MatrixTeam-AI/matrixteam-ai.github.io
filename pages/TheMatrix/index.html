@@ -1,0 +1,1412 @@
+<!DOCTYPE html>
+<html>
+
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <title>The Matrix</title>
+  <!-- 
+
+Highway Template
+
+https://templatemo.com/tm-520-highway
+
+-->
+  <meta name="description" content="" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+  <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+  <link rel="stylesheet" href="css/bootstrap.min.css" />
+  <link rel="stylesheet" href="css/bootstrap-theme.min.css" />
+  <link rel="stylesheet" href="css/light-box.css" />
+  <link rel="stylesheet" href="css/templatemo-style.css" />
+  <link rel="stylesheet" . href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <link rel="stylesheet" type="text/css"
+    href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css" />
+  <link rel="stylesheet" href="css/matrix.css" />
+
+  <link href="https://fonts.googleapis.com/css?family=Kanit:100,200,300,400,500,600,700,800,900" rel="stylesheet" />
+
+  <script src="js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+  <script src="js/code-rain.js"></script>
+</head>
+
+<body>
+  <nav>
+    <div class="logo">
+      <a href="index.html">The<em>Matrix</em></a>
+    </div>
+    <div class="menu-icon">
+      <span></span>
+    </div>
+  </nav>
+
+  <div id="video-container">
+    <div class="video-overlay"></div>
+    <div class="video-content">
+      <div class="inner">
+        <h1>Welcome to <em>The Matrix</em></h1>
+        <p>Infinite-Horizon World Generation with Real-Time Interaction</p>
+        <p, style="font-size: 18px;text-align:center"><em><span class="double-dagger">Ruili Feng*</span> , Han Zhang*, Zhantao Yang*, Jie Xiao*, Zhilei Shu*, Zhiheng Liu, Andy Zheng, Yukun Huang, <span class="dagger">Yu Liu</span>, <span class="double-dagger">Hongyang Zhang</span></em></p>
+        <p, style="font-size: 12px;text-align:center">* Equal Contribution, <span class="dagger"></span> Engineer Advisor, <span class="double-dagger"> </span> Project Leader</p>
+        <p, style="font-size: 14px;">Tongyi Lab, University of Hong Kong, University of Waterloo, Vector Institute</p>
+        <blockquote, style="font-size: 12px;">
+          "This is the world that you know; the world as it was at the end of the 20th century. It exists now only as part of a neural-interactive simulation that we call the Matrix."
+          <cite>Morpheus to Neo (The Matrix, 1999)</cite>
+        </blockquote>
+        <div class="scroll-icon">
+          <a class="scrollTo" data-scrollTo="startup" href="#"><img src="img/scroll-icon.png" alt="" /></a>
+        </div>
+      </div>
+    </div>
+    <video autoplay="" loop="" muted>
+      <source src="videos/teaser.mp4" type="video/mp4" />
+    </video>
+  </div>
+
+  <div class="code-rain-container no-image" id="startup">
+    <canvas></canvas>
+    <div class="content">
+      <div class="text">
+        <h1>The First Real-Time, Frame-Level Moving Control for Realistic World Simulation!</h1>
+        <p><strong>How close are we to realizing the vision of <em>The Matrix (1999)</em>, where AI crafts a fully
+            immersive, interactive world, blurring the line between reality and illusion?</strong> Imagine a limitless
+          digital universe, created in real-time with visuals that rival reality itself. This project is a pioneering
+          step toward that vision—a first glimpse into humanity’s own "Matrix."</p>
+        <p> Our system breaks new ground in world simulation by delivering:</p>
+        <ul>
+          <li><strong>Frame-level precision</strong> in user interaction, matching the responsiveness portrayed in the
+            film.</li>
+          <li><strong>AAA-level visuals</strong> for immersive scenes nearly indistinguishable from reality.</li>
+          <li><strong>Infinite generative capacity</strong> for endless exploration, surpassing the limits of current
+            video models.</li>
+        </ul>
+        <p><strong>Curious?</strong> Read on to explore the technology powering <em>The Matrix</em> and experience the
+          feel of a self-sustaining digital universe!</p>
+      </div>
+    </div>
+    <div class="content">
+      <h4>Comparison of Recent Generative Models for Game Simulation</h4>
+      <p>
+        <strong><em>The Matrix</em></strong> distinguishes itself as a foundation model capable of generating infinitely
+        long videos with AAA game quality, high resolution, frame-level real-time control, and robust domain
+        generalization. Here, * indicates concurrent work with <em>The Matrix</em>, and supervised/unsupervised refers
+        to the video data with/without true control signal.
+      </p>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Feature</th>
+              <th>Genie</th>
+              <th>DIAMOND</th>
+              <th>MarioVGG*</th>
+              <th>GameNGen*</th>
+              <th>Oasis*</th>
+              <th>GameGen-X*</th>
+              <th><em>The Matrix</em></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Video Length</td>
+              <td>2s</td>
+              <td class="highlight">Infinite</td>
+              <td>6 Frames</td>
+              <td class="highlight">Infinite</td>
+              <td class="highlight">Infinite</td>
+              <td>4s–16s</td>
+              <td class="highlight">Infinite</td>
+            </tr>
+            <tr>
+              <td>Training Corpus</td>
+              <td>2D Games (unsupervised)</td>
+              <td>Atari, CS:GO</td>
+              <td>Mario</td>
+              <td>DOOM</td>
+              <td>Minecraft</td>
+              <td>AAA Games</td>
+              <td class="highlight">AAA Games (supervised, small)<br>Internet Videos (unsupervised, large)</td>
+            </tr>
+            <tr>
+              <td>Resolution</td>
+              <td>360p</td>
+              <td>280 x 150</td>
+              <td>64 x 48</td>
+              <td>240p</td>
+              <td class="highlight">720p</td>
+              <td class="highlight">720p</td>
+              <td class="highlight">720p</td>
+            </tr>
+            <tr>
+              <td>Control</td>
+              <td class="highlight">Frame-Level</td>
+              <td class="highlight">Frame-Level</td>
+              <td>Video-Level</td>
+              <td class="highlight">Frame-Level</td>
+              <td class="highlight">Frame-Level</td>
+              <td>Video-Level</td>
+              <td class="highlight">Frame-Level</td>
+            </tr>
+            <tr>
+              <td>Real-Time</td>
+              <td>No</td>
+              <td class="highlight">Yes</td>
+              <td>No</td>
+              <td class="highlight">Yes</td>
+              <td class="highlight">Yes</td>
+              <td>No</td>
+              <td class="highlight">Yes</td>
+            </tr>
+            <tr>
+              <td>Control Generalization</td>
+              <td class="highlight">Yes</td>
+              <td>No</td>
+              <td>No</td>
+              <td>No</td>
+              <td>No</td>
+              <td>No</td>
+              <td class="highlight">Yes</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="content">
+      <div class="text">
+        <h1> <em>The Matrix</em> World</h1>
+        <p>
+          <strong><em>The Matrix</em></strong> offers real-time, responsive control in first- and third-person perspectives,
+          enabling seamless exploration of dynamic environments. Trained on data from AAA games like <em>Forza Horizon
+            5</em> and <em>Cyberpunk 2077</em> as well as real-world footage, it lets users navigate diverse
+          terrains—deserts, cities, forests, and more—in unbroken, continuous videos. <strong>Each keyboard command
+            responds with frame-level precision, delivering a four-frame response similar to AAA games.</strong> Explore
+          the gallery below to experience <strong><em>The Matrix</em></strong> across immersive landscapes.<br><br>
+          Click to play or <a onclick="playAll($('.tiling-video-wrapper')[0])">click here
+            to play all demos</a>. Caution: may use mobile data.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- <div class="intermediate-title-l2">
+    <span>&nbsp;&nbsp;Driving in the Wild (<a
+        onclick="playAll($('.tiling-video-wrapper')[0])">Play All</a> <span style="color:#dd3344;"></span>):</span>
+
+  </div> -->
+
+  <div class="tiling-video-wrapper">
+
+    <div class="tiling-video-outer">
+      <div class="tiling-video-container">
+        <video preload="none" poster="videos_icon/horizon_4s_img_0.png" onclick="toggleVideoPlay(this)"
+          class="tiling-video" loop>
+          <source src="videos/horizon_4s_processed_0.mp4" type="video/mp4" />
+        </video>
+        <div class="tiling-prompt">
+          <div><img src="img/thematrix.png" class="matrixico"></img><span style="color:#ff00ff">admin@matrix:</span> In
+            a lush green field, a white car is driving. In a
+            panoramic aerial shot, the vehicle is adorned with
+            red and blue stripes, and there is a black spoiler at the rear. The camera follows the movement of the car,
+            with the surrounding environment consisting of spacious grassland, and in the distance, several houses and
+            some trees can be seen. The sky is a clear blue without clouds, and the sun shines brightly, illuminating
+            the entire scene.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tiling-video-outer">
+      <div class="tiling-video-container">
+        <video preload="none" poster="videos_icon/horizon_4s_img_3.png" onclick="toggleVideoPlay(this)"
+          class="tiling-video" loop>
+          <source src="videos/horizon_4s_processed_3.mp4" type="video/mp4" />
+        </video>
+        <div class="tiling-prompt">
+          <div><img src="img/thematrix.png" class="matrixico"></img><span style="color:#ff00ff">admin@matrix:</span> In
+            a barren desert, a white SUV is driving. In a panoramic aerial shot, the vehicle's body is decorated
+            with blue and red stripes, and there is a black spoiler at the rear. The camera follows as the car speeds
+            across the sandy ground, kicking up a cloud of dust. The surrounding environment is a vast desert, with
+            rolling mountains in the distance and the ocean beneath a blue sky dotted with white clouds.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tiling-video-outer">
+      <div class="tiling-video-container">
+        <video preload="none" poster="videos_icon/horizon_4s_img_4.png" onclick="toggleVideoPlay(this)"
+          class="tiling-video" loop>
+          <source src="videos/horizon_4s_processed_4.mp4" type="video/mp4" />
+        </video>
+        <div class="tiling-prompt">
+          <div><img src="img/thematrix.png" class="matrixico"></img><span style="color:#ff00ff">admin@matrix:</span> On
+            a barren stretch of land, a white car is speeding by. As the panoramic aerial shot pans to the right,
+            the vehicle is seen driving on the sandy ground, kicking up a cloud of dust. As the camera continues to move
+            to the right, it reveals that the car has a black wing and the license plate reads "Alibaba0." In the
+            distance is a vast ocean, its surface shimmering with light, and a few clouds drift in the sky.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tiling-video-outer">
+      <div class="tiling-video-container">
+        <video preload="none" poster="videos_icon/horizon_4s_img_5.png" onclick="toggleVideoPlay(this)"
+          class="tiling-video" loop>
+          <source src="videos/horizon_4s_processed_5.mp4" type="video/mp4" />
+        </video>
+        <div class="tiling-prompt">
+          <div><img src="img/thematrix.png" class="matrixico"></img><span style="color:#ff00ff">admin@matrix:</span> In
+            a cornfield, a white car is driving. As the panoramic aerial shot pans to the left, the vehicle
+            reveals black decorations on its body, a black wing at the rear, and the license plate reads "Alibaba0." It
+            is traversing through the cornfield, surrounded by green corn stalks. In the distance, there are rolling
+            mountains, the sky is a clear blue with a few white clouds, and there are also some buildings in the far
+            distance.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tiling-video-outer">
+      <div class="tiling-video-container">
+        <video preload="none" poster="videos_icon/horizon_4s_img_7.png" onclick="toggleVideoPlay(this)"
+          class="tiling-video" loop>
+          <source src="videos/horizon_4s_processed_7.mp4" type="video/mp4" />
+        </video>
+        <div class="tiling-prompt">
+          <div><img src="img/thematrix.png" class="matrixico"></img><span style="color:#ff00ff">admin@matrix:</span> In
+            a barren desert, a white SUV is driving. In a panoramic aerial shot, the vehicle's body features red
+            and black decorations, and there is a black wing at the rear. It is traversing the rugged terrain,
+            surrounded by vast sand dunes and sparse vegetation. In the distance, rolling mountains can be seen, and a
+            few clouds are floating in the sky. The camera moves along with the vehicle as it travels.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tiling-video-outer">
+      <div class="tiling-video-container">
+        <video preload="none" poster="videos_icon/horizon_4s_img_12.png" onclick="toggleVideoPlay(this)"
+          class="tiling-video" loop>
+          <source src="videos/horizon_4s_processed_12.mp4" type="video/mp4" />
+        </video>
+        <div class="tiling-prompt">
+          <div><img src="img/thematrix.png" class="matrixico"></img><span style="color:#ff00ff">admin@matrix:</span> On
+            a barren stretch of land, a white car is driving. In a panoramic aerial shot, the vehicle's body
+            features blue and red stripes, and there is a black spoiler at the rear. The camera follows the car as it
+            travels, with the surrounding environment consisting of dry land scattered with some bushes and trees. In
+            the distance, mountains can be seen, with a few white clouds floating in the sky.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tiling-video-outer">
+      <div class="tiling-video-container">
+        <video preload="none" poster="videos_icon/horizon_4s_img_13.png" onclick="toggleVideoPlay(this)"
+          class="tiling-video" loop>
+          <source src="videos/horizon_4s_processed_13.mp4" type="video/mp4" />
+        </video>
+        <div class="tiling-prompt">
+          <div><img src="img/thematrix.png" class="matrixico"></img><span style="color:#ff00ff">admin@matrix:</span> In
+            a vast body of water, a white car is driving. In a panoramic aerial shot, the license plate reads
+            "Alibaba0," and the rear of the car features a black spoiler alongside some red lights on the body. As the
+            camera follows, the vehicle moves through the water, splashing up droplets. In the distance, some mountains
+            and buildings can be seen, with the sky filled with clouds.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tiling-video-outer">
+      <div class="tiling-video-container">
+        <video preload="none" poster="videos_icon/horizon_4s_img_14.png" onclick="toggleVideoPlay(this)"
+          class="tiling-video" loop>
+          <source src="videos/horizon_4s_processed_14.mp4" type="video/mp4" />
+        </video>
+        <div class="tiling-prompt">
+          <div><img src="img/thematrix.png" class="matrixico"></img><span style="color:#ff00ff">admin@matrix:</span> In
+            a vast desert, a white SUV is driving. In a panoramic aerial shot, the vehicle is equipped with a
+            large rear wing and a small spoiler, and its body features red and black decorations. It is speeding across
+            the sandy terrain, kicking up a cloud of dust. The surrounding environment is barren land, with a few
+            mountain peaks and some power poles visible in the distance. The sky is filled with thick clouds.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tiling-video-outer">
+      <div class="tiling-video-container">
+        <video preload="none" poster="videos_icon/horizon_4s_img_15.png" onclick="toggleVideoPlay(this)"
+          class="tiling-video" loop>
+          <source src="videos/horizon_4s_processed_15.mp4" type="video/mp4" />
+        </video>
+        <div class="tiling-prompt">
+          <div><img src="img/thematrix.png" class="matrixico"></img><span style="color:#ff00ff">admin@matrix:</span> On
+            a lush green meadow, a white car is driving. In a panoramic aerial shot, the vehicle's body is
+            decorated with black and red stripes, and there is a black spoiler at the rear. It is crossing a body of
+            water, splashing up droplets. The surrounding environment consists of grass and trees, with some buildings
+            visible in the distance.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tiling-video-outer">
+      <div class="tiling-video-container">
+        <video preload="none" poster="videos_icon/horizon_4s_img_16.png" onclick="toggleVideoPlay(this)"
+          class="tiling-video" loop>
+          <source src="videos/horizon_4s_processed_16.mp4" type="video/mp4" />
+        </video>
+        <div class="tiling-prompt">
+          <div><img src="img/thematrix.png" class="matrixico"></img><span style="color:#ff00ff">admin@matrix:</span> On
+            a green meadow, a white car is driving. In a panoramic aerial shot, the vehicle's body features blue
+            and red stripes, and there is a black wing at the rear. The camera follows the car as it moves across the
+            grass, surrounded by lush greenery and trees. In the distance, some buildings and mountains are visible,
+            with a blue sky and a few white clouds floating above.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tiling-video-outer">
+      <div class="tiling-video-container">
+        <video preload="none" poster="videos_icon/horizon_4s_img_17.png" onclick="toggleVideoPlay(this)"
+          class="tiling-video" loop>
+          <source src="videos/horizon_4s_processed_17.mp4" type="video/mp4" />
+        </video>
+        <div class="tiling-prompt">
+          <div><img src="img/thematrix.png" class="matrixico"></img><span style="color:#ff00ff">admin@matrix:</span> In
+            a barren desert, a white SUV is driving. In a panoramic aerial shot, the vehicle's body is adorned
+            with blue and red stripes, and there is a black spoiler at the rear. It is driving on the sandy terrain,
+            kicking up a cloud of dust. The surrounding environment is a vast expanse of desert, with some mountains and
+            power poles visible in the distance. A few clouds are floating in the sky, and the sun is shining brightly.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tiling-video-outer">
+      <div class="tiling-video-container">
+        <video preload="none" poster="videos_icon/horizon_4s_img_28.png" onclick="toggleVideoPlay(this)"
+          class="tiling-video" loop>
+          <source src="videos/horizon_4s_processed_28.mp4" type="video/mp4" />
+        </video>
+        <div class="tiling-prompt">
+          <div><img src="img/thematrix.png" class="matrixico"></img><span style="color:#ff00ff">admin@matrix:</span> On
+            a lush green meadow, a white car is driving. In a panoramic aerial shot, the vehicle's body is adorned
+            with blue and red stripes, and the license plate reads 'Alibaba0.' The camera follows the car as it moves
+            across the grass, surrounded by dense trees and shrubs. In the distance, a bridge can be seen, with a clear
+            river flowing beneath it, where the water is transparent and reveals the bottom. The sky is a bright blue,
+            with no clouds.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tiling-video-outer">
+      <div class="tiling-video-container">
+        <video preload="none" poster="videos_icon/horizon_4s_img_31.png" onclick="toggleVideoPlay(this)"
+          class="tiling-video" loop>
+          <source src="videos/horizon_4s_processed_31.mp4" type="video/mp4" />
+        </video>
+        <div class="tiling-prompt">
+          <div><img src="img/thematrix.png" class="matrixico"></img><span style="color:#ff00ff">admin@matrix:</span> On
+            a barren stretch of land, a white car is driving. In a panoramic aerial shot, the vehicle features a
+            black roof and a wing at the rear, with the license plate reading 'Alibaba0.' It is traversing rugged
+            terrain, surrounded by dry grassland and sparse vegetation. In the distance, some buildings and mountains
+            can be seen, and the sky has a grayish-blue tone with a few clouds floating by.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tiling-video-outer">
+      <div class="tiling-video-container">
+        <video preload="none" poster="videos_icon/horizon_4s_img_41.png" onclick="toggleVideoPlay(this)"
+          class="tiling-video" loop>
+          <source src="videos/horizon_4s_processed_41.mp4" type="video/mp4" />
+        </video>
+        <div class="tiling-prompt">
+          <div><img src="img/thematrix.png" class="matrixico"></img><span style="color:#ff00ff">admin@matrix:</span> A
+            white car is cruising along the highway. There’s nothing beside the road. The sky is clear, and the
+            distant mountains are sharply outlined against the horizon.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tiling-video-outer">
+      <div class="tiling-video-container">
+        <video preload="none" poster="videos_icon/horizon_4s_img_43.png" onclick="toggleVideoPlay(this)"
+          class="tiling-video" loop>
+          <source src="videos/horizon_4s_processed_43.mp4" type="video/mp4" />
+        </video>
+        <div class="tiling-prompt">
+          <div><img src="img/thematrix.png" class="matrixico"></img><span style="color:#ff00ff">admin@matrix:</span> A
+            white car is traveling along the highway. The roadside is empty of any features. The sky is bright and
+            clear, and the distant mountains are sharply defined against the horizon.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tiling-video-outer">
+      <div class="tiling-video-container">
+        <video preload="none" poster="videos_icon/horizon_4s_img_44.png" onclick="toggleVideoPlay(this)"
+          class="tiling-video" loop>
+          <source src="videos/horizon_4s_processed_44.mp4" type="video/mp4" />
+        </video>
+        <div class="tiling-prompt">
+          <div><img src="img/thematrix.png" class="matrixico"></img><span style="color:#ff00ff">admin@matrix:</span> A
+            white car is driving through a small town, with some small buildings beside it. The sky is overcast
+            with dark clouds. In an aerial view, the car features blue and red stripes on its body, and its license
+            plate reads "Alibaba0."
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="code-rain-container">
+    <canvas></canvas>
+    <div class="content">
+      <h3>First OpenSource Dataset for Per-Frame Precise Moving Control</h3>
+      <div class="side-by-side">
+      <img src="figs/gamedata.png" alt="Example PNG">
+      <div class="text">
+        <p, class="small-left">
+          The <strong>GameData Platform</strong> leverages tools like <em>Cheat Engine</em> to capture in-game world
+          status, filtering out unreliable data, and employs the <em>Reshade plugin</em> to remove game UI and HUD. This
+          allows for the automated collection of massive, clean, and precise action-frame pairs. To further innovation,
+          we will open source all the data, providing a valuable resource for future research in this domain.
+        </p>
+        <h4>Key Advantages:</h4>
+        <ul>
+          <li><strong>Data Quality:</strong> Automated filtering ensures clean and precise action-frame pairs.</li>
+          <li><strong>Scalability:</strong> Enables efficient collection of large-scale datasets.</li>
+          <li><strong>Open Collaboration:</strong> Open-sourced data fosters research and innovation in the field.</li>
+        </ul>
+
+      </div>
+    </div>
+    </div>
+    <div class="content">
+      <div class="text">
+        <p>
+          Running at 16 FPS, <em>The Matrix</em> demonstrates strong generalization from virtual to real-world settings,
+          where collecting sustained data is challenging. This approach showcases the potential
+          of AAA game data for creating robust, adaptable world models (<a
+            onclick="playAll($('.tiling-video-wrapper')[1])">Play All Demos</a> <span style="color:#dd3344;"></span>):
+        </p>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- <div class="intermediate-title-l2">
+    <span>&nbsp;&nbsp;Walking around the City(<a
+        onclick="playAll($('.tiling-video-wrapper')[1])">play all</a> <span style="color:#dd3344;"></span>):</span>
+
+  </div> -->
+
+  <div class="tiling-video-wrapper">
+    <div class="tiling-video-outer">
+      <div class="tiling-video-container">
+        <video preload="none" poster="videos_icon/cyberpunk_img_0.png" onclick="toggleVideoPlay(this)"
+          class="tiling-video" loop>
+          <source src="videos/cyberpunk_processed_0.mp4" type="video/mp4" />
+        </video>
+        <div class="tiling-prompt">
+          <div><img src="img/thematrix.png" class="matrixico"></img><span style="color:#ff00ff">admin@matrix:</span> The
+            scene showcases a modern urban environment, with towering skyscrapers and clean, tree-lined avenues
+            devoid of traffic, suggesting a tranquil moment during the early morning or amidst the bustling city. Neon
+            signs such as 'BUCK-A-SLICE' and 'BROOKLYN BARISTA' line the streets, indicating the presence of nearby
+            restaurants and cafes. The tall, densely packed buildings create a visually striking yet somewhat enclosed
+            urban canyon, blending stylish glass facades with sturdy concrete structures, embodying a combination of
+            modern design and practical futuristic aesthetics. Elevated walkways and pedestrian bridges connect the
+            buildings, adding depth to the cityscape. A prominent pedestrian bridge featuring a digital display serves
+            as a focal point, enhancing the dynamic atmosphere. Fluorescent lights and illuminated signage emphasize the
+            technological vibe, while the artificial light from street lamps contrasts with natural daylight. Small
+            trees and flowering plants provide a touch of greenery amidst the concrete jungle. Futuristic billboards and
+            digital advertisements are strategically placed on the buildings, injecting a sense of commercial vibrancy
+            into the scene. This setting presents a technologically advanced city grappling with the challenges of dense
+            urban living, capturing the contrast between progress and the busy realities of life.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tiling-video-outer">
+      <div class="tiling-video-container">
+        <video preload="none" poster="videos_icon/cyberpunk_img_1.png" onclick="toggleVideoPlay(this)"
+          class="tiling-video" loop>
+          <source src="videos/cyberpunk_processed_1.mp4" type="video/mp4" />
+        </video>
+        <div class="tiling-prompt">
+          <div><img src="img/thematrix.png" class="matrixico"></img><span style="color:#ff00ff">admin@matrix:</span> The
+            scene depicts an urban environment where a long, straight road stretches beneath an elevated highway
+            or bridge, flanked by fences indicating construction or restricted access. The street is marked with two
+            yellow lines, and massive concrete pillars support the roadway above, casting shadows below. On the left
+            wall, red digital numbers are visible, possibly used for monitoring or alerts, accompanied by construction
+            materials and barricades, signifying active development. On the right side, infrastructure and a neon blue
+            'PAWN SHOP' sign indicate nearby commercial activity. Beyond the overpass, the road leads to tall modern
+            buildings, their illuminated windows showcasing the vibrancy of the city landscape. Streetlights and digital
+            displays provide limited lighting, adding to the futuristic feel. Despite signs of activity, the road is
+            devoid of vehicles or pedestrians, contributing to a sense of silence. The portion of the sky outside the
+            bridge contrasts with the shadows cast beneath it, while the surrounding construction and advanced
+            architecture create an atmosphere of a city that is both evolving and futuristic.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tiling-video-outer">
+      <div class="tiling-video-container">
+        <video preload="none" poster="videos_icon/cyberpunk_img_2.png" onclick="toggleVideoPlay(this)"
+          class="tiling-video" loop>
+          <source src="videos/cyberpunk_processed_2.mp4" type="video/mp4" />
+        </video>
+        <div class="tiling-prompt">
+          <div><img src="img/thematrix.png" class="matrixico"></img><span style="color:#ff00ff">admin@matrix:</span> The video shows a futuristic city centered on a wide concrete staircase between two modern buildings. Blue LED lights on the stairs add a high-tech feel. The building on the left has a large reflective glass panel that emits a cyan glow, and the continuous white LED strip on the right is neat and smooth. The view from the top of the stairs shows dense high-rise buildings, illuminated by blue and white lights, connected by overpasses, and a skyline filled with bright digital billboards. Smoke rises from the chimney of one building, the industrial atmosphere contrasts with the clear dusk, and the overall environment combines modern high-tech infrastructure and urban vitality to present a scene driven by technological progress and dynamic urban development.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tiling-video-outer">
+      <div class="tiling-video-container">
+        <video preload="none" poster="videos_icon/cyberpunk_img_3.png" onclick="toggleVideoPlay(this)"
+          class="tiling-video" loop>
+          <source src="videos/cyberpunk_processed_3.mp4" type="video/mp4" />
+        </video>
+        <div class="tiling-prompt">
+          <div><img src="img/thematrix.png" class="matrixico"></img><span style="color:#ff00ff">admin@matrix:</span> The
+            scene showcases a futuristic urban street adorned with colorful lights and screens on densely packed
+            high-rise buildings. The wide asphalt road features yellow and white lane markings leading to a focal point
+            marked '4th WALL,' hinting at a well-known location. On the left side, buildings display neon advertisements
+            and light installations, creating a strong vertical visual. The facades are illuminated with both practical
+            and decorative lighting, while empty billboards await new advertisements. The street is equipped with
+            streetlights, traffic signals, and pedestrian barriers, and steam billows from a vent on the center-right,
+            enhancing the industrial atmosphere. On the right side, palm trees contrast with the metal and concrete
+            landscape of the city. Man-made elements like panels, vents, and machinery amplify the industrial feel,
+            while the towering structures in the background showcase the high density of urbanization, presenting a
+            sense of modern technology intertwined with a slightly dystopian ambiance.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tiling-video-outer">
+      <div class="tiling-video-container">
+        <video preload="none" poster="videos_icon/cyberpunk_img_4.png" onclick="toggleVideoPlay(this)"
+          class="tiling-video" loop>
+          <source src="videos/cyberpunk_processed_4.mp4" type="video/mp4" />
+        </video>
+        <div class="tiling-prompt">
+          <div><img src="img/thematrix.png" class="matrixico"></img><span style="color:#ff00ff">admin@matrix:</span> Set on futuristic city streets, skyscrapers blend modern architecture and neon to present a cyberpunk aesthetic. The main colors are blue, pink, and neon. A neon "BD Shack" sign, head pattern, reflective Windows and lights on the multi-storey building on the right add to the vibrant and heavy atmosphere. The curved-glass building on the left side is illuminated by pink neon lights, and the signage of commercial or entertainment venues next to it projects purple light. The street is empty, the driveway is clean and marked with yellow and white lines, and the wide sidewalk is dotted with street lights and a little greenery. The aerial corridors and infrastructure show advanced urban planning, the background high-rises glow with grids and panels, and the dim sky contrasts with the city lights, highlighting a modern and slightly dystopian feel.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tiling-video-outer">
+      <div class="tiling-video-container">
+        <video preload="none" poster="videos_icon/cyberpunk_img_5.png" onclick="toggleVideoPlay(this)"
+          class="tiling-video" loop>
+          <source src="videos/cyberpunk_processed_5.mp4" type="video/mp4" />
+        </video>
+        <div class="tiling-prompt">
+          <div><img src="img/thematrix.png" class="matrixico"></img><span style="color:#ff00ff">admin@matrix:</span> The
+            video showcases a futuristic urban environment, with a wide street flanked by towering skyscrapers
+            adorned with neon lights and digital billboards. The skyline appears tranquil in the morning or evening,
+            contrasting with the bustling city area. On the left, a tall billboard features a close-up of a face. The
+            buildings blend angles and flat surfaces, constructed from glass and steel, creating reflective facades.
+            Elevated roads and pedestrian bridges suggest a multi-layered infrastructure. Palm trees in the center of
+            the street soften the industrial feel. On the right, commercial establishments with neon signs and large
+            glass windows add a vibrant touch. Inside the high-rises, there are offices, apartments, and more digital
+            screens, with neon-framed windows highlighted prominently. In the distance, modern skyscrapers crowd the
+            horizon, illuminated with advertising lights and reflective glass surfaces. Thin antennas showcase an
+            advanced communication network. This urban landscape reflects a technologically advanced, commercially
+            vibrant city, with the empty streets exuding a moment of peace.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tiling-video-outer">
+      <div class="tiling-video-container">
+        <video preload="none" poster="videos_icon/cyberpunk_img_6.png" onclick="toggleVideoPlay(this)"
+          class="tiling-video" loop>
+          <source src="videos/cyberpunk_processed_6.mp4" type="video/mp4" />
+        </video>
+        <div class="tiling-prompt">
+          <div><img src="img/thematrix.png" class="matrixico"></img><span style="color:#ff00ff">admin@matrix:</span> 
+            The video shows a futuristic urban environment dominated by towering skyscrapers and advanced architectural design. The multi-lane road is worn and cracked, free of vehicles and people, and appears peaceful. The inactive billboard on the left is juxtaposed with dense high-rise buildings, with T-shaped structures and distinctive horizontal and vertical patterned buildings. Steam gushes from the vents, suggesting industrial activity. \n The glass curtain wall building on the right reads "Night City", and the neatly arranged plants add green. The steps suggest multi-level pedestrian activity. In the background, more high-rise buildings stretch to the horizon, including those marked "01" and "TECH". The skyline partially obscured by bright light, suggested as sunrise or sunset, adds dynamic contrast to the picture. The overall environment combines the busyness of a typical city with unique futuristic technological elements, reflecting advanced architecture and carefully planned urban style.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tiling-video-outer">
+      <div class="tiling-video-container">
+        <video preload="none" poster="videos_icon/cyberpunk_img_7.png" onclick="toggleVideoPlay(this)"
+          class="tiling-video" loop>
+          <source src="videos/cyberpunk_processed_7.mp4" type="video/mp4" />
+        </video>
+        <div class="tiling-prompt">
+          <div><img src="img/thematrix.png" class="matrixico"></img><span style="color:#ff00ff">admin@matrix:</span> The
+            video presents an industrial-themed urban underpass scene, featuring a massive concrete elevated
+            bridge supported by graffiti-covered pillars. There are sidewalks along the roadside, complemented by
+            black-and-yellow construction barriers, with nearby construction materials such as barrels, boxes, and a
+            toolbox labeled 'All Foods.' Red digital displays are positioned on the construction obstacles. The
+            background showcases multi-layered infrastructure, elevated bridges, and buildings that serve both
+            industrial and residential purposes. On the right side, modern architecture boasts large glass facades,
+            walkways, and dimly lit complex signage, creating a commercial atmosphere that contrasts with the ruggedness
+            of the surroundings. The distant skyline in gray-blue tones suggests a high density of urban development.
+            Elevated pipes on the right illustrate the complexity of the city’s infrastructure. A building features a
+            small amount of greenery, introducing a rare touch of nature. Overall, the scene depicts a multifaceted
+            urban area brimming with construction activity, modern architecture, and industrial elements, embodying the
+            raw energy of a continuously evolving city.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tiling-video-outer">
+      <div class="tiling-video-container">
+        <video preload="none" poster="videos_icon/cyberpunk_img_8.png" onclick="toggleVideoPlay(this)"
+          class="tiling-video" loop>
+          <source src="videos/cyberpunk_processed_8.mp4" type="video/mp4" />
+        </video>
+        <div class="tiling-prompt">
+          <div><img src="img/thematrix.png" class="matrixico"></img><span style="color:#ff00ff">admin@matrix:</span> The scene takes place under the urban viaduct, the road extends, and there are cracks and patches in the middle of two faded yellow lines. Under the right viaduct, a red electronic sign "road closed" flashes along with obstacles, construction equipment, conical barrels and railings, indicating road construction. \n Luminous advertisements and Windows on the tall building on the left cast light and shadow. The large glass panels and streamlined lines of the modern building create a modern atmosphere. In the distance is a cascading skyline and tall buildings, framed by another viaduct. Warm skies (dawn or dusk) cast long shadows and orange glow. Palm trees planted between the buildings add to the industrial feel. The reflective glass facades of modern buildings and corporate buildings show a dynamic city in balance between infrastructure and natural elements.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tiling-video-outer">
+      <div class="tiling-video-container">
+        <video preload="none" poster="videos_icon/cyberpunk_img_9.png" onclick="toggleVideoPlay(this)"
+          class="tiling-video" loop>
+          <source src="videos/cyberpunk_processed_9.mp4" type="video/mp4" />
+        </video>
+        <div class="tiling-prompt">
+          <div><img src="img/thematrix.png" class="matrixico"></img><span style="color:#ff00ff">admin@matrix:</span> The
+            video showcases a city intersection that blends modern and classical architecture, with tall beige
+            skyscrapers, classical low-rise buildings, and sturdy red structures dominating the skyline. The wet streets
+            reflect recent rainfall, while streetlights and billboards add a contemporary touch. Purple banners and
+            advertisements enhance the commercial vibrancy. In the foreground, multiple lanes and parked white trucks
+            highlight a bustling yet currently tranquil urban scene. The intricate design and varied building heights
+            emphasize the cityscape's dynamic character and commercial atmosphere.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tiling-video-outer">
+      <div class="tiling-video-container">
+        <video preload="none" poster="videos_icon/cyberpunk_img_10.png" onclick="toggleVideoPlay(this)"
+          class="tiling-video" loop>
+          <source src="videos/cyberpunk_processed_10.mp4" type="video/mp4" />
+        </video>
+        <div class="tiling-prompt">
+          <div><img src="img/thematrix.png" class="matrixico"></img><span style="color:#ff00ff">admin@matrix:</span> The video shows a futuristic urban environment with towering skyscrapers filled with bright billboards and light boxes. The wide streets are marked with yellow and black stripes, equipped with traffic lights and street lights, but free of traffic and pedestrians, showing a grand and quiet. Tall palm trees and bushes line the streets in contrast to the predominantly metal and concrete landscape. The architecture is modern and industrial, with large amounts of glass and steel, and the storefront has glowing signs and glass Windows that suggest commercial activity. The lower blocks have steam or smoke, adding to the industrial feel. The sky appears a hazy blue, possibly early in the morning or at dusk. Some aerial corridors connect the buildings, showing a complex, multi-layered urban infrastructure that facilitates pedestrian access above the ground. The overall scene depicts a high-tech, slightly dystopian urban environment.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tiling-video-outer">
+      <div class="tiling-video-container">
+        <video preload="none" poster="videos_icon/cyberpunk_img_11.png" onclick="toggleVideoPlay(this)"
+          class="tiling-video" loop>
+          <source src="videos/cyberpunk_processed_11.mp4" type="video/mp4" />
+        </video>
+        <div class="tiling-prompt">
+          <div><img src="img/thematrix.png" class="matrixico"></img><span style="color:#ff00ff">admin@matrix:</span> The
+            video showcases an urban canyon formed by skyscrapers on a sunny day. From the street perspective,
+            the lines of various modernist buildings and their reflective glass surfaces create a sense of verticality,
+            with glass curtain walls on the left and stone or concrete structures on the right. Shadows enhance the
+            impression of height. An old building with intricate stone carvings and arched windows on the right adds a
+            historical element. Towering leafless trees line both sides of the street, creating a tranquil winter or
+            early spring atmosphere. Although streetlights and traffic signals are visible, they are rendered
+            unnecessary by the emptiness of the street. Colorful signage and banners add vibrancy, suggesting the city's
+            regular activities. The clear blue sky contrasts sharply with the detailed urban environment, highlighting
+            the grandeur of the architecture and showcasing the distant cityscape.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tiling-video-outer">
+      <div class="tiling-video-container">
+        <video preload="none" poster="videos_icon/cyberpunk_img_12.png" onclick="toggleVideoPlay(this)"
+          class="tiling-video" loop>
+          <source src="videos/cyberpunk_processed_12.mp4" type="video/mp4" />
+        </video>
+        <div class="tiling-prompt">
+          <div><img src="img/thematrix.png" class="matrixico"></img><span style="color:#ff00ff">admin@matrix:</span> The
+            video showcases a bustling urban environment filled with towering skyscrapers and a dense cityscape
+            adorned with billboards advertising products like 'Passion' and '2 Sweet Speed.' The clean, spacious streets
+            feature trash, crosswalks, and puddles from recent rain. Palm trees and small patches of greenery line both
+            sides of the street. An arched structure spans the road, serving as a visual focal point. Light filters in
+            from the morning or evening, casting long shadows and imparting a soft blue hue to the scene. On the right
+            side of the street, there is a commercial area labeled 'Masala.' Streetlights, traffic signals, small
+            fences, and railings are neatly arranged, showcasing a blend of modern architectural design and vibrant
+            advertisements, along with the integration of natural elements, reflecting a forward-thinking metropolis.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tiling-video-outer">
+      <div class="tiling-video-container">
+        <video preload="none" poster="videos_icon/cyberpunk_img_13.png" onclick="toggleVideoPlay(this)"
+          class="tiling-video" loop>
+          <source src="videos/cyberpunk_processed_13.mp4" type="video/mp4" />
+        </video>
+        <div class="tiling-prompt">
+          <div><img src="img/thematrix.png" class="matrixico"></img><span style="color:#ff00ff">admin@matrix:</span> The video shows a quiet, almost desolate city street with disheveled pavement, cracks and patches, and a manhole cover in the center. The left sidewalk is slightly wet, with low curbs, vertical poles, and a few pigeons. Historic stone buildings and a multi-storey business district appear in the background, with storefronts and signboards adding a sense of history. The bench under the red umbrella indicates a social lounge area, which is probably more lively in normal times. The surrounding pavement also appears wet, enhancing the early morning or post-rain atmosphere. The distant street leads to an open space surrounded by the shadow of tall buildings, with green and red traffic lights and road signs that hint at the vast urban transport network. The overall picture shows a quiet city street, where architectural details and simple street furniture convey peace and quiet in an normally noisy environment.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tiling-video-outer">
+      <div class="tiling-video-container">
+        <video preload="none" poster="videos_icon/cyberpunk_img_14.png" onclick="toggleVideoPlay(this)"
+          class="tiling-video" loop>
+          <source src="videos/cyberpunk_processed_14.mp4" type="video/mp4" />
+        </video>
+        <div class="tiling-prompt">
+          <div><img src="img/thematrix.png" class="matrixico"></img><span style="color:#ff00ff">admin@matrix:</span> The
+            video showcases a futuristic urban environment in the early morning, with wide streets flanked by
+            towering buildings and neon advertisements like 'Grill House,' 'Brooklyn Barista,' and 'Buck-A-Slice'
+            glowing brightly. Elevated pedestrian walkways or transport systems run parallel to the street, presenting a
+            city that is busy yet temporarily empty. The reflective surfaces of the buildings and electronic billboards
+            emphasize a sense of technology and a cyberpunk aesthetic. The roads are clean, with clearly marked lane
+            lines and pedestrian areas, while pedestrian barriers and streetlights are neatly arranged, enhancing crowd
+            management. The multi-layered elevated pedestrian bridges indicate a high-density connectivity in the city.
+            Large electronic billboards add vibrancy and dynamism to the scene. Despite the strong modernity, the
+            absence of foot traffic adds an element of mystery.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tiling-video-outer">
+      <div class="tiling-video-container">
+        <video preload="none" poster="videos_icon/cyberpunk_img_15.png" onclick="toggleVideoPlay(this)"
+          class="tiling-video" loop>
+          <source src="videos/cyberpunk_processed_15.mp4" type="video/mp4" />
+        </video>
+        <div class="tiling-prompt">
+          <div><img src="img/thematrix.png" class="matrixico"></img><span style="color:#ff00ff">admin@matrix:</span> The
+            scene takes place in a futuristic urban environment, with brightly lit skyscrapers exuding a
+            cyberpunk ambiance. At the center of the frame stands a tall building, adorned with neon lights and digital
+            displays, prominently featuring a sign that reads 'The Fourth Wall,' likely indicating an entertainment or
+            commercial venue. Artificial lighting and neon lights intertwine throughout the space. On the left, stairs
+            lead up to an elevated walkway, surrounded by a few plants, with smooth reflective surfaces and grid windows
+            on the building. On the right, a building's ventilation ducts release dense white steam, adding an
+            industrial feel to the atmosphere. Small shops lining the street glow softly, each marked by small signs.
+            The street comprises a mix of sidewalks and roadways, delineated by yellow lines and red markings, with
+            bollards protecting pedestrians. Streetlights and traffic signals enhance the sense of order. In the
+            background, the skyline is dark, with the tops of skyscrapers and scattered lights dotting the night sky,
+            portraying a slightly dystopian yet bustling technological cityscape.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+
+
+  <div class="intermediate-title-l2">
+    <span>&nbsp;&nbsp;Generalize to Unseen Scene</span>
+  </div>
+  <div class="video-slider">
+    <div class="slide">
+      <video preload="none" poster="videos_icon/generalization-5_font.png" onclick="setControls(this)">
+        <source src="videos/generalization-5.mp4" type="video/mp4" />
+      </video>
+      <p onclick="clickToCopy(this)", style="color: #00ff00;"><img src="img/thematrix.png" class="matrixico"></img><span
+          style="color:#ff00ff">admin@matrix: </span>A car is driving indoors.
+      </p>
+    </div>
+
+    <div class="slide">
+      <video preload="none" poster="videos_icon/generalization-6_font.png" onclick="setControls(this)">
+        <source src="videos/generalization-6.mp4" type="video/mp4" />
+      </video>
+      <p onclick="clickToCopy(this)", style="color: #00ff00;"><img src="img/thematrix.png" class="matrixico"></img><span
+          style="color:#ff00ff">admin@matrix: </span>The car is driving in an indoor corridor.
+      </p>
+    </div>
+
+    <div class="slide">
+      <video preload="none" poster="videos_icon/generalization_img_7.png" onclick="setControls(this)">
+        <source src="videos/generalization_processed_7.mp4" type="video/mp4" />
+      </video>
+      <p onclick="clickToCopy(this)", style="color: #00ff00;"><img src="img/thematrix.png" class="matrixico"></img><span
+          style="color:#ff00ff">admin@matrix: </span>A vehicle is swimming in the sea.
+      </p>
+    </div>
+
+    <div class="slide">
+      <video preload="none" poster="videos_icon/generalization_img_11.png" onclick="setControls(this)">
+        <source src="videos/generalization_processed_11.mp4" type="video/mp4" />
+      </video>
+      <p onclick="clickToCopy(this)", style="color: #00ff00;"><img src="img/thematrix.png" class="matrixico"></img><span
+          style="color:#ff00ff">admin@matrix: </span>A black car is driving on the path in the middle of the lake.
+      </p>
+    </div>
+  </div>
+
+
+  <div class="intermediate-title-l2">
+    <span>&nbsp;&nbsp;Generalize Control to Real World Objects</span>
+  </div>
+  <div class="video-slider">
+    <div class="slide">
+      <video preload="none" poster="videos_icon/generalization_img_10.png" onclick="setControls(this)">
+        <source src="videos/generalization_processed_10.mp4" type="video/mp4" />
+      </video>
+      <p onclick="clickToCopy(this)", style="color: #00ff00;"><img src="img/thematrix.png" class="matrixico"></img><span
+          style="color:#ff00ff">admin@matrix: </span>A male character dressed in a formal suit is walking in the
+        office.
+      </p>
+    </div>
+
+    <div class="slide">
+      <video preload="none" poster="videos_icon/generalization_img_14.png" onclick="setControls(this)">
+        <source src="videos/generalization_processed_14.mp4" type="video/mp4" />
+      </video>
+      <p onclick="clickToCopy(this)", style="color: #00ff00;"><img src="img/thematrix.png" class="matrixico"></img><span
+          style="color:#ff00ff">admin@matrix: </span>The video features a close-up of a woman inside a car, wearing
+        oversized sunglasses and dressed in black.
+      </p>
+    </div>
+
+    <div class="slide">
+      <video preload="none" poster="videos_icon/generalization_img_15.png" onclick="setControls(this)">
+        <source src="videos/generalization_processed_15.mp4" type="video/mp4" />
+      </video>
+      <p onclick="clickToCopy(this)", style="color: #00ff00;"><img src="img/thematrix.png" class="matrixico"></img><span
+          style="color:#ff00ff">admin@matrix: </span>The video shows a little girl using a vacuum cleaner to move
+        across the wooden floor at home.
+      </p>
+    </div>
+  </div>
+
+  <div class="code-rain-container">
+    <canvas></canvas>
+    <div class="content">
+      <div class="text">
+        <h1>Methodology</h1>
+      </div>
+    </div>
+    <div class="content">
+      <h3>The Interactive Module</h3>
+      <div class="side-by-side">
+      <img src="figs/interactive.png" alt="Interactive Module">
+      <div class="text">
+      <p, class="small-left">
+        The <strong>Interactive Module</strong> consists of an Embedding block and a cross-attention layer, translating keyboard inputs into natural language commands for video generation. For example, pressing <code>W</code> becomes “The car is driving forward” in <em>Forza Horizon 5</em> or “The man is moving forward and looking up” in <em>Cyberpunk 2077</em> when combined with upward mouse movement. For unlabeled data, a default description, “The camera is moving in an unknown way,” is applied.
+        To enhance robustness, during training, we randomly replace labeled keyboard inputs with the default sentence with a probability q = 0.1.
+        Before training, the base DiT model is warmed up using game and real-world data, fine-tuning a LoRA weight. This ensures the Interactive Module focuses on learning interactions and movement patterns, rather than simply fitting the video.
+      </p>
+    </div>
+      </div>
+    </div>
+    <div class="content">
+      <h3>The Swin-Denoise Process Model</h3>
+      <div class="side-by-side">
+      <img src="figs/swindpm.png" alt="Swin-DPM">
+      <div class="text">
+        <p, class="small-left">
+          Traditional DiT models generate only short videos due to high computational costs and memory demands of attention mechanisms over extended durations. To overcome this, we propose the <strong>Shift-Window Denoise Process Models</strong> (<strong>Swin-DPM</strong>), leveraging a sliding temporal window to handle dependencies effectively and enable long or infinite video generation.
+          As shown in the <strong>Figure</strong>, the Swin-DPM processes video tokens in a queue using denoising steps. Tokens are cached after denoising, maintaining continuity between windows. This fine-tuned model builds on pre-trained DiT, where the first window of tokens is used for warmup, and loss is computed only on subsequent tokens.
+          At inference, warmup tokens are discarded, and video generation begins from the (w+1)-th token, enabling efficient and continuous video generation.
+        </p>
+    </div>
+      </div>
+    </div>
+    <div class="content">
+      <h3>Training Process</h3>
+      <div class="side-by-side">
+      <img src="figs/trainprocess.png" alt="Interactive Module">
+      <div class="text">
+      <p, class="small-left">
+        The training process of <strong><em>The Matrix</em></strong> begins with a pretrained video DiT backbone. The <strong>Interactive Module</strong> is first warmed up with data from the <strong>GameData Platform</strong> using unsupervised LoRA to focus on movement rather than visuals. Subsequently, precise frame-level control is achieved through targeted training. With <strong>Swin-DPM</strong> enabling infinite-length generation and <strong>Stream Consistency Models (SCMs)</strong> ensuring real-time speeds, <strong><em>The Matrix</em></strong> delivers groundbreaking video simulations.
+      </p>
+    </div>
+      </div>
+    </div>
+    <div class="content">
+      <h1>Generate Infinte-Horizon <em>The Matrix</em> World</h3>
+        <div class="text">
+          <p>Current state-of-the-art DiT-based video generation models (e.g., CogVideo, Open-Sora) are limited to
+            producing videos just a few seconds long, making them insufficient for creating
+            an infinite-horizon world. <strong><em>The Matrix</em></strong> overcomes this limitation by introducing
+            Swin-DPM, which significantly extends the receptive
+            field of attention computations while maintaining the same computational cost.
+            This innovation enables the generation of high-quality, super-long-duration videos with consistent visuals,
+            all within an achievable compute budget.</p>
+        </div>
+        <h3>1 Min Gallery (1 min clip with 16 fps ~ 960 frames)</h3>
+    </div>
+  </div>
+
+
+
+  <div class="video-slider">
+    <div class="slide">
+      <h2>Scene Desert</h2>
+      <video preload="none" poster="videos_icon/horizon_1min_img_0.png" onclick="setControls(this)">
+        <source src="videos/horizon_1min_processed_0.mp4" type="video/mp4" />
+      </video>
+      <p onclick="clickToCopy(this)", style="color: #00ff00;"><img src="img/thematrix.png" class="matrixico"></img><span
+          style="color:#ff00ff">admin@matrix: </span>In a desolate desert, a white SUV is driving across the
+        terrain. In an aerial shot, the vehicle is navigating through rugged landscapes, surrounded by parched
+        vegetation and sparse trees. The camera follows the car's movement, capturing the tire tracks it leaves behind
+        in the sand. In the distance, some buildings and mountains can be seen, while the sky is filled with clouds,
+        with sunlight streaming through and casting rays of light.
+      </p>
+    </div>
+
+    <div class="slide">
+      <h2>Scene Desert</h2>
+      <video preload="none" poster="videos_icon/horizon_1min_img_1.png" onclick="setControls(this)">
+        <source src="videos/horizon_1min_processed_1.mp4" type="video/mp4" />
+      </video>
+      <p onclick="clickToCopy(this)", style="color: #00ff00;"><img src="img/thematrix.png" class="matrixico"></img><span
+          style="color:#ff00ff">admin@matrix: </span>In a barren desert, a white SUV is making its way across the
+        rugged terrain. Captured from an aerial perspective, the vehicle navigates through uneven ground, surrounded by
+        dry vegetation and sparse trees. The camera tracks the car’s movement, showcasing the tire marks it leaves in
+        the sand. In the background, distant buildings and mountains can be seen, while the sky is covered with clouds,
+        allowing sunlight to filter through and illuminate the scene.
+      </p>
+    </div>
+
+    <div class="slide">
+      <h2>Scene Grassland</h2>
+      <video preload="none" poster="videos_icon/horizon_1min_img_2.png" onclick="setControls(this)">
+        <source src="videos/horizon_1min_processed_2.mp4" type="video/mp4" />
+      </video>
+      <p onclick="clickToCopy(this)", style="color: #00ff00;"><img src="img/thematrix.png" class="matrixico"></img><span
+          style="color:#ff00ff">admin@matrix: </span>On a vast expanse of grassland, a white car is driving across
+        the terrain. In an aerial shot, the vehicle is adorned with red and blue stripes on its body, and there is a
+        black spoiler at the rear. The camera follows the car as it moves over the grass, surrounded by open fields,
+        with a few trees and mountains visible in the distance. The sky is a deep blue, scattered with a few white
+        clouds.
+      </p>
+    </div>
+
+    <div class="slide">
+      <h2>Scene Grassland</h2>
+      <video preload="none" poster="videos_icon/horizon_1min_img_3.png" onclick="setControls(this)">
+        <source src="videos/horizon_1min_processed_3.mp4" type="video/mp4" />
+      </video>
+      <p onclick="clickToCopy(this)", style="color: #00ff00;"><img src="img/thematrix.png" class="matrixico"></img><span
+          style="color:#ff00ff">admin@matrix: </span>In a wide expanse of grassland, a white car is traversing the
+        terrain. Captured from an aerial perspective, the car features red and blue stripes on its body and has a black
+        spoiler at the back. The camera tracks the vehicle as it drives across the grass, with a backdrop of open fields
+        and some trees and mountains in the distance. The sky is a clear blue, dotted with a few white clouds. The grass
+        is neatly trimmed.
+      </p>
+    </div>
+  </div>
+  <div class="video-slider">
+    <div class="slide">
+      <h2>Scene Grassland</h2>
+      <video preload="none" poster="videos_icon/horizon_1min_img_4.png" onclick="setControls(this)">
+        <source src="videos/horizon_1min_processed_4.mp4" type="video/mp4" />
+      </video>
+      <p onclick="clickToCopy(this)", style="color: #00ff00;"><img src="img/thematrix.png" class="matrixico"></img><span
+          style="color:#ff00ff">admin@matrix: </span>A white car is cruising across a wide stretch of grassland.
+        Captured from an aerial view, the vehicle features red and blue stripes along its body and a black spoiler at
+        the back. The camera tracks the car’s movement as it traverses the grassy terrain, surrounded by open fields,
+        with some trees and mountains visible in the background. The sky is a vibrant blue with a few fluffy white
+        clouds drifting by.
+      </p>
+    </div>
+
+    <div class="slide">
+      <h2>Scene Grassland</h2>
+      <video preload="none" poster="videos_icon/horizon_1min_img_5.png" onclick="setControls(this)">
+        <source src="videos/horizon_1min_processed_5.mp4" type="video/mp4" />
+      </video>
+      <p onclick="clickToCopy(this)", style="color: #00ff00;"><img src="img/thematrix.png" class="matrixico"></img><span
+          style="color:#ff00ff">admin@matrix: </span>A white car is driving across a vast expanse of grassland. In
+        an aerial shot, the vehicle is adorned with red and blue stripes and features a black spoiler at the rear. The
+        camera follows the car as it moves across the grassy terrain, surrounded by open fields, with some trees and
+        mountains visible in the distance. The sky is a bright blue, dotted with a few fluffy white clouds.
+      </p>
+    </div>
+
+    <div class="slide">
+      <h2>Scene Water</h2>
+      <video preload="none" poster="videos_icon/horizon_1min_img_6.png" onclick="setControls(this)">
+        <source src="videos/horizon_1min_processed_6.mp4" type="video/mp4" />
+      </video>
+      <p onclick="clickToCopy(this)", style="color: #00ff00;"><img src="img/thematrix.png" class="matrixico"></img><span
+          style="color:#ff00ff">admin@matrix: </span>A white car is driving through a body of water, splashing
+        water all around. In an aerial shot, the vehicle has blue and red stripes on its body, and its license plate
+        number is 'Alibaba0.' The sky is pouring with heavy rain, and in the distance, some trees and mountains can be
+        seen.
+      </p>
+    </div>
+
+    <div class="slide">
+      <h2>Scene Water</h2>
+      <video preload="none" poster="videos_icon/horizon_1min_img_7.png" onclick="setControls(this)">
+        <source src="videos/horizon_1min_processed_7.mp4" type="video/mp4" />
+      </video>
+      <p onclick="clickToCopy(this)", style="color: #00ff00;"><img src="img/thematrix.png" class="matrixico"></img><span
+          style="color:#ff00ff">admin@matrix: </span>A white car is making its way through a body of water, sending
+        up sprays of water as it goes. In an aerial view, the vehicle features blue and red stripes, with the license
+        plate reading 'Alibaba0.' The sky is filled with heavy rainfall, and distant trees and mountains are visible in
+        the background.
+      </p>
+    </div>
+
+  </div>
+
+ <div class="intermediate-context">
+    <h3>Long Video Gallery (14 minutes videos > 13440 frames)</h3>
+    <h5>Videos are compressed for faster loading</h5>
+</div> 
+
+
+  <div class="video-slider">
+
+    <div class="slide">
+      <video preload="none" poster="videos_icon/super_long_img_0.png" onclick="setControls(this)">
+        <source src="videos/resized_super_long_1.mp4" type="video/mp4" />
+      </video>
+      <p onclick="clickToCopy(this)", style="color: #00ff00;"><img src="img/thematrix.png" class="matrixico"></img><span
+          style="color:#ff00ff">admin@matrix: </span>A white car is driving through desert.
+      </p>
+    </div>
+
+    <div class="slide">
+
+      <video preload="none" poster="videos_icon/super_long_img_1.png" onclick="setControls(this)">
+        <source src="videos/resized_super_long_2.mp4" type="video/mp4" />
+      </video>
+      <p onclick="clickToCopy(this)", style="color: #00ff00;"><img src="img/thematrix.png" class="matrixico"></img><span
+          style="color:#ff00ff">admin@matrix: </span>A white car is making its way across a beach.
+      </p>
+    </div>
+
+  </div>
+
+  <div class="code-rain-container no-image">
+    <canvas></canvas>
+    <div class="content">
+      <h3> Generate Infinite Real World</h3>
+      <div class="text">
+        <p>
+          The proposed Swin-DPM can be
+      integrated into general DiT architecture diffusion models to enable extended-duration video
+      generation. This innovation represents a significant contribution to the broader field of
+      video generation, providing a pathway for creating high-quality, long-form videos
+      The proposed Swin-DPM can be 
+      integrated into general DiT architecture diffusion models to enable extended-duration video 
+      generation. This innovation represents a significant contribution to the broader field of 
+      video generation, providing a pathway for creating high-quality, long-form videos 
+      that maintain coherence and visual consistency over time.
+        </p>
+
+      </div>
+
+  </div>
+  </div>
+  
+
+  <div class="tiling-video-wrapper">
+
+    <div class="tiling-video-outer">
+      <div class="tiling-video-container">
+        <video preload="none" poster="videos_icon/long_video_0000.png" onclick="toggleVideoPlay(this)"
+          class="tiling-video" loop>
+          <source src="videos/long_video_0000.mp4" type="video/mp4" />
+        </video>
+        <div class="tiling-prompt">
+          <div><img src="img/thematrix.png" class="matrixico"></img><span style="color:#ff00ff">admin@matrix: </span>The
+            video shows a view of the city harbor from a high angle.
+            In the center of the picture, a large yacht is moored at the pier,
+            and other small boats are scattered around.
+            The harbor is surrounded by an ancient stone wall with a bridge connecting the two banks.
+            In the distance, there are dense urban buildings, some of which are decorated with domes on top.
+            The whole scene is at dusk, and the sky is light blue and orange.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tiling-video-outer">
+      <div class="tiling-video-container">
+        <video preload="none" poster="videos_icon/long_video_0001.png" onclick="toggleVideoPlay(this)"
+          class="tiling-video" loop>
+          <source src="videos/long_video_0001.mp4" type="video/mp4" />
+        </video>
+        <div class="tiling-prompt">
+          <div><img src="img/thematrix.png" class="matrixico"></img><span style="color:#ff00ff">admin@matrix: </span>The
+            video shows a view of the city harbor from a high angle.
+            In the center of the picture, a large yacht is moored at the pier,
+            and other small boats are scattered around.
+            The harbor is surrounded by an ancient stone wall with a bridge connecting the two banks.
+            In the distance, there are dense urban buildings, some of which are decorated with domes on top.
+            The whole scene is at dusk, and the sky is light blue and orange.</div>
+        </div>
+      </div>
+    </div>
+    <div class="tiling-video-outer">
+      <div class="tiling-video-container">
+        <video preload="none" poster="videos_icon/long_video_0002.png" onclick="toggleVideoPlay(this)"
+          class="tiling-video" loop>
+          <source src="videos/long_video_0002.mp4" type="video/mp4" />
+        </video>
+        <div class="tiling-prompt">
+          <div><img src="img/thematrix.png" class="matrixico"></img><span style="color:#ff00ff">admin@matrix: </span>The video shows a figure in a traditional cowboy costume riding a horse slowly along a snow-covered river. Surrounded by spectacular snowy mountains and trees, it creates a peaceful yet adventurous atmosphere. As the characters move, the flow of the river and details of the surrounding environment can be seen, such as footprints in the snow and mountains in the distance. The whole scene gives an immersive experience, as if you were in the natural landscape this winter.</div>
+        </div>
+      </div>
+    </div>
+    <div class="tiling-video-outer">
+      <div class="tiling-video-container">
+        <video preload="none" poster="videos_icon/long_video_0003.png" onclick="toggleVideoPlay(this)"
+          class="tiling-video" loop>
+          <source src="videos/long_video_0003.mp4" type="video/mp4" />
+        </video>
+        <div class="tiling-prompt">
+          <div><img src="img/thematrix.png" class="matrixico"></img><span style="color:#ff00ff">admin@matrix: </span>The video shows a figure in a traditional cowboy costume riding a horse slowly along a snow-covered river. Surrounded by spectacular snowy mountains and trees, it creates a peaceful yet adventurous atmosphere. As the characters move, the flow of the river and details of the surrounding environment can be seen, such as footprints in the snow and mountains in the distance. The whole scene gives an immersive experience, as if you were in the natural landscape this winter.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+
+
+  <footer>
+    <div class="container-fluid">
+      <div class="col-md-12">
+        <p>Copyright &copy; 2024 The Matrix Team</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Modal button -->
+  <div class="popup-icon">
+    <button id="modBtn" class="modal-btn">
+      <img src="img/contact-icon.png" alt="" />
+    </button>
+  </div>
+
+  <!-- Modal -->
+  <div id="modal" class="modal">
+    <!-- Modal Content -->
+    <div class="modal-content">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h3 class="header-title">Contact <em>The Matrix Team</em></h3>
+        <div class="close-btn">
+          <img src="img/close_contact.png" alt="" />
+        </div>
+      </div>
+      <!-- Modal Body -->
+      <div class="modal-body">
+        <div class="col-md-6 col-md-offset-3">
+          <form id="contact" action="" method="post">
+            <div class="row">
+              <div class="col-md-12">
+                <fieldset>
+                  <input name="name" type="text" class="form-control" id="name" placeholder="Your name..."
+                    required="" />
+                </fieldset>
+              </div>
+              <div class="col-md-12">
+                <fieldset>
+                  <input name="email" type="email" class="form-control" id="email" placeholder="Your email..."
+                    required="" />
+                </fieldset>
+              </div>
+              <div class="col-md-12">
+                <fieldset>
+                  <textarea name="message" rows="6" class="form-control" id="message" placeholder="Your message..."
+                    required=""></textarea>
+                </fieldset>
+              </div>
+              <div class="col-md-12">
+                <fieldset>
+                  <button type="submit" id="form-submit" class="btn">
+                    Send Message Now
+                  </button>
+                </fieldset>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="overlay-menu">
+    <div class="container">
+      <div class="row">
+        <div class="main-menu">
+          <ul>
+            <li>
+              <a href="article/the_matrix.pdf" target="_blank"><i class="fa-regular fa-file-pdf"></i> Paper</a>
+            </li>
+            <li>
+              <a href="index.html"><i class="fa-brands fa-github"></i> Source (Coming Soon)</a>
+            </li>
+            <li>
+              <a href="index.html"><i class="fas fa-gamepad"></i> Playable Demo (Coming Soon)</a>
+            </li>
+          </ul>
+          <p>The Matrix Group Presents.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+  <script>
+    window.jQuery ||
+      document.write(
+        '<script src="js/vendor/jquery-1.11.2.min.js"><\/script>'
+      );
+  </script>
+  <script src="js/vendor/bootstrap.min.js"></script>
+
+  <script src="js/plugins.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/slick.js"></script>
+</body>
+<script>
+  var current_ratio = window.innerWidth / window.innerHeight;
+  $(document).ready(function () {
+    $(".video-slider").slick({
+      arrows: true,
+      dots: false,
+      infinite: true,
+      speed: 500,
+      slidesToShow: (current_ratio > 1.0) ? 3 : 1,
+      draggable: false,
+      slidesToScroll: 1,
+    });
+  });
+  function setControls(vid) {
+    if (vid.controls == false) {
+      vid.controls = true;
+      vid.play();
+    }
+  }
+  var prompt = function (message, style, time) {
+    style = (style === undefined) ? 'alert-success' : style;
+    time = (time === undefined) ? 1200 : time;
+    $('<div>')
+      .appendTo('body')
+      .addClass('alert ' + style)
+      .html(message)
+      .show()
+      .delay(time)
+      .fadeOut(300, function () {
+        //$(this).remove();
+      });
+  };
+
+  // 成功提示
+  var success_prompt = function (message, time) {
+    prompt(message, 'alert-success', time);
+  };
+
+  // 失败提示
+  var fail_prompt = function (message, time) {
+    prompt(message, 'alert-danger', time);
+  };
+
+  // 提醒
+  var warning_prompt = function (message, time) {
+    prompt(message, 'alert-warning', time);
+  };
+
+  // 信息提示
+  var info_prompt = function (message, time) {
+    prompt(message, 'alert-inf', time);
+  };
+  function clickToCopy(pt) {
+    navigator.clipboard.writeText(pt.innerHTML.split("</span>")[1]);
+    info_prompt("The Prompt has been copied!");
+  }
+  function toggleVideoPlay(vid) {
+    if (vid.paused) {
+      vid.play();
+    } else {
+      vid.pause();
+    }
+  }
+  var check_resize = function () {
+    const elements = document.querySelectorAll('.tiling-video-outer');
+    elements.forEach(function (element) {
+      var current_ratio = window.innerWidth / window.innerHeight;
+      var absolute_ratio = 16.0 / 9.0
+      var k = Math.round(current_ratio / absolute_ratio * 4);
+      if (k <= 0) {
+        k = 1;
+      }
+      element.style.width = (100.0 / k).toString() + "%";
+    });
+  }
+  var old_func = window.onresize;
+  var new_func = function () {
+    old_func && old_func();
+    check_resize();
+  }
+  window.onresize = new_func;
+  check_resize();
+  var dblclickfullscreen = function (video) {
+    video.addEventListener("dblclick", function () {
+      if (this.requestFullscreen) {
+        this.requestFullscreen();
+      } else if (this.mozRequestFullScreen) { // Firefox
+        this.mozRequestFullScreen();
+      } else if (this.webkitRequestFullscreen) { // Chrome, Safari and Opera
+        this.webkitRequestFullscreen();
+      } else if (this.msRequestFullscreen) { // IE/Edge
+        this.msRequestFullscreen();
+      }
+    });
+  }
+  document.querySelectorAll(".tiling-video-wrapper")
+    .forEach(function (gallery) {
+      gallery.querySelectorAll("video")
+        .forEach(dblclickfullscreen);
+    });
+  function playAll(gallery) {
+    gallery.querySelectorAll("video")
+      .forEach(function (video) {
+        video.play();
+      });
+  }
+
+</script>
+<script src="https://cdn.jsdelivr.net/npm/eruda"></script>
+<script>eruda.init();</script>
+<script>
+  // 调用代码雨效果
+  initCodeRain('.code-rain-container', '0 1', ' ', 50);
+</script>
+
+
+
+<script>
+  // 获取页面上所有的视频元素
+  var videos = document.querySelectorAll('slide');
+  
+  // 为每个视频元素添加双击事件监听器
+  videos.forEach(function(video) {
+      video.addEventListener('dblclick', function(event) {
+          event.preventDefault(); // 阻止事件的默认行为
+          event.stopPropagation(); // 阻止事件继续传播
+      }, true); // 使用捕获阶段而不是冒泡阶段
+  });
+  </script>
+
+    
+
+</html>
