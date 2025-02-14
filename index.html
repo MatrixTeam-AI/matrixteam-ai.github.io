@@ -28,6 +28,16 @@
 	
 	 <link rel="stylesheet" href="assets/css/isotope-docs.css" media="screen">
 	  <link rel="stylesheet" href="assets/css/baguetteBox.css">
+	<link
+	  href="assets/img/icon-black.svg"
+	  rel="icon"
+	  media="(prefers-color-scheme: light)"
+	/>
+	<link
+	  href="assets/img/icon-white.svg"
+	  rel="icon"
+	  media="(prefers-color-scheme: dark)"
+	/>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -41,7 +51,7 @@
     <!-- =============== Preloader =============== -->
     <div id="preloader">
         <div id="loading">
-		<img width="256" height="32" src="assets/img/loading-cylon-red.svg">	
+		<img style="max-width: 80%; max-height: 100%;" src="assets/img/break-the-vat.svg">	
         </div>
     </div>
     <!-- =============== nav =============== -->
@@ -100,11 +110,17 @@
 				<div id="owl-demo" class="owl-carousel header1">
 				  <div>
 				  <div class="col-xs-12 col-sm-6 col-md-6 header-text">
-                    <h2 class="wow bounceIn animated" data-wow-delay=".40s">FRIENDLY <span>TEMPLATE</span> FOR <br/>YOUR WEBSITE</h2>
-                    <h3 class="wow bounceIn animated" data-wow-delay=".50s">FOR YOUR WEBSITE </h3>
-                    <p class="wow bounceIn animated" data-wow-delay=".60s">Lorem ipsum dolor sit amet, consectetur adipiscing elit.We ensure sit amet, consectetur adipiscing elit</p>
+                    <h3 class="wow bounceIn animated" data-wow-delay=".40s"><span>The Matrix</span>: Infinite-Horizon World Generation with Real-Time Moving Control </h3>
+                    <p class="wow bounceIn animated" data-wow-delay=".40s" >
+
+						<video style="width:70%" preload="none" poster="/assets/img/switch_first.png" onclick="toggleVideoPlay(this)"
+						class="tiling-video" loop>
+						<source src="/assets/img/switch3.mp4" type="video/mp4" />
+						</video>
+						<img style="width:100%;" src="assets/img/comboPicture1.png"></img>
+					</p>
                     <p>
-                        <div class="btn btn-primary btn-lg btn-ornge wow bounceIn animated" data-wow-delay="1s"><i class="hbtn"></i> <span>Click Here</span></i>
+                        <div class="btn btn-primary btn-lg btn-ornge wow bounceIn animated" data-wow-delay="1s" onclick="location.href='/pages/TheMatrix'"><i class="hbtn"></i> <span>Go to Webpage</span></i>
                         </div>
                     </p>
 					</div>               
@@ -135,8 +151,9 @@
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-6 wow fadeInDown animated" data-wow-delay=".5s">
                    <h2>About Us</h2>
-				   <p>Lorem ipsum dolor sit amet, netus pellentesque mauris, non quis adipiscing aliquam tortor nulla, ut dolor, mauris sem ultricies sed tellus ut aliquam. Donec vel sollicitudin orci mi ut, neque aliquam vel vel nostrum enim tristique, magna rhoncus. Dapibus purus eget cubilia eget, in ut in mi dui ipsum odio, nullam vestibulum aliquam fusce, dignissim venenatis ultricies sed mattis non, metus a libero et. Imperdiet aliquet. Vivamus malesuada, ultrices convallis, diam vitae pellentesque volutpat ante vitae amet, ac leo, arcu duis venenatis in auctor sit suscipit. </p>
-				   <p>Integer sapien sed mauris nec, volutpat risus leo placerat elit at aliquet, a egestas ultrices, vitae non amet lacus etiam, malesuada pellentesque scelerisque. Neque fermentum parturient ante pede, a dui ut ultricies luctus non nobis, amet nibh et. Diam nunc in eleifend commodo ante, amet quam integer dolor sit volutpat faucibus, sed sem, et amet sed, vestibulum mollit et a ac nullam. Eu nunc voluptas risus dui et pellentesque.</p>
+				   <p>We are an <strong>unofficial Research Interest Group</strong> made up of a diverse team of young researchers from various academic and professional backgrounds. Our mission is to develop neural interactive simulations—also known as world models—that will serve as foundational technologies for the future of simulation engines, AI-driven content generation, AI gaming, and the metaverse.</p>
+
+					<p>Through advancing these technologies, we aim to create new ways for humans to explore, understand, and interact with the world in more intuitive, immersive, adaptive, and intelligent ways. Our work focuses on bridging the gap between the digital and physical worlds, opening up innovative possibilities across sectors like learning, entertainment, and beyond.</p>
                   </div>
                   <div class="col-xs-12 col-sm-12 col-md-6 wow fadeInRight animated" data-wow-delay=".5s">
                      <img src="assets/img/about-img.jpg"/>               
@@ -150,8 +167,8 @@
         <div class="container">            
             <div class="row">
 				<div class="title">
-				<h2>Our Team</h2>
-				<p>Meet some of our lovely, passionate, positive people.</p>
+				<h2>Our Team </h2>
+				<p>Meet some of our lovely, passionate, positive people (click to view <a style="color:orangered;" onclick="toggle_team()">full list</a>).</p>
 				</div>
                 <div class="col-xs-12 col-sm-6 col-md-3 wow fadeInDown animated" data-wow-delay=".1s">
                    <div class="timg"><img src="assets/img/team-img1.jpg"/></div>
@@ -200,7 +217,20 @@
 						<li><a data-wow-delay=".2s" class="wow fadeInUp animated" href="index.html#"><i class="fa fa-google-plus"></i></a></li>
 					</ul>
 				   </div>
-                  </div>                 
+                  </div>          
+				  
+				  <div class="col-xs-12 col-sm-6 col-md-3 wow fadeInUp animated" data-wow-delay=".5s" style="display: none;">
+                    <div class="timg"><img src="assets/img/team-img4.jpg"/></div>
+				    <div class="t-box">
+				   <h3>MOHD SAIF</h3>
+				   <span>Content Writer</span>
+				   <ul class="social-links">
+						<li><a class="wow fadeInUp animated" href="index.html#"><i class="fa fa-facebook"></i></a></li>
+						<li><a data-wow-delay=".1s" class="wow fadeInUp animated" href="index.html#"><i class="fa fa-twitter"></i></a></li>
+						<li><a data-wow-delay=".2s" class="wow fadeInUp animated" href="index.html#"><i class="fa fa-google-plus"></i></a></li>
+					</ul>
+				   </div>
+                  </div>           
             </div>
         </div>   
 		<!-- =============== container end =============== -->		
@@ -701,15 +731,13 @@ function setup() {
 }
 function draw() {
   clear();
-
-  // Create flower object.
-
-  // Use flower object properties to draw an ellipse.
   mx = mouseX;
   my = mouseY;
   w = width;
   h = height;
   points_=new Array(point_amount);
+  strokeWeight(0.5);
+  stroke("#276772dd");
   for(var i = 0; i < point_amount; i++){
     p = points[i];
     dx = p.x * w;
@@ -752,6 +780,23 @@ function windowResized() {
 	edges[i+2] = {u:delaunay.triangles[i+2], v:delaunay.triangles[i]};
   }
 }
+function toggle_team(){
+	const worker_list = $("#team > div > div > div");
+	for(var i = 5 ; i < worker_list.length; i++){
+		if(worker_list[i].style.display == "none"){
+			worker_list[i].style.display = "";
+		}else{
+			worker_list[i].style.display = "none";
+		}
+	}
+}
+function toggleVideoPlay(vid) {
+    if (vid.paused) {
+      vid.play();
+    } else {
+      vid.pause();
+    }
+  }
 </script>
 
 </body>
