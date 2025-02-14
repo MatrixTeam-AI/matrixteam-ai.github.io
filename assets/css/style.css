@@ -214,7 +214,7 @@ transition: all 0.35s ease 0s;
 /*----------- team ------------*/
 
 #team {
-   background: url("../img/header3.jpg") no-repeat scroll center center / cover ;
+   background: linear-gradient(37deg, #c595c1, #60a8e9);
     color: #fff;
     overflow: hidden;
 	padding:100px 0 220px;
@@ -297,7 +297,7 @@ margin:20px 0 0 0px;
 /*----------- for box ------------*/
 .for-box
 {
- background: url("../img/services-bg.jpg") no-repeat scroll center bottom / cover ;
+ background: url("../img/header6.jpg") no-repeat scroll center bottom / cover ;
 padding-top:200px;
 background-attachment:fixed;
 padding-bottom:100px;
