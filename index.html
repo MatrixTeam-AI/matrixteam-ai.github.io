@@ -83,9 +83,11 @@
                         <li>
                             <a class="page-scroll" href="#Services">Services</a>
                         </li>
-                        <li>
+                        <!--
+						<li>
                             <a class="page-scroll" href="#Gallery">Gallery</a>
                         </li>
+						-->
                         <li>
                             <a class="page-scroll" href="#blog">Blog</a>
                         </li>
@@ -128,8 +130,13 @@
 				 <div>
 				  <div class="col-xs-12 col-sm-6 col-md-6 header-text">
                     <h3 class="wow bounceIn animated" data-wow-delay=".40s"><span>RAIN</span>: Real-time Animation Of Infinite Video Stream</h3>
-                    <h3 class="wow bounceIn animated" data-wow-delay=".50s">FOR YOUR WEBSITE </h3>
-                    <p class="wow bounceIn animated" data-wow-delay=".60s">Lorem ipsum dolor sit amet, consectetur adipiscing elit.We ensure sit amet, consectetur adipiscing elit</p>
+                    <p class="wow bounceIn animated" data-wow-delay=".60s">
+						<video style="width:70%;margin-top: -35px;" preload="none" poster="/assets/img/rain_preview_cover.png" onclick="toggleVideoPlay(this)"
+						class="tiling-video" loop>
+						<source src="/assets/img/rain_preview.mp4" type="video/mp4" />
+						</video>
+						<img style="width:60%;left:15%;margin-top:-45px;margin-bottom:-10px;" src="assets/img/rain_teaser.png"></img>
+					</p>
                     <p>
                         <div class="btn btn-primary btn-lg btn-ornge wow bounceIn animated" data-wow-delay="1s" onclick="location.href='/pages/RAIN'"><i class="hbtn"></i> <span>Go to Webpage</span></i>
                         </div>
@@ -156,7 +163,7 @@
 					<p>Through advancing these technologies, we aim to create new ways for humans to explore, understand, and interact with the world in more intuitive, immersive, adaptive, and intelligent ways. Our work focuses on bridging the gap between the digital and physical worlds, opening up innovative possibilities across sectors like learning, entertainment, and beyond.</p>
                   </div>
                   <div class="col-xs-12 col-sm-12 col-md-6 wow fadeInRight animated" data-wow-delay=".5s">
-                     <img src="assets/img/about-img.jpg"/>               
+                     <img src="assets/img/header2.jpg" width="760"/>               
                   </div>     
             </div>
         </div>   
@@ -241,7 +248,7 @@
         <div class="container">            
             <div class="row">
 			 <div class="col-xs-12 col-sm-12 col-md-6 wow fadeInLeft animated" data-wow-delay=".5s">
-                     <img src="assets/img/services-img.jpg" class="img-left"/>               
+                     <img src="assets/img/header5.jpg" width=950 class="img-left"/>               
                   </div>     
                 <div class="col-xs-12 col-sm-12 col-md-6 wow fadeInRight animated" data-wow-delay=".5s">
                    <h2>Services</h2>
@@ -371,7 +378,7 @@ nullam rhoncus tortor at dignissim vehicula.</p>
 		<!-- =============== container end =============== -->		
     </section>	
     
-<!-- =============== Gallery =============== -->
+<!-- =============== Gallery =============== 
     <section id="Gallery" class="wow flipInX animated" data-wow-delay=".5s">
 	<div class="title">
 				<h2>Gallery</h2>				
@@ -508,6 +515,7 @@ nullam rhoncus tortor at dignissim vehicula.</p>
 
 
 </section>
+Gallety End -->
 	<section id="blog" class="">
 		<!-- =============== container =============== -->
         <div class="container">            
@@ -695,7 +703,7 @@ window.onload = function() {
 </script>
 <script>
 
-var point_amount = ~~(120 * window.innerHeight / 400 * window.innerWidth / 400);
+var point_amount = ~~(120 * window.innerHeight / 600 * window.innerWidth / 600);
 var ratio = window.innerWidth / window.innerHeight;
 var points = new Array(point_amount);
 for(var i=0; i < point_amount; i++){

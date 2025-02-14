@@ -133,6 +133,8 @@ transition: all 0.35s ease 0s;
     font-size: 32px;
     margin-top: 20px;
 	margin-bottom:30px;
+    margin-left: 6%;
+    margin-right: 6%;
     color: #fff;
 }
 .header-text h3 span {
@@ -212,7 +214,7 @@ transition: all 0.35s ease 0s;
 /*----------- team ------------*/
 
 #team {
-   background: url("../img/team-bg.jpg") no-repeat scroll center bottom / cover ;
+   background: url("../img/header3.jpg") no-repeat scroll center center / cover ;
     color: #fff;
     overflow: hidden;
 	padding:100px 0 220px;
