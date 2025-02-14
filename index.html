@@ -111,13 +111,13 @@
 				  <div>
 				  <div class="col-xs-12 col-sm-6 col-md-6 header-text">
                     <h3 class="wow bounceIn animated" data-wow-delay=".40s"><span>The Matrix</span>: Infinite-Horizon World Generation with Real-Time Moving Control </h3>
-                    <p class="wow bounceIn animated" data-wow-delay=".40s" >
+                    <p class="wow bounceIn animated" data-wow-delay=".40s">
 
 						<video style="width:70%" preload="none" poster="/assets/img/switch_first.png" onclick="toggleVideoPlay(this)"
 						class="tiling-video" loop>
 						<source src="/assets/img/switch3.mp4" type="video/mp4" />
 						</video>
-						<img style="width:100%;" src="assets/img/comboPicture1.png"></img>
+						<img style="width:70%;left:15%;" src="assets/img/comboPicture1.png"></img>
 					</p>
                     <p>
                         <div class="btn btn-primary btn-lg btn-ornge wow bounceIn animated" data-wow-delay="1s" onclick="location.href='/pages/TheMatrix'"><i class="hbtn"></i> <span>Go to Webpage</span></i>
@@ -127,11 +127,11 @@
 				</div>
 				 <div>
 				  <div class="col-xs-12 col-sm-6 col-md-6 header-text">
-                    <h2 class="wow bounceIn animated" data-wow-delay=".40s">FRIENDLY <span>THIS</span> FOR <br/>YOUR WEBSITE</h2>
+                    <h3 class="wow bounceIn animated" data-wow-delay=".40s"><span>RAIN</span>: Real-time Animation Of Infinite Video Stream</h3>
                     <h3 class="wow bounceIn animated" data-wow-delay=".50s">FOR YOUR WEBSITE </h3>
                     <p class="wow bounceIn animated" data-wow-delay=".60s">Lorem ipsum dolor sit amet, consectetur adipiscing elit.We ensure sit amet, consectetur adipiscing elit</p>
                     <p>
-                        <div class="btn btn-primary btn-lg btn-ornge wow bounceIn animated" data-wow-delay="1s"><i class="hbtn"></i> <span>Click Here</span></i>
+                        <div class="btn btn-primary btn-lg btn-ornge wow bounceIn animated" data-wow-delay="1s" onclick="location.href='/pages/RAIN'"><i class="hbtn"></i> <span>Go to Webpage</span></i>
                         </div>
                     </p>
 					</div>               
@@ -767,8 +767,9 @@ function mouseWheel(event) {
   return false;
 }
 function windowResized() {
-  resizeCanvas(windowWidth, windowHeight);
-  ratio = windowWidth / windowHeight;
+  height = min(windowHeight, $('#home')[0].clientHeight);
+  resizeCanvas(windowWidth, height);
+  ratio = windowWidth / height;
   for(var i =0;i < point_amount; i++){
 	coords[2*i] = points[i].x * ratio;
 	coords[2*i+1] = points[i].y;

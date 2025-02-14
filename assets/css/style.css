@@ -130,10 +130,10 @@ transition: all 0.35s ease 0s;
 	margin-bottom:30px;
 }
 .header-text h3 {
-    font-size: 30px;
+    font-size: 32px;
     margin-top: 20px;
 	margin-bottom:30px;
-    color: #cccb;
+    color: #fff;
 }
 .header-text h3 span {
     color: #88ccff;
@@ -518,7 +518,7 @@ padding:10px;
     z-index: 1;
 }    
 #owl-demo .owl-item img{
-      display: block;
+      display: inline-block;
       width: 100%;
       height: auto;
       -webkit-border-radius: 3px;
