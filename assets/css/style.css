@@ -1001,7 +1001,7 @@ blockquote {
     width: 50px;
 }
 #footer::before {
-    background: #668899 none repeat scroll 0 0;
+    background: #664455 none repeat scroll 0 0;
     content: "";
     height: 100%;
     position: absolute;
