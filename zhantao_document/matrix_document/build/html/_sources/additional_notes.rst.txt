@@ -1,0 +1,5 @@
+Additional Notes
+------------------------------
+There have been certain changes to the hyperparameter settings and training strategy compared to what is reported in the paper due to the re-implementation. Please be aware of these when reviewing the code.
+
+Despite these changes, we are pleased to announce that the overall generation quality is much more advanced compared to the previous version after more careful design of methods and parameters.
