@@ -921,7 +921,7 @@ blockquote {
 /*----------- contact ------------*/
 #contact
 {
- background: url("../img/header3.JPG") no-repeat scroll center center / cover  ;
+ background: url("../img/header3.jpg") no-repeat scroll center center / cover  ;
     color: #fff;
     overflow: hidden;
 	padding:100px 0;
@@ -1031,7 +1031,7 @@ blockquote {
 }
 .img-left img
 {
-width:100%;
+    width: 100%;
 }
 .for-box .clr1::before {
     top: -26px;
