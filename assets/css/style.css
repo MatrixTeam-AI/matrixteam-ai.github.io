@@ -297,7 +297,7 @@ margin:20px 0 0 0px;
 /*----------- for box ------------*/
 .for-box
 {
- background: url("../img/header6.jpg") no-repeat scroll center bottom / cover ;
+ background: url("../img/header6.jpg") no-repeat scroll center bottom / cover, #000 ;
 padding-top:200px;
 background-attachment:fixed;
 padding-bottom:100px;
@@ -921,7 +921,7 @@ blockquote {
 /*----------- contact ------------*/
 #contact
 {
- background: url("../img/contact-bg.JPG") no-repeat scroll center center / cover  ;
+ background: url("../img/header3.JPG") no-repeat scroll center center / cover  ;
     color: #fff;
     overflow: hidden;
 	padding:100px 0;
@@ -972,7 +972,7 @@ blockquote {
 }
 
 #footer {
-    background: rgba(0, 0, 0, 0) url("../img/footer-bg.jpg") no-repeat scroll -554px -686px;
+    background: linear-gradient(72deg, rgb(12,75,99), rgb(35,63,49));
     color: #fff;
     padding: 60px 0 120px;
     position: relative;
@@ -1001,7 +1001,7 @@ blockquote {
     width: 50px;
 }
 #footer::before {
-    background: darkblue none repeat scroll 0 0;
+    background: #668899 none repeat scroll 0 0;
     content: "";
     height: 100%;
     position: absolute;

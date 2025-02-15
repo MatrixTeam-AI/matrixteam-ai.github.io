@@ -1,3 +1,0 @@
-GameData Platform
-------------------------------
-Todo
