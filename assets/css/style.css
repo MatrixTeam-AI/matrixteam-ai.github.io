@@ -138,7 +138,7 @@ transition: all 0.35s ease 0s;
     color: #fff;
 }
 .header-text h3 span {
-    color: #88ccff;
+    color: #88ffcc;
 }
 .header-text p {
 	margin-bottom:30px;
@@ -308,15 +308,15 @@ padding-bottom:100px;
     border-radius: 50%;
     color: #000;
     font-size: 51px;
-    height: 100px;
-    left: 35%;
+    height: 140px;
+    left: calc(50% - 70px);
     line-height: 104px;
     margin: auto;
     position: absolute;
     text-align: center;
-	top: -58px;
+	top: -88px;
 	z-index:999;
-    width: 100px;
+    width: 140px;
 }
 
 .for-box .clr1
@@ -1066,6 +1066,11 @@ width:50%;
     left: -40px;
     position: relative;
 }
+.img-right{
+    left: -40px;
+    position: relative;
+
+}
 .blog-img {
     height: 130px;
 }
@@ -1079,6 +1084,11 @@ width:50%;
    left: 0;
     position: relative;
     width: 100%;
+}
+.img-right {
+    left: 0;
+     position: relative;
+     width: 100%;
 }
 .img-left {
    left: 0;
