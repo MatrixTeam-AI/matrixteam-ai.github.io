@@ -1,0 +1,117 @@
+Matrix Dataset Document
+=============================================
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Contents:
+   :hidden:
+
+   Download
+   GameData_Platform
+   Research_team
+   
+  
+
+
+
+- `Paper <https://arxiv.org/abs/2412.03568>`_
+- `Project Page <https://thematrix1999.github.io/>`_
+- `Project Document <https://matrixteam-ai.github.io/docs/TheMatrixDocs/>`_
+- `Team Page <https://matrixteam-ai.github.io/>`_
+- `Dataset Link <https://www.modelscope.cn/models/AiurRuili/TheMatrix>`_  
+- `Dataset Page <https://example.com/dataset>`_  
+
+
+The Matrix Dataset
+------------------------
+The Matrix dataset was first introduced by the Matrix team in the paper "The Matrix: Infinite-Horizon World Generation with Real-Time Moving Control." This dataset is specifically designed for training world models and comprises millions of video sequences accompanied by corresponding control signals.
+
+- Visual Content:
+
+   - Forza Horizon 5: 1000k video-control signal pairs.
+      - Data format: 60 FPS, 2560×1600P, 4-6s with control signals
+      - Scene: Driving across woods, grass, sea, field, river, others (ratio: 12%:15%:18%:16%:15%:9%:15%)
+
+   - Cyberpunk 2077: 300k video-control signal pairs.
+      - Data format: 60 FPS, 2560×1600P, 4-6s with control signals
+      - Scene: Dense urban environments with skyscrapers, including day-night cycles and indoor-outdoor scenes (ratio: 1:3).
+
+.. image:: ./scene.jpg
+   :alt: Alternative text for the image
+   :width: 800px
+   :align: center
+.. - Resolution: 2560×1600 (native resolution; higher resolutions may cause performance issues).
+
+.. - Frame Rate: 60 FPS, ensuring smooth motion and fine-grained detail capture.
+
+.. - Data Volume:
+
+..    - Forza Horizon 5: 1.2 million video-control signal pairs.
+
+..    - Cyberpunk 2077: 1 million video-control signal pairs.
+
+.. - Clip Duration: All videos are segmented into standardized 6-second clips to align with model training requirements.
+
+.. :doc:`GameData Platform </GameData_Platform>`
+.. ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. :doc:`Download </Download>`
+.. ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. :doc:`Research team </Research_team>`
+.. ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. We present the Source dataset from three perspectives: basic information, the annotation method used to convert the original data from GameData Platform to our desired format, and the filtering method applied to remove undesirable data.
+
+.. - Basic Information:
+
+.. The Source comprises data from both Forza Horizon 5 and Cyberpunk 2077. For Forza Horizon 5, we collected approximately 1,200,000 pairs of video and control signals, while for Cyberpunk 2077, we gathered around 1,000,000 such pairs. All collected videos have a duration of approximately 6 seconds, recorded at 60 FPS. 
+
+.. - Annotation Methods:
+
+.. The original 10-minute gameplay videos are segmented into 6-second clips using FFmpeg and paired with synchronized control signals, while InternVL generates captions from 12 key frames per clip for training. Manual correction refines the captions to ensure accuracy, optimizing data quality for The Matrix training pipeline.
+
+.. - Filtering Methods:
+
+.. To ensure training stability, five data filters are applied: balancing control signal distributions, removing collision-affected clips (detected via acceleration spikes), eliminating stuck scenarios (low movement distance), discarding mismatched motion-control pairs (divergent acceleration/movement angles), and filtering visual artifacts (pixel variation thresholds). While Forza Horizon 5 relies on these automated filters, Cyberpunk 2077’s human-collected data inherently reduces such issues.
+
+
+
+.. Research team
+.. ----------------------------
+.. Ruili Feng, Tongyi Lab
+
+.. Han Zhang, Tongyi Lab
+
+.. Zhantao Yang, Tongyi Lab
+
+.. Jie Xiao, Tongyi Lab
+
+.. Zhilei Shu, Tongyi Lab
+
+.. Zhiheng Liu, Tongyi Lab
+
+.. Shangwen Zhu, Shanghai Jiaotong University
+
+.. Andy Zheng, University of Waterloo
+
+.. Yukun Huang, University of Hong Kong
+
+.. Yu Liu, Tongyi Lab
+
+.. Hongyang Zhang, Vector Insititute
+
+Citations and publications
+----------------------------
+
+.. code-block:: bibtex
+
+   @misc{feng2024matrixinfinitehorizonworldgeneration,
+         title={The Matrix: Infinite-Horizon World Generation with Real-Time Moving Control}, 
+         author={Ruili Feng and Han Zhang and Zhantao Yang and Jie Xiao and Zhilei Shu and Zhiheng Liu and Andy Zheng and Yukun Huang and Yu Liu and Hongyang Zhang},
+         year={2024},
+         eprint={2412.03568},
+         archivePrefix={arXiv},
+         primaryClass={cs.AI},
+         url={https://arxiv.org/abs/2412.03568}, 
+   }

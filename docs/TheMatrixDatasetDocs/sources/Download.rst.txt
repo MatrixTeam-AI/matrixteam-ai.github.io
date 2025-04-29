@@ -1,0 +1,85 @@
+Download
+===============
+
+- `Dataset Link <https://www.modelscope.cn/models/AiurRuili/TheMatrix>`_  
+- `Dataset Page <https://example.com/dataset>`_  
+
+Dataset Download via ModelScope
+===============================
+
+Step 1: Install Modelscope Library
+----------------------------------
+.. code-block:: bash
+
+    pip install -U modelscope
+
+Step 2: Download Dataset
+------------------------
+Create Python script with the following code:
+
+.. code-block:: python
+    :linenos:
+
+    from modelscope.hub.snapshot_download import snapshot_download
+    
+    model_dir = snapshot_download(
+        'https://www.modelscope.cn/models/AiurRuili/TheMatrix',  
+        cache_dir='your/custom/path',  # Optional: specify custom storage path
+        ignore_file_pattern=['*.bin', '*.pt']  # Optional: exclude weight files
+    )
+
+Configuration Options:
+~~~~~~~~~~~~~~~~~~~~~~~
++-------------------------+---------------------------------------------------+
+| Parameter               | Description                                       |
++=========================+===================================================+
+| ``cache_dir``           | Custom storage path (default: ~/.cache/modelscope)|
++-------------------------+---------------------------------------------------+
+| ``ignore_file_pattern`` | File patterns to exclude (e.g. model weights)     |
++-------------------------+---------------------------------------------------+
+| ``revision``            | Dataset version (default: 'main')                 |
++-------------------------+---------------------------------------------------+
+
+
+Dataset Download via Hugging Face
+===========================================
+
+Step 1: Install Required Libraries
+----------------------------------
+.. code-block:: bash
+
+    pip install -U huggingface_hub datasets
+
+Step 2: Download Dataset
+------------------------
+Create Python script with the following code:
+
+.. code-block:: python
+    :linenos:
+
+    from huggingface_hub import snapshot_download
+    
+    # Use official dataset ID (e.g. 'MatrixTeam/TheMatrix-Dataset')
+    dataset_dir = snapshot_download(
+        repo_id="https://huggingface.co/MatrixTeam/TheMatrix/",
+        repo_type="dataset",
+        cache_dir="your/custom/path",  # Optional: custom storage path
+        ignore_patterns=["*.weights", "*.safetensors"],  # Optional: exclude model files
+        token="hf_YourAccessToken"  # Required for private datasets
+    )
+
+Configuration Options:
+~~~~~~~~~~~~~~~~~~~~~~~
++-------------------------+----------------------------------------------------+
+| Parameter               | Description                                        |
++=========================+====================================================+
+| ``repo_type``           | Type of repository (dataset/model/space)           |
++-------------------------+----------------------------------------------------+
+| ``cache_dir``           | Custom storage path (default: ~/.cache/huggingface)|
++-------------------------+----------------------------------------------------+
+| ``ignore_patterns``     | File patterns to exclude (e.g. model weights)      |
++-------------------------+----------------------------------------------------+
+| ``revision``            | Dataset version (default: 'main')                  |
++-------------------------+----------------------------------------------------+
+| ``token``               | Access token for private repositories              |
++-------------------------+----------------------------------------------------+

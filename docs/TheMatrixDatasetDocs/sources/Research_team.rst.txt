@@ -1,0 +1,39 @@
+Research team
+----------------------------
+Ruili Feng, Tongyi Lab
+
+Han Zhang, Tongyi Lab
+
+Zhantao Yang, Tongyi Lab
+
+Jie Xiao, Tongyi Lab
+
+Zhilei Shu, Tongyi Lab
+
+Zhiheng Liu, Tongyi Lab
+
+Andy Zheng, University of Waterloo
+
+Shangwen Zhu, Shanghai Jiaotong University
+
+Yukun Huang, University of Hong Kong
+
+Yu Liu, Tongyi Lab
+
+Hongyang Zhang, Vector Insititute
+
+
+Citations and publications
+----------------------------
+
+.. code-block:: bibtex
+
+   @misc{feng2024matrixinfinitehorizonworldgeneration,
+         title={The Matrix: Infinite-Horizon World Generation with Real-Time Moving Control}, 
+         author={Ruili Feng and Han Zhang and Zhantao Yang and Jie Xiao and Zhilei Shu and Zhiheng Liu and Andy Zheng and Yukun Huang and Yu Liu and Hongyang Zhang},
+         year={2024},
+         eprint={2412.03568},
+         archivePrefix={arXiv},
+         primaryClass={cs.AI},
+         url={https://arxiv.org/abs/2412.03568}, 
+   }

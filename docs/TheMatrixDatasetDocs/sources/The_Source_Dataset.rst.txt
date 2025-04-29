@@ -1,0 +1,190 @@
+The Source Dataset
+===========================
+
+Basic Information
+------------------------
+
+1.Source Breakdown
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Forza Horizon 5:
+
+Total collected pairs: 1.2 million (video + control signals).
+
+Video specifications: 6-second clips, 60 FPS.
+
+Scene diversity: Desert (e.g., sand dunes), Ocean/Water (rivers, lakes), Grassland (open fields), and Agricultural areas (farmlands). Scene distributions visualized in Fig. A2(a).
+
+Control signals:
+
+    D: Moving forward (longitudinal acceleration).
+
+    DL: Forward + left turn.
+
+    DR: Forward + right turn.
+
+- Cyberpunk 2077:
+
+Total collected pairs: 1 million (video + control signals).
+
+Video specifications: 6-second clips, 60 FPS.
+
+Scene focus: Dense urban environments with high-rise buildings (e.g., megastructures, neon-lit streets).
+
+Control signals:
+
+    W: Move forward/stop.
+
+    L: Turn left (horizontal camera).
+
+    R: Turn right (horizontal camera).
+
+    U: Look upward (vertical camera).
+
+    D: Look downward (vertical camera).
+
+2.Scene & Control Signal Distribution
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- Forza Horizon 5:
+
+Data spans five biome categories (desert, ocean/water, grassland, fields, etc.), with scene-specific examples illustrated in Fig. A1.
+
+Control signal balance: Forward-dominant motions (D, DL, DR) maintained via automated pathing algorithms.
+
+- Cyberpunk 2077:
+
+Urban environments prioritized, emphasizing verticality and complex architecture.
+
+Control signal balance: Manual curation ensures equal distribution across camera motions (U/D/L/R) and forward movement (W).
+
+3.Temporal & Resolution Consistency
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+All clips standardized to 6-second segments to align with model input requirements.
+
+60 FPS maintained across both datasets to capture fine-grained motion details.
+
+4.Post-Collection Validation
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Forza: Post-filtering excludes collision-containing clips (via telemetry) 
+
+Cyberpunk: Manual QA checks remove clips with NPC interference (despite mods) or inconsistent camera movements.
+
+5.Metadata Integration
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Each clip tagged with:
+
+    Game title.
+
+    Scene type (e.g., "desert", "urban-night").
+
+    Control signal sequence (e.g., "DR", "W→U").
+
+    Quality score (derived from frame stability and telemetry checks).
+
+Annotation Methods
+------------------------
+
+Data Processing Pipeline
+
+- Initial Segmentation:
+
+    Input Source: Raw gameplay footage (~10 minutes per video) sourced from GameData Platform.
+
+    Clip Division: Videos segmented into 6-second clips using FFmpeg to align with the input requirements of The Matrix training framework.
+
+- Control Signal Extraction:
+
+    Synchronization: Corresponding control signal sequences (e.g., steering, acceleration, camera motions) are programmatically extracted from the full-duration signal logs to match each 6-second video clip.
+
+- Caption Generation:
+
+    Key Frame Sampling: 12 uniformly spaced key frames extracted from each 6-second clip to represent temporal and contextual diversity.
+
+    Automated Captioning: InternVL (a vision-language model) generates descriptive captions for each clip based on the sampled key frames.
+
+    Manual Correction: Generated captions undergo human review to correct inaccuracies (e.g., misidentified objects, ambiguous descriptions) and remove action-related annotations (e.g., "car turning left") to focus on environmental context.
+
+- Quality Assurance:
+
+    Alignment Checks: Validate temporal consistency between video clips, control signals, and captions.
+
+    Metadata Tagging: Clip-specific metadata (e.g., game title, scene type, control sequence) appended to each entry for downstream training.
+
+
+Filtering Methods
+------------------------
+
+1.Control Signal Balancing
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Objective: Ensure balanced representation of control signals to prevent model bias.
+
+Procedure:
+
+    - Per-Clip Analysis: Analyze control signal distribution within each 6-second clip.
+
+    - Global Distribution Assessment: Identify dominant signals across the entire dataset (e.g., "D" in Forza or "W" in Cyberpunk).
+
+    - Iterative Trimming: Remove excess data points containing overrepresented signals until balance is achieved.
+
+Exclusion: Cyberpunk 2077 exempted from automated balancing due to manual collection ensuring intrinsic signal parity.
+
+2.Collision Detection & Removal
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Scope: Applied to Forza Horizon 5 (automated pipeline).
+
+Mechanism:
+
+    - Telemetry-Based Detection: Flag clips with sudden acceleration spikes (≥15 m/s² within 0.2s) as collision events.
+
+    - Removal: Discard all collision-associated clips to eliminate erratic motion patterns.
+
+3.Stuck Vehicle Detection
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Metric: Distance traveled per clip (threshold: <2 meters in 6 seconds).
+
+Action: Automatically filter stuck clips (e.g., post-collision immobilization).
+
+4.Motion-Control Mismatch Filtering
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Criteria: Angular deviation between acceleration vector and velocity vector (threshold: >30°).
+
+Edge Cases:
+
+    Backward Motion: Remove clips where vehicle reverses despite forward control inputs (e.g., "D/DL/DR").
+
+    Steering Lag: Filter transient mismatches during abrupt directional switches (e.g., "DL→DR").
+
+5.Visual Artifact Removal
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Detection Method:
+
+    - Pixel Variance Analysis: Compute per-frame pixel difference (threshold: >25% avg. variance over 10 consecutive frames).
+   
+    - Artifact Types: Texture glitches, collision-induced distortions, or undefined scene rendering.
+
+Action: Exclude clips with persistent artifacts to preserve visual consistency.
+
+
+
+.. We present the Source dataset from three perspectives: basic information, the annotation method used to convert the original data from GameData Platform to our desired format, and the filtering method applied to remove undesirable data.
+
+.. - Basic Information:
+
+.. The Source comprises data from both Forza Horizon 5 and Cyberpunk 2077. For Forza Horizon 5, we collected approximately 1,200,000 pairs of video and control signals, while for Cyberpunk 2077, we gathered around 1,000,000 such pairs. All collected videos have a duration of approximately 6 seconds, recorded at 60 FPS. 
+
+.. - Annotation Methods:
+
+.. The original 10-minute gameplay videos are segmented into 6-second clips using FFmpeg and paired with synchronized control signals, while InternVL generates captions from 12 key frames per clip for training. Manual correction refines the captions to ensure accuracy, optimizing data quality for The Matrix training pipeline.
+
+.. - Filtering Methods:
+
+.. To ensure training stability, five data filters are applied: balancing control signal distributions, removing collision-affected clips (detected via acceleration spikes), eliminating stuck scenarios (low movement distance), discarding mismatched motion-control pairs (divergent acceleration/movement angles), and filtering visual artifacts (pixel variation thresholds). While Forza Horizon 5 relies on these automated filters, Cyberpunk 2077’s human-collected data inherently reduces such issues.

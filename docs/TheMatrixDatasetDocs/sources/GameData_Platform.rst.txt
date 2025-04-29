@@ -1,0 +1,82 @@
+Dataset Construction
+=====================
+
+Forza Horizon 5
+-------------------
+
+1. Platform Construction
+~~~~~~~~~~~~~~~~~~~~~~~~~
+The platform is designed to automate gameplay recording, control signal collection, and telemetry extraction.  
+It consists of the following components:
+
+- Automated game launching and screen recording using OBS with custom scripts at 2560×1600 resolution to avoid performance degradation.
+- Automatic control signal generation, simulating mouse and keyboard operations to drive the game character under randomized behaviors.
+- Telemetry data extraction via socket communication, collecting real-time positions (XYZ), velocities, and accelerations.
+- Uploading recorded videos and telemetry data to cloud storage in a structured format with metadata (timestamp, biome, etc.).
+- Automated stagnation detection:
+    - If the player's position remains within a small radius for more than 2 seconds, a backward movement is triggered.
+    - If for 40 seconds the trajectory fits within an 80m-radius circle, the system triggers random teleportation.
+    - Stagnation detection is performed using telemetry comparison and is synchronized with control signals.
+
+2. Data Collection
+~~~~~~~~~~~~~~~~~~~
+Data collection aims to acquire diverse gameplay trajectories under randomized control conditions.  
+It consists of the following steps:
+
+- Randomized control signal generation covering forward, left, and right movements.
+- Mouse and keyboard simulation to navigate across different biomes. 
+- Continuous screen recording at native resolution with GUI elements removed using ReshadeEffectShaderToggler.
+- Concurrent telemetry logging via in-game API to support collision detection and motion analysis.
+
+3. Data Processing
+~~~~~~~~~~~~~~~~~~~
+Data processing is conducted to organize and filter the collected samples for high-quality datasets.  
+It is divided into the following parts:
+
+- Preprocessing:
+    - Clip segmentation: recorded videos are divided into short clips aligned with control and telemetry logs.
+    - Clip labeling: each clip is annotated with metadata tags (scene type, motion type, biome).
+- Filtering:
+    - Class balance adjustment: ensuring balanced distribution across different biome types (across woods, grass, sea, field, river, others (ratio: 12%:15%:18%:16%:15%:9%:15%))
+    - Collision detection: Using telemetry acceleration spikes and angular deviations to filter collision events.
+    - Stagnation detection: discarding clips where players are stuck or backward motion dominates.
+    - Visual artifact detection: removing clips showing large inter-frame pixel differences , sudden lighting/texture glitches.
+
+Cyberpunk 2077
+---------------------
+
+1. Platform Construction
+~~~~~~~~~~~~~~~~~~~~~~~~~
+The platform provides a server-based environment enabling manual gameplay recording with enhanced visual fidelity.  
+It consists of the following components:
+
+- Deployment of multiple cloud servers with server image cloning for scalable recording.
+- Reshade-based visual enhancement:
+    - Lighting, shadow, and texture sharpness improvements.
+    - GUI elements are disabled via shader togglers.
+- Support for parallel screen recording and precise control signal tracking through socket-based virtual input emulation.
+- NPCs and moving vehicles are disabled using mods to reduce scene complexity.
+
+2. Data Collection
+~~~~~~~~~~~~~~~~~~~
+Data collection is conducted through manual gameplay by designated annotators under strict operational constraints.  
+It consists of the following procedures:
+
+- Annotators connect to cloud servers through low-definition, low-latency streams.
+- Only a simplified set of operations is allowed:
+    - Forward movement (W key).
+    - Camera adjustments (U/D/L/R keys for up/down/left/right).
+- Simultaneous recording of gameplay video and control signals; Cheat Engine is used to track coordinates for collision checking.
+
+3. Data Processing
+~~~~~~~~~~~~~~~~~~~
+Data processing ensures the collected Cyberpunk samples meet quality and consistency standards.  
+It is divided into the following parts:
+
+- Preprocessing:
+    - Clip segmentation: gameplay is divided into small segments synchronized with control logs.
+    - Clip labeling: each clip receives metadata such as scene type (urban indoor/outdoor, day/night).
+- Filtering:
+    - Stagnation detection: removing clips with prolonged scene stasis.
+    - Visual artifact removal: excluding footage with lighting glitches, texture corruption, undefined visual artifacts.
+    - Collision filtering: based on coordinate jumps detected via Cheat Engine tracking.
