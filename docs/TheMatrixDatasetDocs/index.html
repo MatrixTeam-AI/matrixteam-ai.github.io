@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Matrix Dataset Document &#8212; Source Dataset 1.0 documentation</title>
+    <title>Matrix Dataset Document &#8212; Matrix Dataset 1.0 documentation</title>
   
   
   
@@ -18,26 +18,26 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
-<link href="static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
-<link href="static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
 
   
-  <link href="static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="static/pygments.css?v=b86133f3" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
-<link rel="preload" as="script" href="static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
-  <script src="static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
+  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
 
-    <script data-url_root="./" id="documentation_options" src="static/documentation_options.js?v=359c27e9"></script>
-    <script src="static/doctools.js?v=888ff710"></script>
-    <script src="static/sphinx_highlight.js?v=4825356b"></script>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js?v=359c27e9"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=4825356b"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'index';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -115,7 +115,7 @@
   
   
   
-    <p class="title logo__title">Source Dataset 1.0 documentation</p>
+    <p class="title logo__title">Matrix Dataset 1.0 documentation</p>
   
 </a></div>
     
@@ -314,11 +314,11 @@ document.write(`
 </div>
 <ul class="simple">
 <li><p><a class="reference external" href="https://arxiv.org/abs/2412.03568">Paper</a></p></li>
-<li><p><a class="reference external" href="/pages/TheMatrix/">Project Page</a></p></li>
-<li><p><a class="reference external" href="/docs/TheMatrixDocs/">Project Document</a></p></li>
+<li><p><a class="reference external" href="https://thematrix1999.github.io/">Project Page</a></p></li>
+<li><p><a class="reference external" href="https://matrixteam-ai.github.io/docs/TheMatrixDocs/">Project Document</a></p></li>
 <li><p><a class="reference external" href="https://matrixteam-ai.github.io/">Team Page</a></p></li>
 <li><p><a class="reference external" href="https://www.modelscope.cn/models/AiurRuili/TheMatrix">Dataset Link</a></p></li>
-<li><p><a class="reference external" href="/pages/TheMatrixDataset/">Dataset Page</a></p></li>
+<li><p><a class="reference external" href="https://example.com/dataset">Dataset Page</a></p></li>
 </ul>
 <section id="the-matrix-dataset">
 <h2>The Matrix Dataset<a class="headerlink" href="#the-matrix-dataset" title="Permalink to this heading">#</a></h2>
@@ -328,15 +328,32 @@ document.write(`
 <blockquote>
 <div><ul class="simple">
 <li><dl class="simple">
-<dt>Forza Horizon 5: 1000k video-control signal pairs.</dt><dd><ul>
+<dt>Forza Horizon 5: 937,900 video-control signal pairs.</dt><dd><ul>
 <li><p>Data format: 60 FPS, 2560×1600P, 4-6s with control signals</p></li>
+<li><p><strong>Stage 1</strong>: 675,193 video clips (60 FPS), avg. duration 12.8 s, <strong>no</strong> control signals</p></li>
+<li><dl class="simple">
+<dt><strong>Stage 2</strong>: 208,933 clips (60 FPS), avg. duration 6.09 s, control signal at every second</dt><dd><ul>
+<li><p>Avg. control-label distribution: D 50.94 %, DR 24.67 %, DL 24.38 %</p></li>
+<li><p>Avg. signal-change events per clip: 3.04</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><strong>Stage 3</strong>: 53,774 clips (60 FPS), avg. duration 6.07 s, control signal at every second</dt><dd><ul>
+<li><p>Avg. control-label distribution: D 51.25 %, DR 24.38 %, DL 24.37 %</p></li>
+<li><p>Avg. signal-change events per clip: 3.02</p></li>
+</ul>
+</dd>
+</dl>
+</li>
 <li><p>Scene: Driving across woods, grass, sea, field, river, others (ratio: 12%:15%:18%:16%:15%:9%:15%)</p></li>
 </ul>
 </dd>
 </dl>
 </li>
 <li><dl class="simple">
-<dt>Cyberpunk 2077: 300k video-control signal pairs.</dt><dd><ul>
+<dt>Cyberpunk 2077: 300k video-control signal pairs.(Coming soon)</dt><dd><ul>
 <li><p>Data format: 60 FPS, 2560×1600P, 4-6s with control signals</p></li>
 <li><p>Scene: Dense urban environments with skyscrapers, including day-night cycles and indoor-outdoor scenes (ratio: 1:3).</p></li>
 </ul>
@@ -347,7 +364,7 @@ document.write(`
 </div></blockquote>
 </li>
 </ul>
-<a class="reference internal image-reference" href="images/scene.jpg"><img alt="Alternative text for the image" class="align-center" src="images/scene.jpg" style="width: 800px;" /></a>
+<a class="reference internal image-reference" href="_images/scene.jpg"><img alt="Alternative text for the image" class="align-center" src="_images/scene.jpg" style="width: 800px;" /></a>
 </section>
 <section id="citations-and-publications">
 <h2>Citations and publications<a class="headerlink" href="#citations-and-publications" title="Permalink to this heading">#</a></h2>
@@ -408,7 +425,7 @@ document.write(`
   <div class="sidebar-secondary-item">
 
   <div class="tocsection sourcelink">
-    <a href="sources/index.rst.txt">
+    <a href="_sources/index.rst.txt">
       <i class="fa-solid fa-file-lines"></i> Show Source
     </a>
   </div>
@@ -427,8 +444,8 @@ document.write(`
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
-<script src="static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
+  <script src="_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
 
   <footer class="bd-footer">
 <div class="bd-footer__inner bd-page-width">
