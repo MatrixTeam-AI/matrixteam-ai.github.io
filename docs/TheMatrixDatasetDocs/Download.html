@@ -338,8 +338,8 @@ document.write(`
   <section id="download">
 <h1>Download<a class="headerlink" href="#download" title="Permalink to this heading">#</a></h1>
 <ul class="simple">
-<li><p><a class="reference external" href="https://www.modelscope.cn/models/AiurRuili/TheMatrix">Dataset Link</a></p></li>
-<li><p><a class="reference external" href="https://example.com/dataset">Dataset Page</a></p></li>
+<li><p><a class="reference external" href="https://www.modelscope.cn/datasets/TheMatrixDataset/the_matrix_dataset_8M_1920_1080">Dataset Link</a></p></li>
+<li><p><a class="reference external" href="https://matrixteam-ai.github.io/pages/TheMatrixDataset/">Dataset Page</a></p></li>
 </ul>
 </section>
 <section id="dataset-download-via-modelscope">
@@ -398,13 +398,14 @@ document.write(`
 <p>Create Python script with the following code:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">from</span><span class="w"> </span><span class="nn">huggingface_hub</span><span class="w"> </span><span class="kn">import</span> <span class="n">snapshot_download</span>
 <span class="linenos"> 2</span>
-<span class="linenos"> 3</span><span class="n">dataset_dir</span> <span class="o">=</span> <span class="n">snapshot_download</span><span class="p">(</span>
-<span class="linenos"> 4</span>    <span class="n">repo_id</span><span class="o">=</span><span class="s2">&quot;https://huggingface.co/MatrixTeam/TheMatrix/&quot;</span><span class="p">,</span>
-<span class="linenos"> 5</span>    <span class="n">repo_type</span><span class="o">=</span><span class="s2">&quot;dataset&quot;</span><span class="p">,</span>
-<span class="linenos"> 6</span>    <span class="n">cache_dir</span><span class="o">=</span><span class="s2">&quot;your/custom/path&quot;</span><span class="p">,</span>  <span class="c1"># Optional: custom storage path</span>
-<span class="linenos"> 7</span>    <span class="n">ignore_patterns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;*.weights&quot;</span><span class="p">,</span> <span class="s2">&quot;*.safetensors&quot;</span><span class="p">],</span>  <span class="c1"># Optional: exclude model files</span>
-<span class="linenos"> 8</span>    <span class="n">token</span><span class="o">=</span><span class="s2">&quot;hf_YourAccessToken&quot;</span>  <span class="c1"># Required for private datasets</span>
-<span class="linenos"> 9</span><span class="p">)</span>
+<span class="linenos"> 3</span><span class="c1"># Use official dataset ID (e.g. &#39;MatrixTeam/TheMatrix-Dataset&#39;)</span>
+<span class="linenos"> 4</span><span class="n">dataset_dir</span> <span class="o">=</span> <span class="n">snapshot_download</span><span class="p">(</span>
+<span class="linenos"> 5</span>    <span class="n">repo_id</span><span class="o">=</span><span class="s2">&quot;https://huggingface.co/MatrixTeam/TheMatrix/&quot;</span><span class="p">,</span>
+<span class="linenos"> 6</span>    <span class="n">repo_type</span><span class="o">=</span><span class="s2">&quot;dataset&quot;</span><span class="p">,</span>
+<span class="linenos"> 7</span>    <span class="n">cache_dir</span><span class="o">=</span><span class="s2">&quot;your/custom/path&quot;</span><span class="p">,</span>  <span class="c1"># Optional: custom storage path</span>
+<span class="linenos"> 8</span>    <span class="n">ignore_patterns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;*.weights&quot;</span><span class="p">,</span> <span class="s2">&quot;*.safetensors&quot;</span><span class="p">],</span>  <span class="c1"># Optional: exclude model files</span>
+<span class="linenos"> 9</span>    <span class="n">token</span><span class="o">=</span><span class="s2">&quot;hf_YourAccessToken&quot;</span>  <span class="c1"># Required for private datasets</span>
+<span class="linenos">10</span><span class="p">)</span>
 </pre></div>
 </div>
 <section id="id2">
@@ -504,9 +505,9 @@ document.write(`
 
   <div class="sidebar-secondary-item">
 
-  <div class="tocsection Matrixlink">
-    <a href="Matrixs/Download.rst.txt">
-      <i class="fa-solid fa-file-lines"></i> Show Matrix
+  <div class="tocsection sourcelink">
+    <a href="_sources/Download.rst.txt">
+      <i class="fa-solid fa-file-lines"></i> Show Source
     </a>
   </div>
 </div>
