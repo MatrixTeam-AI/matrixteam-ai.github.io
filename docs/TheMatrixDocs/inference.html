@@ -458,7 +458,7 @@ Detailed parameter descriptions are as follows:</p>
 <h2>2. Inference with run_interactive.sh<a class="headerlink" href="#inference-with-run-interactive-sh" title="Permalink to this heading">#</a></h2>
 <section id="summary">
 <h3>Summary<a class="headerlink" href="#summary" title="Permalink to this heading">#</a></h3>
-<p>run_interactive.sh launches a fully parallelized, low-latency pipeline that generates video at <strong>16 FPS</strong> end-to-end (i.e. real-time). This script leverages our 8-GPU DiT &amp; VAE parallel inference, stream consistency models, and fused data training to reduce a single-GPU baseline’s 32 s per 4 s video down to 4 s—a <strong>8× speedup</strong>—while maintaining infinite-horizon stability.</p>
+<p>run_interactive.sh launches a fully parallelized, low-latency pipeline that generates video at <strong>16 FPS</strong> end-to-end (i.e. real-time). This script leverages our 8-GPU DiT &amp; VAE parallel inference, stream consistency models to reduce a single-GPU baseline’s 32 s per 4 s video down to 4 s—a <strong>8× speedup</strong>—while maintaining infinite-horizon stability.</p>
 </section>
 <section id="highlights">
 <h3>Highlights<a class="headerlink" href="#highlights" title="Permalink to this heading">#</a></h3>
@@ -468,7 +468,7 @@ DiT and VAE stages each slice work across 8 GPUs for a <strong>6–8× speedup</
 <li><p><strong>Stream Consistency Models</strong>
 Novel consistency losses yield <strong>7–10× higher throughput</strong> over naïve frame-by-frame generation.</p></li>
 <li><p><strong>Real-Time Feedback Loop</strong>
-Sustains a continuous <strong>16 FPS</strong> generation/playback cycle with <strong>&lt; 50 ms</strong> input-to-output latency.</p></li>
+Sustains a continuous <strong>16 FPS</strong> generation/playback cycle in real time.</p></li>
 </ul>
 </section>
 <section id="two-inference-modes">
@@ -484,45 +484,14 @@ Sustains a continuous <strong>16 FPS</strong> generation/playback cycle with <st
 - Ideal for continuous/live deployments or performance benchmarking.</p></li>
 </ol>
 </section>
-<section id="performance-comparison">
-<h3>Performance Comparison<a class="headerlink" href="#performance-comparison" title="Permalink to this heading">#</a></h3>
-<table class="table" id="id1">
-<caption><span class="caption-text">Inference throughput comparison for a 4 s video</span><a class="headerlink" href="#id1" title="Permalink to this table">#</a></caption>
-<colgroup>
-<col style="width: 25.0%" />
-<col style="width: 25.0%" />
-<col style="width: 25.0%" />
-<col style="width: 25.0%" />
-</colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p>Mode</p></th>
-<th class="head"><p>GPUs used</p></th>
-<th class="head"><p>FPS achieved</p></th>
-<th class="head"><p>Total latency</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>Baseline API</p></td>
-<td><p>1</p></td>
-<td><p>~2</p></td>
-<td><p>~32 s</p></td>
-</tr>
-<tr class="row-odd"><td><p>Interactive</p></td>
-<td><p>8</p></td>
-<td><p>16</p></td>
-<td><p>~4 s</p></td>
-</tr>
-</tbody>
-</table>
-</section>
 <section id="configuration">
 <h3>Configuration<a class="headerlink" href="#configuration" title="Permalink to this heading">#</a></h3>
 <p>At the top of <cite>run_interactive.sh</cite>, set:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># GPUs for DiT stage (must sum to 8)</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># GPUs for DiT stage</span>
 <span class="nv">NUM_GPUS_DIT</span><span class="o">=</span><span class="m">1</span>
 
-<span class="c1"># GPUs for VAE stage (NUM_GPUS_DIT + NUM_GPUS_VAE = 8)</span>
-<span class="nv">NUM_GPUS_VAE</span><span class="o">=</span><span class="m">7</span>
+<span class="c1"># GPUs for VAE stage</span>
+<span class="nv">NUM_GPUS_VAE</span><span class="o">=</span><span class="m">3</span>
 
 <span class="c1"># Path to stage4 model weights</span>
 <span class="nv">MODEL_PATH</span><span class="o">=</span><span class="s2">&quot;../models/stage4&quot;</span>
@@ -623,7 +592,6 @@ Set to <cite>expandable_segments:True</cite> to optimize CUDA allocator behavior
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#highlights">Highlights</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#two-inference-modes">Two Inference Modes</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#performance-comparison">Performance Comparison</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#configuration">Configuration</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#usage">Usage</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sub-script-start-dit-sh">Sub-script: start_dit.sh</a></li>
