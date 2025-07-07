@@ -21,9 +21,11 @@ Firstly,  set base model and data root arguments in stage1/training/lora_config.
 The pretrained_model_name_or_path is the path of the original CogVideoX-2B model, or huggingface identifier. All data can be found in our GitHub repo.
 Also, don't forget to set GPU information in stage1/train_text_to_video_lora.sh.
 After setting up all arguments, run training with:
+
 ::
    cd stage1
    bash train_text_to_video_lora.sh
+
 To customize your training, feel free to modify training arguments.
 Notes
 After the training is finished, you need to fuse LoRA parameters into the base model for the next stage of training.
@@ -31,7 +33,7 @@ We provide a script stage1/fuse_lora_weights.py to achieve this. It's quite easy
 You can also check model performance by generating videos with stage1/inference.py
 
 Stage2: Adding the Interactive Module
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Training script
 Similarly, first set necessary arguments in stage2/training/sft_config.py and stage2/train_text_to_video_sft.sh. Note that the args.pretrained_model_name_or_path should be the output_dir of stage1/fuse_lora_weights.py.
 Then run:
@@ -39,6 +41,7 @@ Then run:
 
    cd stage2
    bash train_text_to_video_sft.sh
+
 Notes
 In this stage, only parameters in the Interactive Module (i.e. control_adapter module) are trainable.
 
@@ -50,10 +53,8 @@ Then run:
 
    cd stage3
    bash train_text_to_video_sft.sh
+
 Notes
 This stage applies full-parameter finetuning. Please take care of training parameters to avoid OOM.
 This stage involves extensive code modifications, particularly in pipeline_cogvideox.py and scheduler.py. After this stage, you should be able to generate 1 min interactive video using time less than 16 min on a single Nvidia A100 GPU. Further acceleration from SCM and parallel sampling will improve the inference speed to real-time.
 
-Stage4: SCM Training
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-TODO

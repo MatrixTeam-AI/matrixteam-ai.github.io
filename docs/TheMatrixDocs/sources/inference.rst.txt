@@ -1,5 +1,7 @@
 Inference
 ------------------------------
+1.Inference with the_matrix.py
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 We provide the the_matrix class as an interface for users to easily generate interactive worlds. The related code can be found in the_matrix.py.
 We also offer a generation example script generation_example.py in the root dir.
 
@@ -46,4 +48,78 @@ Detailed parameter descriptions are as follows:
 The generation function in the_matrix calls inference.py within the respective stage folders. For more detailed generation settings, you can use the corresponding scripts in those folders.
 
 Here 'D' stands for 'The car is Driving forward' which corresponds to pressing the 'W' key on the keyboard, 'DL' stands for 'The car is Driving Left' and corresponds to pressing the 'A' key, 'DR' stands for 'The car is Driving Right' and corresponds to pressing the 'D' key.
+
+2. Inference with run_interactive.sh
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The `run_interactive.sh` script orchestrates a multi-stage pipeline using Ray, DIT and VAE processes. It performs the following steps:
+
+1. Stop any existing Ray cluster  
+2. Compute `CUDA_VISIBLE_DEVICES` based on configured GPU counts  
+3. Start Ray head node  
+4. Launch, in order (some in background):  
+   - `create_ray_pipe.py`  
+   - `main.py`  
+   - `start_dit.sh` (DIT inference)  
+   - `start_decoding_daemon.py` (VAE decoding daemon)  
+
+Configuration
+^^^^^^^^^^^^^^^^
+
+At the top of `run_interactive.sh`, set the following variables:
+
+.. code-block:: bash
+
+   # Number of GPUs for DIT stage
+   NUM_GPUS_DIT=1
+
+   # Number of GPUs for VAE stage
+   NUM_GPUS_VAE=3
+
+   # Path to stage4 model weights
+   MODEL_PATH="../models/stage4"
+
+The script will assemble:
+
+- **GPU_IDS**: a comma-separated list `NUM_GPUS_DIT,NUM_GPUS_DIT+1,…`  
+- **CUDA_VISIBLE_DEVICES**: exported before Ray and Python processes  
+
+Usage
+^^^^^^^^
+
+Run the entire pipeline with:
+
+.. code-block:: bash
+
+   bash run_interactive.sh
+
+Alternatively, export the three variables as environment variables:
+
+.. code-block:: bash
+
+   export NUM_GPUS_DIT=1
+   export NUM_GPUS_VAE=3
+   export MODEL_PATH="../models/stage4"
+   bash run_interactive.sh
+
+Sub-script: start_dit.sh
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. code-block:: bash
+
+   bash start_dit.sh <NUM_GPUS_DIT> <MODEL_PATH>
+
+:NUM_GPUS_DIT:
+    Number of GPUs to allocate for the DIT process.  
+:MODEL_PATH:
+    Path to the directory or prefix of stage4 model checkpoint files.
+
+Environment Variables
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+- **CUDA_VISIBLE_DEVICES**  
+  Computed by the script as a comma-separated list to assign GPUs.
+
+- **PYTORCH_CUDA_ALLOC_CONF**  
+  Set to `expandable_segments:True` to configure PyTorch allocator.
 
