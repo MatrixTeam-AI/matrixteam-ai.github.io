@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 96" role="img" aria-label="NVIDIA Research">
+  <rect x="10" y="18" width="100" height="60" rx="10" fill="#76b900"/>
+  <path d="M24 49c17-20 48-24 72-6-21-6-42-2-55 11 12-5 25-4 35 3-14 9-36 8-52-8z" fill="#ffffff"/>
+  <circle cx="59" cy="50" r="9" fill="#76b900"/>
+  <circle cx="59" cy="50" r="4" fill="#ffffff"/>
+</svg>

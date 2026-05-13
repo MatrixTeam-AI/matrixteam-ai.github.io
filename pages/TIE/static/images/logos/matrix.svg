@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 96" role="img" aria-label="Matrix Team">
+  <rect x="12" y="16" width="96" height="64" rx="16" fill="#0f1424"/>
+  <path d="M30 28l20 20-20 20" fill="none" stroke="#ffffff" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M90 28L70 48l20 20" fill="none" stroke="#ffffff" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="60" cy="48" r="7" fill="#5b6cff"/>
+</svg>

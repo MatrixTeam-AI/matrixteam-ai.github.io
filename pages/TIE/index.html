@@ -1,7 +1,1010 @@
-<html>
-  <body>
-    <h1>Coming soon</h1>
-      <br/>
-    <a href="https://github.com/MatrixTeam-AI/TIE">Github Code Repo (Coming soon)</a>
-  </body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TIE: Time Interval Encoding for Video Generation over Events</title>
+  <meta name="description" content="TIE elevates time intervals to first-class primitives in DiT cross-attention. A principled, plug-and-play interval-aware extension of RoPE that unlocks concurrent and overlapping events in video generation." />
+
+  <!-- Open Graph / Twitter -->
+  <meta property="og:title" content="TIE: Time Interval Encoding for Video Generation over Events" />
+  <meta property="og:description" content="arXiv:2605.10543. A principled, plug-and-play interval-aware generalization of rotary embeddings. TCSR 77.34% → 96.03%, boundary error 0.261s → 0.073s." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://matrixteam-ai.github.io/pages/TIE/" />
+  <meta property="og:image" content="https://matrixteam-ai.github.io/pages/TIE/static/images/og-card.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="TIE: Time Interval Encoding for Video Generation over Events" />
+  <meta name="twitter:description" content="arXiv:2605.10543. A principled, plug-and-play interval-aware generalization of RoPE for concurrent and overlapping events." />
+  <meta name="twitter:image" content="https://matrixteam-ai.github.io/pages/TIE/static/images/og-card.png" />
+  <meta name="citation_title" content="TIE: Time Interval Encoding for Video Generation over Events" />
+  <meta name="citation_arxiv_id" content="2605.10543" />
+  <meta name="citation_publication_date" content="2026/05/11" />
+  <meta name="citation_pdf_url" content="https://arxiv.org/pdf/2605.10543" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;600&amp;family=Newsreader:ital,opsz,wght@0,6..72,500;0,6..72,650;1,6..72,500;1,6..72,650&amp;display=swap" rel="stylesheet" />
+
+  <!-- MathJax for inline equations -->
+  <script>
+    MathJax = {
+      tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']] },
+      svg: { fontCache: 'global' }
+    };
+  </script>
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="static/css/main.css" />
+
+  <!-- Favicon (inline SVG: a small purple/blue interval bar) -->
+  <link rel="icon" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><defs><linearGradient id='g' x1='0' x2='1'><stop offset='0' stop-color='%235b6cff'/><stop offset='1' stop-color='%238b5cf6'/></linearGradient></defs><rect x='8' y='26' width='48' height='12' rx='6' fill='url(%23g)'/></svg>" />
+</head>
+
+<body>
+
+<svg class="icon-sprite" aria-hidden="true">
+  <symbol id="icon-target" viewBox="0 0 24 24">
+    <circle cx="12" cy="12" r="8"></circle><circle cx="12" cy="12" r="3"></circle><path d="M12 2v4M12 18v4M2 12h4M18 12h4"></path>
+  </symbol>
+  <symbol id="icon-boundary" viewBox="0 0 24 24">
+    <path d="M5 4v16M19 4v16"></path><path d="M8 8h8M8 16h8"></path><path d="M10 12h4"></path>
+  </symbol>
+  <symbol id="icon-overlap" viewBox="0 0 24 24">
+    <rect x="4" y="7" width="11" height="10" rx="2"></rect><rect x="9" y="4" width="11" height="10" rx="2"></rect>
+  </symbol>
+  <symbol id="icon-chip" viewBox="0 0 24 24">
+    <rect x="7" y="7" width="10" height="10" rx="2"></rect><path d="M9 2v3M15 2v3M9 19v3M15 19v3M2 9h3M2 15h3M19 9h3M19 15h3"></path>
+  </symbol>
+  <symbol id="icon-integral" viewBox="0 0 24 24">
+    <path d="M15 3c-3.5 0-4.8 2.1-4.2 6l.9 6c.5 3.4-.7 6-4.7 6"></path><path d="M7 8h9M8 16h9"></path>
+  </symbol>
+  <symbol id="icon-scale" viewBox="0 0 24 24">
+    <path d="M12 3v18M6 7h12M6 7l-3 6h6L6 7zM18 7l-3 6h6l-3-6z"></path>
+  </symbol>
+  <symbol id="icon-filter" viewBox="0 0 24 24">
+    <path d="M4 5h16l-6 7v5l-4 2v-7L4 5z"></path>
+  </symbol>
+  <symbol id="icon-noise" viewBox="0 0 24 24">
+    <path d="M3 12h3l2-5 4 10 3-8 2 3h4"></path>
+  </symbol>
+  <symbol id="icon-json" viewBox="0 0 24 24">
+    <path d="M8 7c-2 0-3 1-3 3v1c0 1-.5 1.5-1.5 1.5C5 12.5 5 13 5 14v1c0 2 1 3 3 3"></path>
+    <path d="M16 7c2 0 3 1 3 3v1c0 1 .5 1.5 1.5 1.5C19 12.5 19 13 19 14v1c0 2-1 3-3 3"></path>
+  </symbol>
+  <symbol id="icon-video" viewBox="0 0 24 24">
+    <rect x="3" y="6" width="13" height="12" rx="2"></rect><path d="M16 10l5-3v10l-5-3z"></path>
+  </symbol>
+</svg>
+
+<!-- =========================================================
+     Sticky topbar
+     ========================================================= -->
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" href="#top">
+      <span class="dot"></span>
+      <span>TIE&nbsp;·&nbsp;Preprint</span>
+    </a>
+    <nav>
+      <a href="#news">News</a>
+      <a href="#method">Method</a>
+      <a href="#results">Results</a>
+      <a href="#robustness">Robustness</a>
+      <a href="#demos">Demos</a>
+      <a href="#dataset">Dataset</a>
+      <a href="#bibtex">Cite</a>
+    </nav>
+    <a class="team-chip" href="https://matrixteam-ai.github.io/" target="_blank" rel="noopener" title="Visit Matrix Team">
+      <img src="static/images/logos/official/matrix-white.svg" alt="Matrix Team" />
+      <span class="text">Matrix Team</span>
+    </a>
+  </div>
+</header>
+
+<!-- =========================================================
+     Hero
+     ========================================================= -->
+<section class="hero" id="top" style="border-top:none;">
+  <div class="container">
+    <div class="venue-pill">2026 Preprint · Under review</div>
+
+    <h1 class="title">
+      <span class="accent">TIE</span>: Time Interval Encoding for<br/>
+      Video Generation over Events
+    </h1>
+
+    <p class="tagline">
+      Give video generators precise control over when events begin, overlap, and end.
+    </p>
+
+    <p class="hero-claim">
+      <span>Events are not points.</span>
+      <em>Let them live in time.</em>
+    </p>
+
+    <p class="authors">
+      Zhilei Shu<sup>1,2,</sup><span class="star">∗</span>,
+      Shangwen Zhu<sup>2,3,</sup><span class="star">∗</span>,
+      Zihang Liang<sup>2,6</sup>,
+      Xiaofan Li<sup>2</sup>,
+      Qianyu Peng<sup>8</sup>,
+      Xinyu Cui<sup>7</sup>,
+      Bo Ye<sup>7</sup>,
+      Yiming Li<sup>4</sup>,
+      Fan Cheng<sup>3</sup>,
+      Jian Zhao<sup>7</sup>,
+      Yang Cao<sup>1</sup>,
+      Zheng-Jun Zha<sup>1,</sup><span class="dagger">†</span>,
+      Ruili Feng<sup>5,2,9,</sup><span class="star">∗</span><span class="role-pill">Project Lead</span>
+    </p>
+
+    <p class="affiliations">
+      <sup>1</sup>University of Science and Technology of China &nbsp;·&nbsp;
+      <sup>2</sup>Matrix Team &nbsp;·&nbsp;
+      <sup>3</sup>Shanghai Jiao Tong University &nbsp;·&nbsp;
+      <sup>4</sup>Nanyang Technological University &nbsp;·&nbsp;
+      <sup>5</sup>University of Waterloo &nbsp;·&nbsp;
+      <sup>6</sup>The Pennsylvania State University &nbsp;·&nbsp;
+      <sup>7</sup>Zhongguancun Academy &nbsp;·&nbsp;
+      <sup>8</sup>The University of Hong Kong &nbsp;·&nbsp;
+      <sup>9</sup>NVIDIA Research
+    </p>
+
+    <p class="legend">
+      <span class="star">∗</span> Equal contribution &nbsp;·&nbsp;
+      <span class="dagger">†</span> Corresponding author &nbsp;·&nbsp;
+      <span class="role-dot">Project Lead</span>
+    </p>
+
+    <a class="presented-by" href="https://matrixteam-ai.github.io/" target="_blank" rel="noopener">
+      <span class="pb-logo">
+        <img src="static/images/logos/official/matrix-white.svg" alt="" />
+      </span>
+      <span>Presented by <strong>Matrix Team</strong> — Neural Interactive Simulation</span>
+    </a>
+
+    <!-- ====================================================
+         Affiliation logo strip
+         Official institution logo assets are vendored locally.
+         ==================================================== -->
+    <div class="affil-strip">
+      <div class="affil-strip-label">Affiliated institutions</div>
+
+      <a class="aff-logo logo-ink logo-wide"
+         href="https://en.ustc.edu.cn/" target="_blank" rel="noopener" title="University of Science and Technology of China">
+        <img src="static/images/logos/official/ustc.png" alt="USTC" />
+      </a>
+      <a class="aff-logo logo-ink logo-wide"
+         href="https://matrixteam-ai.github.io/" target="_blank" rel="noopener" title="Matrix Team">
+        <img src="static/images/logos/official/matrix-ink.svg" alt="Matrix Team" />
+      </a>
+      <a class="aff-logo logo-ink logo-wide"
+         href="https://en.sjtu.edu.cn/" target="_blank" rel="noopener" title="Shanghai Jiao Tong University">
+        <img src="static/images/logos/official/sjtu-white.png" alt="SJTU" />
+      </a>
+      <a class="aff-logo logo-wide"
+         href="https://www.ntu.edu.sg/" target="_blank" rel="noopener" title="Nanyang Technological University">
+        <img src="static/images/logos/official/ntu.png" alt="NTU" />
+      </a>
+      <a class="aff-logo logo-compact"
+         href="https://uwaterloo.ca/" target="_blank" rel="noopener" title="University of Waterloo">
+        <img src="static/images/logos/official/waterloo.svg" alt="University of Waterloo" />
+      </a>
+      <a class="aff-logo logo-ink logo-wide"
+         href="https://www.psu.edu/" target="_blank" rel="noopener" title="The Pennsylvania State University">
+        <img src="static/images/logos/official/psu.svg" alt="Penn State" />
+      </a>
+      <a class="aff-logo logo-wide" href="https://www.bza.edu.cn/en/" target="_blank" rel="noopener" title="Zhongguancun Academy">
+        <img src="static/images/logos/official/zgc.png" alt="Zhongguancun Academy" />
+      </a>
+      <a class="aff-logo logo-wide"
+         href="https://www.hku.hk/" target="_blank" rel="noopener" title="The University of Hong Kong">
+        <img src="static/images/logos/official/hku.svg" alt="HKU" />
+      </a>
+      <a class="aff-logo logo-wide"
+         href="https://research.nvidia.com/" target="_blank" rel="noopener" title="NVIDIA Research">
+        <img src="static/images/logos/official/nvidia.svg" alt="NVIDIA Research" />
+      </a>
+    </div>
+
+    <div class="cta-row">
+      <a class="btn primary" href="https://arxiv.org/abs/2605.10543" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M9 13h6M9 17h6M9 9h2"/></svg>
+        arXiv Paper
+      </a>
+      <a class="btn" href="https://arxiv.org/pdf/2605.10543" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z"/></svg>
+        PDF
+      </a>
+      <span class="btn disabled" aria-disabled="true">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2.2c-3.3.7-4-1.4-4-1.4-.5-1.4-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1.1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.3.5-2.4 1.2-3.2-.1-.4-.5-1.6.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.6.2 2.8.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .3"/></svg>
+        Code coming soon
+      </span>
+      <span class="btn disabled" aria-disabled="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        Dataset coming soon
+      </span>
+      <a class="btn" href="#bibtex">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l-7 6 7 6M15 6l7 6-7 6"/></svg>
+        BibTeX
+      </a>
+    </div>
+
+    <!-- Launch badges: factual public links. -->
+    <div class="badges" aria-label="Project badges">
+      <a href="https://arxiv.org/abs/2605.10543" target="_blank" rel="noopener">
+        <img src="https://img.shields.io/badge/arXiv-2605.10543-b31b1b?style=flat-square" alt="arXiv:2605.10543" />
+      </a>
+      <img src="https://img.shields.io/badge/status-preprint-5b6cff?style=flat-square" alt="Preprint status" />
+      <img src="https://img.shields.io/badge/method-plug--and--play-00a878?style=flat-square" alt="Plug-and-play method" />
+      <img src="https://img.shields.io/badge/dataset-OmniEvents%20preview-8b5cf6?style=flat-square" alt="OmniEvents preview" />
+    </div>
+
+    <div class="teaser">
+      <div class="figure-frame hero-figure" id="teaser-video">
+        <img src="static/images/figs/teaser.png" alt="TIE teaser showing event-conditioned video generation with explicit time intervals" />
+      </div>
+      <p class="caption">
+        <strong>Generation results with TIE.</strong> By leveraging Time Interval Encoding,
+        the model generates videos from structured event descriptions with explicit temporal
+        boundaries — including <em>concurrent</em> and <em>overlapping</em> events that single-active-prompt baselines cannot represent.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     TL;DR + headline numbers
+     ========================================================= -->
+<section id="tldr">
+  <div class="container">
+    <div class="tldr">
+      <span class="evidence-tag insight">Insight</span>
+      <h3>What this paper says</h3>
+      <p>
+        Modern DiT video generators encode time as <strong>discrete points</strong>, while real-world events are
+        <strong>continuous intervals</strong>. This dimension mismatch makes overlapping events mathematically unrepresentable.
+        <strong>TIE</strong> fixes this with a principle-driven generalization of RoPE: two simple axioms
+        (<em>Temporal Integrability</em> and <em>Duration Invariance</em>) uniquely yield a
+        closed-form, sinc-modulated interval encoder — plug-and-play, zero overhead, and structurally robust to noisy timestamps.
+      </p>
+    </div>
+
+    <div class="claim-strip" aria-label="Key claims">
+      <div><span>No masks.</span><em>Standard attention stays.</em></div>
+      <div><span>No frame-perfect labels.</span><em>Coarse intervals suffice.</em></div>
+      <div><span>No extra architecture.</span><em>RoPE becomes interval-aware.</em></div>
+    </div>
+
+    <div class="evidence-grid robustness-evidence" aria-label="Robustness evidence">
+      <div class="evidence-card">
+        <span class="evidence-tag theory">Theory</span>
+        <h3>Noise decays with interval length.</h3>
+        <p>Boundary perturbations affect only the margin of the integration domain.</p>
+        <div class="evidence-formula">
+          $\mathcal{O}(\delta/r)$
+          <span>vs.</span>
+          $\mathcal{O}(\theta_{\max}\delta)$
+        </div>
+      </div>
+      <div class="evidence-card">
+        <span class="evidence-tag experiment">Experiment</span>
+        <h3>Strongest noise still wins.</h3>
+        <div class="evidence-value">+7.5%</div>
+        <p>nDTW over clean Finetuned at noise level $\sigma=1.0$.</p>
+        <div class="evidence-sub">0.274 vs. 0.255</div>
+      </div>
+      <div class="evidence-card">
+        <span class="evidence-tag experiment">Experiment</span>
+        <h3>Temporal drift remains lower.</h3>
+        <div class="evidence-value">−2.8%</div>
+        <p>EMD below clean Finetuned even under $\sigma=1.0$ disturbance.</p>
+        <div class="evidence-sub">0.138 vs. 0.142</div>
+      </div>
+    </div>
+
+    <div class="stat-grid">
+      <div class="stat">
+        <div class="stat-icon"><svg><use href="#icon-target"></use></svg></div>
+        <div class="label">Temporal Constraint Satisfaction</div>
+        <div class="value"><span class="from">77.34%</span><span class="arrow">→</span><span class="to">96.03%</span></div>
+        <div class="delta">+24% relative</div>
+      </div>
+      <div class="stat">
+        <div class="stat-icon"><svg><use href="#icon-boundary"></use></svg></div>
+        <div class="label">Boundary Error</div>
+        <div class="value"><span class="from">0.261s</span><span class="arrow">→</span><span class="to">0.073s</span></div>
+        <div class="delta">−72% relative</div>
+      </div>
+      <div class="stat">
+        <div class="stat-icon"><svg><use href="#icon-overlap"></use></svg></div>
+        <div class="label">Concurrent Events in the Wild</div>
+        <div class="value"><span class="to">68% / 99%</span></div>
+        <div class="delta">general / robotics &amp; gameplay</div>
+      </div>
+      <div class="stat">
+        <div class="stat-icon"><svg><use href="#icon-chip"></use></svg></div>
+        <div class="label">Architecture Overhead</div>
+        <div class="value"><span class="to">0</span></div>
+        <div class="delta">drop-in over RoPE</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     News
+     ========================================================= -->
+<section id="news">
+  <div class="container">
+    <h2>News</h2>
+    <p class="section-sub">Latest updates on TIE.</p>
+    <ul class="news-list">
+      <li>
+        <span class="date">2026 · 05</span>
+        <strong>TIE is now on arXiv.</strong> Read the preprint at
+        <a href="https://arxiv.org/abs/2605.10543" target="_blank" rel="noopener">arXiv:2605.10543</a>.
+        <span class="pill-new">NEW</span>
+      </li>
+      <li>
+        <span class="date">2026 · 05</span>
+        <strong>Code and full dataset release are being prepared.</strong> Public links will be activated after cleanup.
+      </li>
+      <li>
+        <span class="date">2026 · 04</span>
+        Initial preprint draft completed. <a href="#bibtex">BibTeX entry</a> is provided for early reference.
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- =========================================================
+     The Problem
+     ========================================================= -->
+<section id="problem">
+  <div class="container">
+    <h2>Why existing video generators struggle with events</h2>
+    <p class="section-sub">A structural problem, not a scaling problem.</p>
+
+    <p class="lead" style="text-align:center; max-width:760px; margin:0 auto 8px;">
+      In <strong>68%</strong> of general clips and over <strong>99%</strong> of robotics &amp; gameplay clips,
+      multiple events overlap in time. Yet every modern multi-event generator rests on a
+      <em>single-active-prompt</em> assumption.
+    </p>
+
+    <div class="pull-claim">
+      <span>The old grammar breaks at overlap.</span>
+    </div>
+
+    <div class="cmp-grid">
+      <div class="cmp-card bad">
+        <span class="pill">RoPE — Point-wise</span>
+        <h3>Time as discrete points</h3>
+        <p>
+          Standard rotary embeddings assign each token a single timestamp. Events that span an interval —
+          let alone overlap — collapse into ambiguous token sequences. Because all temporal evidence is concentrated
+          at points or endpoints, timestamp noise directly perturbs the encoded phase. This is exactly the failure mode
+          that appears in large-scale training, where event boundaries are produced by imperfect automatic annotators.
+        </p>
+      </div>
+
+      <div class="cmp-card good">
+        <span class="pill">TIE — Interval-aware</span>
+        <h3>Time as intervals</h3>
+        <p>
+          A textual event token carries an interval $I = [t^s, t^e]$. Cross-attention aggregates positional
+          evidence over the entire span — so concurrent and overlapping events become first-class citizens.
+        </p>
+      </div>
+    </div>
+
+    <div style="margin-top:32px;">
+      <div class="figure-frame tie-visualize-figure" style="max-width:920px; margin:0 auto;">
+        <img src="static/images/figs/rope-vs-tie.png" alt="Point-wise RoPE compared with interval-aware TIE" />
+      </div>
+      <p class="caption">
+        Point-wise RoPE cannot naturally model the point-to-interval activation pattern of an event.
+        TIE supports it natively via interval integration.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     Method
+     ========================================================= -->
+<section id="method">
+  <div class="container">
+    <h2>Two principles → one closed-form encoder</h2>
+    <p class="section-sub">No heuristics. The form of TIE is uniquely determined.</p>
+
+    <p class="lead" style="text-align:center; max-width:780px; margin:0 auto 0;">
+      Within RoPE-compatible bilinear attention, the key object is the cross-attention logit from a video
+      query token to a textual event token. TIE asks: what should this logit become when the text token refers
+      to an interval, not a point?
+    </p>
+
+    <div class="method-claim">
+      <span>Two principles.</span>
+      <em>One inevitable form.</em>
+    </div>
+
+    <div class="score-context">
+      <div>
+        <span class="evidence-tag theory">Definition</span>
+        <h3>Point-to-interval attention score</h3>
+        <p>
+          For a video query $q_i$ at time $m_i$ and an event key $k_j$ with interval
+          $I_j=[t_j^s,t_j^e]$, TIE defines the attention logit by aggregating RoPE evidence over the
+          full temporal support of the event.
+        </p>
+      </div>
+      <div class="context-eq">
+        $$s_{i,j}=s(q_i,k_j;m_i,I_j)$$
+        <span>the logit used by DiT cross-attention</span>
+      </div>
+    </div>
+
+    <div class="principles">
+      <div class="principle">
+        <div class="principle-icon"><svg><use href="#icon-integral"></use></svg></div>
+        <div class="num">01</div>
+        <h3>Temporal Integrability</h3>
+        <div class="principle-eq">
+          $$\bar{s}_{i,j}=\mathbb{E}_{\tau\sim\mu_{I_j}}\!\left[
+          s_{\mathrm{RoPE}}(q_i,k_j;m_i,\tau)\right]$$
+        </div>
+        <p>
+          The cross-attention logit must integrate point-wise RoPE evidence across the event's full support.
+          The interior of the interval is preserved, not collapsed to a center or boundary timestamp.
+        </p>
+      </div>
+      <div class="principle">
+        <div class="principle-icon"><svg><use href="#icon-scale"></use></svg></div>
+        <div class="num">02</div>
+        <h3>Duration Invariance</h3>
+        <div class="principle-eq">
+          $$s_{i,j}=C(\mu_{I_j})^{-1}\bar{s}_{i,j},\qquad C(\mu_{I_j})>0$$
+        </div>
+        <p>
+          The final logit must reflect semantic relevance, not interval length. Normalization prevents long
+          events from winning simply because they accumulate more temporal evidence.
+        </p>
+      </div>
+    </div>
+
+    <div class="equation-block">
+      $$\text{RoTE}(k, c, r) \;=\; \frac{1}{C_r}\, R_{c,r}\, k,
+      \qquad
+      \mathbf{A}_{i,c,r} = \operatorname{sinc}(\theta_i r)
+      \begin{pmatrix}\cos(\theta_i c) &amp; -\sin(\theta_i c)\\ \sin(\theta_i c) &amp; \cos(\theta_i c)\end{pmatrix}$$
+      <div class="eq-label">Closed-form RoTE — uniform kernel TIE instantiation</div>
+    </div>
+
+    <div class="figure-frame method-figure tie-visualize-figure">
+      <div class="figure-kicker">Visual intuition</div>
+      <img src="static/images/figs/rope-vs-tie.png" alt="Final method schematic from the paper: point-wise RoPE compared with interval-aware TIE" />
+    </div>
+    <p class="figure-caption method-caption">
+      The figure illustrates the modeling consequence of the two definitions above: point-wise RoPE samples a
+      single timestamp, while TIE turns each event token into an interval-aware key whose evidence is integrated
+      across time.
+    </p>
+
+    <p style="text-align:center; max-width:780px; margin: 22px auto 0; color:var(--text-soft);">
+      The center $c$ controls the rotation phase; the radius $r$ acts as a built-in
+      <strong>temporal low-pass filter</strong> via $\operatorname{sinc}(\theta r)$. As $r \to 0$, RoTE reduces to standard RoPE —
+      so it slots into any DiT with zero overhead.
+    </p>
+
+    <!-- Robustness to noise: a key takeaway worth its own callout -->
+    <div class="tldr" style="margin-top:36px;">
+      <h3>Robust to noisy timestamps — by construction</h3>
+      <p>
+        Boundary perturbations only affect the marginal portion of the integration domain. The main theorem gives
+        $\Delta_{\mathrm{RoTE}}=\mathcal{O}(\delta/r)$ when $\delta\le r/2$, while point-wise RoPE and boundary-only DoTE
+        have local worst-case sensitivity $\mathcal{O}(\theta_{\max}\delta)$ with no decay in interval radius.
+        This strict structural advantage is what makes interval-conditioned <strong>large-scale pretraining</strong>
+        with VLM-derived annotations practical.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     Results
+     ========================================================= -->
+<section id="results">
+  <div class="container">
+    <h2>Results</h2>
+    <p class="section-sub">Visual quality preserved · Temporal control dramatically improved · Robust to annotation noise.</p>
+
+    <h3 style="text-align:center; margin-top:18px; font-size:18px; color:var(--text-soft); font-weight:600;">
+      Human-verified temporal grounding on OmniEvents
+    </h3>
+
+    <div class="result-claim">
+      <span class="evidence-tag experiment">Experiment</span>
+      <span>96.03%</span>
+      <em>Temporal constraints satisfied, by human verification.</em>
+    </div>
+
+    <div class="figure-frame wide-figure">
+      <img src="static/images/figs/results-bars.png" alt="Headline temporal grounding metrics comparing Finetuned and TIE" />
+    </div>
+
+    <div class="table-wrap">
+      <table class="results">
+        <thead>
+          <tr>
+            <th>Metric</th>
+            <th>Base</th>
+            <th>Finetuned</th>
+            <th>TIE&nbsp;(RoTE)</th>
+            <th>Δ vs. Finetuned</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="arrow-up">Temporal Constraint Satisfaction (TCSR)</td>
+            <td>—</td>
+            <td>77.34%</td>
+            <td class="best">96.03%</td>
+            <td>+18.70 pp</td>
+          </tr>
+          <tr>
+            <td class="arrow-down">Boundary Error</td>
+            <td>—</td>
+            <td>0.261&nbsp;s</td>
+            <td class="best">0.073&nbsp;s</td>
+            <td>−0.188&nbsp;s</td>
+          </tr>
+          <tr>
+            <td class="arrow-up">Event Occurrence</td>
+            <td>—</td>
+            <td>80.45%</td>
+            <td class="best">96.03%</td>
+            <td>+15.58 pp</td>
+          </tr>
+          <tr>
+            <td class="arrow-up">Order Accuracy</td>
+            <td>—</td>
+            <td>63.37%</td>
+            <td class="best">92.32%</td>
+            <td>+28.95 pp</td>
+          </tr>
+          <tr>
+            <td class="arrow-up">Overlap Accuracy</td>
+            <td>—</td>
+            <td>66.23%</td>
+            <td class="best">88.64%</td>
+            <td>+22.40 pp</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="metric-note">
+      <div class="overview-icon"><svg><use href="#icon-target"></use></svg></div>
+      <p>
+        These numbers follow the appendix protocol: 100 structured prompts, one Finetuned and one TIE video per prompt,
+        and 10 human annotators. For each event $e_i=[s_i,t_i]$, annotators verify occurrence $o_i$ and boundary
+        deviations $b_i^s=\hat{s}_i-s_i,\; b_i^t=\hat{t}_i-t_i$.
+      </p>
+    </div>
+
+    <div class="metric-grid">
+      <div class="metric-card">
+        <div class="metric-icon"><svg><use href="#icon-video"></use></svg></div>
+        <h3>Event Occurrence</h3>
+        <p>Does the requested event appear?</p>
+        <div class="mini-eq">$\mathrm{Occ}=\frac{1}{N}\sum_i o_i$</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-icon"><svg><use href="#icon-boundary"></use></svg></div>
+        <h3>Temporal Error</h3>
+        <p>Boundary deviation, with missing events penalized by target duration.</p>
+        <div class="mini-eq">$\mathrm{TE}_i=\frac{|b_i^s|+|b_i^t|}{2}$, or $t_i-s_i$ if $o_i=0$</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-icon"><svg><use href="#icon-overlap"></use></svg></div>
+        <h3>Order / Overlap</h3>
+        <p>Checks before-after relations and whether concurrent events remain concurrent.</p>
+        <div class="mini-eq">$\min(\hat t_i,\hat t_j)>\max(\hat s_i,\hat s_j)$</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-icon"><svg><use href="#icon-target"></use></svg></div>
+        <h3>TCSR</h3>
+        <p>Prompt-level fraction of satisfied event, order, and overlap constraints.</p>
+        <div class="mini-eq">$\mathrm{TCSR}=\frac{1}{|\mathcal C|}\sum_{c\in\mathcal C}\mathbf{1}[c\ \mathrm{satisfied}]$</div>
+      </div>
+    </div>
+
+    <div class="metric-grid trajectory">
+      <div class="metric-card">
+        <div class="metric-icon"><svg><use href="#icon-scale"></use></svg></div>
+        <h3>nDTW</h3>
+        <p>Normalized dynamic time warping over a temporal cost matrix; higher means less temporal drift.</p>
+        <div class="mini-eq">$\exp\!\left(-\frac{1}{\sigma L}\min_P\sum_{(i,j)\in P}D_{ij}\right)$</div>
+      </div>
+      <div class="metric-card">
+        <div class="metric-icon"><svg><use href="#icon-json"></use></svg></div>
+        <h3>CLIP-Event</h3>
+        <p>Frame-level video-text alignment between event descriptions and the generated event windows.</p>
+      </div>
+      <div class="metric-card">
+        <div class="metric-icon"><svg><use href="#icon-filter"></use></svg></div>
+        <h3>EMD</h3>
+        <p>Earth Mover's Distance on the temporal event distribution; lower means the generated timeline is closer.</p>
+      </div>
+    </div>
+
+    <h3 style="text-align:center; margin-top:46px; font-size:18px; color:var(--text-soft); font-weight:600;">
+      Visual quality preserved on PexelsEvents
+    </h3>
+
+    <div class="table-wrap">
+      <table class="results">
+        <thead>
+          <tr>
+            <th>Method</th>
+            <th class="arrow-down">FID</th>
+            <th class="arrow-down">FVD</th>
+            <th class="arrow-up">Visual Quality</th>
+            <th class="arrow-up">Temporal Cons.</th>
+            <th class="arrow-up">Text Align.</th>
+            <th class="arrow-up">CLIP-Event</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Base</td><td>59.68</td><td>357.51</td><td>2.73</td><td>2.78</td><td>2.68</td><td>0.226</td></tr>
+          <tr><td>Finetuned</td><td>43.74</td><td>234.40</td><td>3.03</td><td>3.01</td><td>2.86</td><td>0.235</td></tr>
+          <tr><td>DoTE&nbsp;(boundary-only)</td><td>43.84</td><td>234.79</td><td>3.05</td><td>3.01</td><td>2.88</td><td>0.241</td></tr>
+          <tr class="highlight">
+            <td>TIE&nbsp;(RoTE)</td>
+            <td class="best">42.53</td>
+            <td class="best">217.29</td>
+            <td class="best">3.10</td>
+            <td class="best">3.05</td>
+            <td class="best">2.92</td>
+            <td class="best">0.246</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="caption" style="margin-top:14px;">
+      Ablation isolates the gain: NoRoPE → DoTE shows boundary encoding helps;
+      DoTE → RoTE shows interval interior matters; RoTE wins on every metric.
+    </p>
+
+  </div>
+</section>
+
+<!-- =========================================================
+     Robustness
+     ========================================================= -->
+<section id="robustness" class="robustness-section">
+  <div class="container">
+    <h2>Robust to noisy temporal annotations</h2>
+    <p class="section-sub">A core requirement for large-scale event-conditioned pretraining, not a minor stress test.</p>
+
+    <div class="robustness-lead">
+      <p>
+        At scale, event intervals come from VLMs, action detectors, captioning systems, or other automatic annotators.
+        Their boundaries are approximate, so the model must be robust to endpoint noise by design.
+      </p>
+    </div>
+
+    <div class="pull-claim robustness-claim">
+      <span>Imperfect timestamps are not an edge case.</span>
+      <em>They are the world we train on.</em>
+    </div>
+
+    <div class="theorem-panel">
+      <div class="theorem-title">Expected Boundary-Noise Sensitivity</div>
+      <span class="evidence-tag theory">Theory</span>
+      <div class="theorem-eq">
+        $$\left|A(\tilde c,\tilde r)-A(c,r)\right|
+        \;\le\;
+        K\,\frac{\delta}{r-\delta}
+        \quad\Rightarrow\quad
+        \Delta_{\mathrm{RoTE}}=\mathcal{O}(\delta/r)$$
+      </div>
+      <p>
+        In contrast, point-wise RoPE and boundary-only DoTE concentrate temporal information on one timestamp or two
+        endpoints, yielding $\mathcal{O}(\theta_{\max}\delta)$ sensitivity with no decay as the event interval grows.
+      </p>
+    </div>
+
+    <div class="robustness-grid">
+      <div class="robustness-card">
+        <div class="card-icon"><svg><use href="#icon-integral"></use></svg></div>
+        <div class="eyebrow">RoTE / TIE</div>
+        <h3>Interval integral</h3>
+        <p>$\mathrm{RoTE}(k,c,r)=C_r^{-1}\mathbb{E}_{\tau\sim U(I)}[\mathrm{RoPE}(k,\tau)]$</p>
+        <strong>Noise is averaged over the event support.</strong>
+      </div>
+      <div class="robustness-card">
+        <div class="card-icon"><svg><use href="#icon-filter"></use></svg></div>
+        <div class="eyebrow">Frequency response</div>
+        <h3>Built-in low-pass smoothing</h3>
+        <p>$\theta|\operatorname{sinc}(\theta r)|=|\sin(\theta r)|/r\le 1/r$</p>
+        <strong>High-frequency timestamp noise is attenuated.</strong>
+      </div>
+      <div class="robustness-card">
+        <div class="card-icon"><svg><use href="#icon-noise"></use></svg></div>
+        <div class="eyebrow">RoPE / DoTE</div>
+        <h3>Point or endpoint phases</h3>
+        <p>$\Delta=\mathcal{O}(\theta_{\max}\delta)$</p>
+        <strong>No interval-radius decay under boundary noise.</strong>
+      </div>
+    </div>
+
+    <div class="figure-frame wide-figure robustness-figure">
+      <img src="static/images/figs/robustness.png" alt="Robustness of TIE to noisy temporal annotations" />
+    </div>
+    <p class="caption">
+      Following the paper, we perturb each interval as $[s,e]\to[s+\epsilon_s,e+\epsilon_e]$ with Gaussian noise.
+      Even at the largest disturbance, RoTE still achieves better temporal alignment than finetuning with clean
+      timestamps, while only moderately increasing FVD.
+    </p>
+  </div>
+</section>
+
+<!-- =========================================================
+     Demo gallery
+     ========================================================= -->
+<section id="demos">
+  <div class="container">
+    <h2>See it in action</h2>
+    <p class="section-sub">Concurrent events, multi-subject interactions, controllable future editing.</p>
+
+    <div class="gallery">
+
+      <div class="item">
+        <div class="video-frame">
+          <video autoplay muted loop playsinline poster="static/videos/posters/example1.png">
+            <source src="static/videos/example1.mp4" type="video/mp4" />
+          </video>
+        </div>
+        <h3>General concurrent events</h3>
+        <p class="desc">Two simultaneous prompts respected: "the train enters at 7.0s" while "the man waves" — both onset times correct.</p>
+      </div>
+
+      <div class="item">
+        <div class="video-frame">
+          <video autoplay muted loop playsinline poster="static/videos/posters/long_robotic_task.png">
+            <source src="static/videos/long_robotic_task.mp4" type="video/mp4" />
+          </video>
+        </div>
+        <h3>Bimanual robot manipulation</h3>
+        <p class="desc">Two arms execute overlapping sub-tasks at specified intervals — exactly the regime where temporal precision matters for policy pretraining.</p>
+      </div>
+
+      <div class="item">
+        <div class="video-frame">
+          <video autoplay muted loop playsinline poster="static/videos/posters/example3.png">
+            <source src="static/videos/example3.mp4" type="video/mp4" />
+          </video>
+        </div>
+        <h3>Multi-subject combat (Elden Ring)</h3>
+        <p class="desc">Player and boss carry independent event timelines. Modify a future event — the early trajectory is preserved, only the future diverges.</p>
+      </div>
+
+      <div class="item">
+        <div class="video-frame">
+          <video autoplay muted loop playsinline poster="static/videos/posters/example4.png">
+            <source src="static/videos/example4.mp4" type="video/mp4" />
+          </video>
+        </div>
+        <h3>Localized future-event editing</h3>
+        <p class="desc">Three variants share the same first 3 seconds, then branch into different futures based on a single edited interval prompt.</p>
+      </div>
+
+    </div>
+
+    <div class="qualitative-strip" aria-label="Qualitative result figures">
+      <div class="figure-frame">
+        <img src="static/images/figs/t2v-comparison.png" alt="Text-to-video temporal comparison between baseline and TIE" />
+      </div>
+      <div class="figure-frame">
+        <img src="static/images/figs/eldenring-controlling.png" alt="Localized future-event control on GameEvents" />
+      </div>
+      <div class="figure-frame">
+        <img src="static/images/figs/robotics-comparison.png" alt="Robotics temporal control comparison" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     Dataset
+     ========================================================= -->
+<section id="dataset">
+  <div class="container">
+    <h2>OmniEvents</h2>
+    <p class="section-sub">A structured event-prompt dataset built specifically for the concurrent-event regime.</p>
+
+    <div class="dataset-overview">
+      <div>
+        <div class="overview-icon"><svg><use href="#icon-video"></use></svg></div>
+        <span class="proof-label">How it is built</span>
+        <p>
+          OmniEvents combines general videos, robotics demonstrations, and gameplay traces. Open-domain and robotics
+          clips are annotated with a self-reflective VLM pipeline: structured JSON generation, deterministic temporal
+          checks, semantic self-verification, and iterative refinement.
+        </p>
+      </div>
+      <div>
+        <div class="overview-icon"><svg><use href="#icon-json"></use></svg></div>
+        <span class="proof-label">Annotation format</span>
+        <pre>{
+  "subject": "left arm",
+  "event": "closes around the spoon",
+  "start": 3.00,
+  "end": 9.00
+}</pre>
+      </div>
+    </div>
+
+    <div class="dataset-grid">
+      <div class="dataset">
+        <img src="static/images/figs/dataset-pexels.png" alt="PexelsEvents annotation example" />
+        <h3>PexelsEvents</h3>
+        <div class="count">253,903 clips</div>
+        <p>General-domain web videos with structured event-interval annotations. 68% per-clip event overlap probability.</p>
+      </div>
+      <div class="dataset">
+        <img src="static/images/figs/dataset-robotics.png" alt="RoboticsEvents annotation example" />
+        <h3>RoboticsEvents</h3>
+        <div class="count">85,956 clips</div>
+        <p>Task-specific robotics demonstrations from AgiBot, with event-level temporal supervision for bimanual manipulation.</p>
+      </div>
+      <div class="dataset">
+        <img src="static/images/figs/dataset-game.png" alt="GameEvents annotation example" />
+        <h3>GameEvents</h3>
+        <div class="count">79,959 clips</div>
+        <p>Elden Ring gameplay traces with frame-accurate event boundaries from game-state instrumentation.</p>
+      </div>
+    </div>
+
+    <h3 style="text-align:center; margin-top:42px; font-size:18px; color:var(--text-soft); font-weight:600;">
+      Distribution statistics from the appendix
+    </h3>
+
+    <div class="table-wrap dataset-stat-table">
+      <table class="results">
+        <thead>
+          <tr>
+            <th>Dataset</th>
+            <th>Clips</th>
+            <th>Average events per clip</th>
+            <th>Average event duration (seconds)</th>
+            <th>Total events</th>
+            <th>Total event duration (seconds)</th>
+            <th>Total text-prompt length</th>
+            <th>Overlap probability</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>PexelsEvents</td><td>253,903</td><td>4.72</td><td>3.67</td><td>1,197,973</td><td>4,391,589</td><td>164,639,876</td><td>68.00%</td></tr>
+          <tr><td>RoboticsEvents</td><td>85,956</td><td>14.47</td><td>2.79</td><td>1,244,058</td><td>3,472,766</td><td>86,717,027</td><td>99.99%</td></tr>
+          <tr><td>GameEvents</td><td>79,959</td><td>16.01</td><td>1.24</td><td>1,280,208</td><td>1,584,762</td><td>42,368,009</td><td>99.63%</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p style="text-align:center; margin-top:28px;">
+      <span class="btn disabled" aria-disabled="true">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2.2c-3.3.7-4-1.4-4-1.4-.5-1.4-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1.1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.3.5-2.4 1.2-3.2-.1-.4-.5-1.6.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.6.2 2.8.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .3"/></svg>
+        Dataset release coming soon
+      </span>
+    </p>
+  </div>
+</section>
+
+<!-- =========================================================
+     Related work from Matrix Team
+     ========================================================= -->
+<section id="related">
+  <div class="container">
+    <h2>More from Matrix Team</h2>
+    <p class="section-sub">A young research team building serious infrastructure for controllable, long-horizon, interactive world models.</p>
+
+    <div class="related-grid">
+      <a class="related-card" href="https://matrixteam-ai.github.io/" target="_blank" rel="noopener">
+        <div class="meta">World Model · 2024</div>
+        <h3>The Matrix</h3>
+        <p>Infinite-horizon world generation with real-time moving control.</p>
+        <div class="arrow">Visit page →</div>
+      </a>
+      <a class="related-card" href="https://matrixteam-ai.github.io/" target="_blank" rel="noopener">
+        <div class="meta">Long Video · 2024</div>
+        <h3>RAIN</h3>
+        <p>Real-time animation of an infinite video stream.</p>
+        <div class="arrow">Visit page →</div>
+      </a>
+      <a class="related-card" href="https://matrixteam-ai.github.io/" target="_blank" rel="noopener">
+        <div class="meta">VLM · 2024</div>
+        <h3>BACON</h3>
+        <p>Supercharge your VLM with a Bag-of-Concept graph to mitigate hallucinations.</p>
+        <div class="arrow">Visit page →</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     BibTeX
+     ========================================================= -->
+<section id="bibtex">
+  <div class="container">
+    <h2>Citation</h2>
+    <p class="section-sub">If you find this work helpful, please consider citing:</p>
+
+    <div class="bibtex-wrap">
+      <button class="copy-btn" id="copy-bib" aria-label="Copy BibTeX">Copy</button>
+<pre class="bibtex" id="bibtex-content">@misc{shu2026tie,
+  title     = {TIE: Time Interval Encoding for Video Generation over Events},
+  author    = {Shu, Zhilei and Zhu, Shangwen and Liang, Zihang and Li, Xiaofan
+               and Peng, Qianyu and Cui, Xinyu and Ye, Bo and Li, Yiming
+               and Cheng, Fan and Zhao, Jian and Cao, Yang
+               and Zha, Zheng-Jun and Feng, Ruili},
+  year      = {2026},
+  eprint    = {2605.10543},
+  archivePrefix = {arXiv},
+  primaryClass  = {cs.CV},
+  doi       = {10.48550/arXiv.2605.10543},
+  url       = {https://arxiv.org/abs/2605.10543}
+}</pre>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     Footer
+     ========================================================= -->
+<footer>
+  <div class="container">
+    <p>
+      We thank Pexels for publicly accessible videos, the AgiBot dataset for robotics traces,
+      and the Elden Ring / Cheat Engine community for enabling game-state inspection.
+    </p>
+    <p>
+      Website template inspired by the academic project pages of <a href="https://nerfies.github.io/" target="_blank" rel="noopener">Nerfies</a>.
+      &nbsp;·&nbsp; © 2026 Matrix Team
+    </p>
+  </div>
+</footer>
+
+<!-- =========================================================
+     Scripts
+     ========================================================= -->
+<script>
+  // BibTeX copy button
+  (function () {
+    const btn = document.getElementById('copy-bib');
+    const bib = document.getElementById('bibtex-content');
+    if (!btn || !bib) return;
+    btn.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(bib.textContent.trim());
+        btn.textContent = 'Copied ✓';
+        btn.classList.add('copied');
+        setTimeout(() => {
+          btn.textContent = 'Copy';
+          btn.classList.remove('copied');
+        }, 1800);
+      } catch (e) {
+        btn.textContent = 'Failed';
+        setTimeout(() => (btn.textContent = 'Copy'), 1800);
+      }
+    });
+  })();
+</script>
+
+</body>
 </html>
