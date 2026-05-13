@@ -4,9 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Incantation: Natural Language as the Action Interface for Multi-Entity Video World Models</title>
-  <meta name="description" content="Incantation shows that per-frame, per-entity natural language is a stronger action interface than closed action IDs for multi-entity video world models, enabling cross-entity transfer, OOV action prompts, and parallel control." />
+  <meta name="description" content="Incantation shows that per-frame, per-entity natural language is a stronger action interface than closed action IDs for multi-entity video world models, enabling cross-entity transfer, out-of-vocabulary action prompts, and parallel control." />
   <meta property="og:title" content="Incantation: Natural Language as the Action Interface for Multi-Entity Video World Models" />
-  <meta property="og:description" content="Natural language beats closed action IDs as the action interface: 89% vs. 43% cross-entity transfer, 90% vs. 0% OOV prompt control, and 3-entity control from two-entity training." />
+  <meta property="og:description" content="Natural language beats closed action IDs as the action interface: 89% vs. 43% cross-entity transfer, 90% vs. 0% out-of-vocabulary prompt control, and 3-entity control from two-entity training." />
   <meta property="og:type" content="website" />
   <meta property="og:image" content="static/images/figs/teaser.png" />
   <meta name="twitter:card" content="summary_large_image" />
@@ -48,7 +48,7 @@
         <div class="hero-lines" aria-label="Core claim">
           <p>Natural language is the action interface.</p>
           <p>It beats closed action IDs where control must generalize.</p>
-          <p><strong>89% vs. 43%</strong> cross-entity transfer. <strong>90% vs. 0%</strong> OOV control. <strong>3-entity</strong> control from two-entity training.</p>
+          <p><strong>89% vs. 43%</strong> cross-entity transfer. <strong>90% vs. 0%</strong> out-of-vocabulary control. <strong>3-entity</strong> control from two-entity training.</p>
         </div>
 
         <a class="presented-by" href="https://matrixteam-ai.github.io/" target="_blank" rel="noopener">
@@ -83,8 +83,8 @@
 
         <div class="hero-stats" aria-label="Key results">
           <div class="hero-stat"><strong>0.25s</strong><span>parallel per-entity language control</span></div>
-          <div class="hero-stat"><strong>89% vs. 43%</strong><span>NL vs. Action-ID transfer ACA</span></div>
-          <div class="hero-stat"><strong>90% vs. 0%</strong><span>NL vs. Action-ID OOV control</span></div>
+          <div class="hero-stat"><strong>89% vs. 43%</strong><span>Natural language vs. Action-ID transfer accuracy</span></div>
+          <div class="hero-stat"><strong>90% vs. 0%</strong><span>Natural language vs. Action-ID out-of-vocabulary control</span></div>
           <div class="hero-stat"><strong>3-entity control</strong><span>generalizes from two-entity training</span></div>
         </div>
 
@@ -137,9 +137,9 @@
           </div>
           <div class="text-panel evidence-panel">
             <h3>Interface comparison</h3>
-            <div class="evidence-row"><span>Action-ID</span><strong>closed labels tied to an entity or engine</strong></div>
+            <div class="evidence-row"><span>Action-ID</span><strong>closed per-entity labels tied to an engine</strong></div>
             <div class="evidence-row"><span>Natural language</span><strong>open action semantics in per-entity slots</strong></div>
-            <div class="evidence-row"><span>Proof</span><strong>seen parity, transfer, and OOV control</strong></div>
+            <div class="evidence-row"><span>Proof</span><strong>seen parity, transfer, and out-of-vocabulary control</strong></div>
           </div>
         </div>
       </div>
@@ -195,12 +195,12 @@
             <article class="method-step">
               <span class="step-index">04</span>
               <h3>Sliding cache without positional drift</h3>
-              <p>The causal student is initialized by ODE matching, distilled with Self-Forcing, and caches raw keys before RoPE. Local positions are applied on the fly after each cache slide.</p>
+              <p>The causal student is initialized by ordinary-differential-equation matching, distilled with Self-Forcing, and caches raw keys before rotary position encoding. Local positions are applied on the fly after each cache slide.</p>
             </article>
           </div>
           <div class="figure-shell dark-figure">
             <img src="static/images/figs/workflow.png" alt="Incantation workflow with language-conditioned pretraining and Self-Forcing distillation" />
-            <p class="caption">Training and streaming workflow: language-conditioned pretraining followed by ODE-initialized Self-Forcing distillation.</p>
+            <p class="caption">Training and streaming workflow: language-conditioned pretraining followed by ordinary-differential-equation-initialized Self-Forcing distillation.</p>
           </div>
         </div>
 
@@ -213,7 +213,7 @@
                 <thead>
                   <tr>
                     <th>History / Text scope</th>
-                    <th>FVD down</th>
+                    <th>Fréchet video distance down</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -229,14 +229,14 @@
 
           <article class="method-evidence">
             <h3>Stage 2 ablation: why sliding cache is necessary</h3>
-            <p>The appendix evaluates the same student at 10 s and 30 s. Without KV sliding, quality collapses with horizon; with sliding, FVD stays nearly flat.</p>
+            <p>The appendix evaluates the same student at 10 s and 30 s. Without key-value cache sliding, quality collapses with horizon; with sliding, Fréchet video distance stays nearly flat.</p>
             <div class="mini-table-wrap">
               <table class="mini-table">
                 <thead>
                   <tr>
                     <th>Cache setting</th>
-                    <th>10 s FVD</th>
-                    <th>30 s FVD</th>
+                    <th>10 s Fréchet video distance</th>
+                    <th>30 s Fréchet video distance</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -265,7 +265,7 @@
           <div class="text-panel">
             <h3>Frame-local control</h3>
             <p>Conventional full text cross-attention can cause temporal cross-contamination: the current action prompt leaks into past frames and creates action echoes. Incantation masks text cross-attention away from history tokens, so prompt changes remain frame-local.</p>
-            <p>For long horizons, raw keys are cached before RoPE rotation and rotated on the fly with updated local positions. This avoids stale positional geometry after sliding-window evictions.</p>
+            <p>For long horizons, raw keys are cached before rotary-position rotation and rotated on the fly with updated local positions. This avoids stale positional geometry after sliding-window evictions.</p>
           </div>
         </div>
       </div>
@@ -284,17 +284,17 @@
           <article class="logic-card">
             <span class="eyebrow">Tier 1 / Sanity check</span>
             <h3>Natural language is not weaker on seen actions</h3>
-            <p>On frequent in-distribution actions, both interfaces receive strong supervision. NL reaches 95% ACA and Action-Index reaches 89%, ruling out a simple optimization or capacity story.</p>
+            <p>On frequent in-distribution actions, both interfaces receive strong supervision. Natural language reaches 95% action-control accuracy, while the Action-ID baseline reaches 89%, ruling out a simple optimization or capacity story.</p>
           </article>
           <article class="logic-card">
             <span class="eyebrow">Tier 2 / Semantic transfer</span>
             <h3>Natural language transfers actions across entities</h3>
-            <p>The same actions are issued to entities that never performed them in training. NL reaches 89% while Action-Index drops to 43%, exposing the missing compositional semantics.</p>
+            <p>The same actions are issued to entities that never performed them in training. Natural language reaches 89%, while the Action-ID baseline drops to 43%, exposing the missing compositional semantics.</p>
           </article>
           <article class="logic-card">
             <span class="eyebrow">Tier 3 / Open vocabulary</span>
-            <h3>Natural language accepts OOV action prompts</h3>
-            <p>OOV prompts are natural-language action descriptions outside the closed ID vocabulary. NL reaches 90% across 40 trials; Action-Index has no input slot and therefore 0% coverage.</p>
+            <h3>Natural language accepts out-of-vocabulary action prompts</h3>
+            <p>Out-of-vocabulary prompts are natural-language action descriptions outside the closed ID vocabulary. Natural language reaches 90% across 40 trials; the Action-ID baseline has no input slot and therefore 0% coverage.</p>
           </article>
         </div>
 
@@ -302,17 +302,17 @@
           <article class="metric">
             <span class="eyebrow">Tier 1</span>
             <strong>95% vs. 89%</strong>
-            <p>Natural-language ACA on in-distribution prompts, versus 89% for Action-Index.</p>
+            <p>Natural-language action-control accuracy on in-distribution prompts, versus 89% for the Action-ID baseline.</p>
           </article>
           <article class="metric">
             <span class="eyebrow">Tier 2</span>
             <strong>89% vs. 43%</strong>
-            <p>Cross-entity semantic transfer ACA, versus 43% for Action-Index.</p>
+            <p>Cross-entity semantic transfer accuracy, versus 43% for the Action-ID baseline.</p>
           </article>
           <article class="metric">
             <span class="eyebrow">Tier 3</span>
             <strong>90% vs. 0%</strong>
-            <p>Aggregate ACA on out-of-vocabulary action prompts; Action-Index has no input slot and scores 0%.</p>
+            <p>Aggregate action-control accuracy on out-of-vocabulary prompts; the Action-ID baseline has no input slot and scores 0%.</p>
           </article>
           <article class="metric">
             <span class="eyebrow">Interface scaling</span>
@@ -327,26 +327,26 @@
               <tr>
                 <th>Proof tier</th>
                 <th>Natural language</th>
-                <th>Action-Index</th>
+                <th>Action-ID baseline</th>
                 <th>What it proves</th>
               </tr>
             </thead>
             <tbody>
               <tr>
                 <td>Seen-action parity</td>
-                <td><strong>95% ACA</strong></td>
-                <td>89% ACA</td>
+                <td><strong>95% action-control accuracy</strong></td>
+                <td>89% action-control accuracy</td>
                 <td>Natural language is a viable action interface, not a weaker replacement.</td>
               </tr>
               <tr>
                 <td>Cross-entity transfer</td>
-                <td><strong>89% ACA</strong></td>
-                <td>43% ACA</td>
+                <td><strong>89% transfer accuracy</strong></td>
+                <td>43% transfer accuracy</td>
                 <td>Natural language carries compositional action semantics across entities.</td>
               </tr>
               <tr>
                 <td>Out-of-vocabulary prompts</td>
-                <td><strong>90% ACA</strong></td>
+                <td><strong>90% action-control accuracy</strong></td>
                 <td>0% coverage</td>
                 <td>Natural language remains an interface when the ID vocabulary ends.</td>
               </tr>
@@ -358,7 +358,7 @@
           <article class="credibility-card">
             <span class="eyebrow">Cross-entity tiers</span>
             <h3>The transfer test isolates the interface</h3>
-            <p>Tier I gives Action-Index no target-entity fallback. Tier II gives it a similar motion. Tier III gives it same-named actions. Natural language still leads throughout.</p>
+            <p>Tier I gives the Action-ID baseline no target-entity fallback. Tier II gives it a similar motion. Tier III gives it same-named actions. Natural language still leads throughout.</p>
           </article>
           <article class="credibility-card">
             <span class="eyebrow">Tier evidence</span>
@@ -371,9 +371,9 @@
             <p>Text-initialized frozen IDs inherit language priors but stay closed-vocabulary. Trainable text-initialized IDs specialize to entity context and revert toward the joint-vocabulary baseline.</p>
           </article>
           <article class="credibility-card">
-            <span class="eyebrow">VLM check</span>
+            <span class="eyebrow">Vision-language judge</span>
             <h3>Automated judge agrees where it can</h3>
-            <p>A VLM pairwise judge gives natural language +70 pp on Tier I and +10 to +25 pp on Tier III. Tier II remains human-rated because game-specific luminous-tail cues are hard for a general VLM.</p>
+            <p>A vision-language model used as a pairwise judge gives natural language +70 percentage points on Tier I and +10 to +25 percentage points on Tier III. Tier II remains human-rated because game-specific luminous-tail cues are hard for a general vision-language model.</p>
           </article>
         </div>
 
@@ -404,11 +404,6 @@
           <p class="block-sub">These clips belong with the baseline figure: they test whether a visually strong video generator can also expose an explicit per-entity action channel.</p>
           <div class="demo-grid">
             <article class="demo-card">
-              <video controls preload="metadata" src="static/videos/ours.mp4"></video>
-              <h3>Incantation</h3>
-              <p>Per-frame language slots control player and boss actions under one shared camera.</p>
-            </article>
-            <article class="demo-card">
               <video controls preload="metadata" src="static/videos/seedance2.mp4"></video>
               <h3>Seedance 2.0 baseline</h3>
               <p>High visual fidelity, but no explicit per-entity interactive action interface.</p>
@@ -422,6 +417,11 @@
               <video controls preload="metadata" src="static/videos/longlive.mp4"></video>
               <h3>LongLive baseline</h3>
               <p>A strong long-video baseline, evaluated for the same player-boss action-control purpose.</p>
+            </article>
+            <article class="demo-card">
+              <video controls preload="metadata" src="static/videos/ours.mp4"></video>
+              <h3>Incantation (ours)</h3>
+              <p>Per-frame language slots control player and boss actions under one shared camera.</p>
             </article>
           </div>
         </div>
@@ -439,8 +439,8 @@
             <p class="caption">Elden Ring rollout sampled from a continuous generated session.</p>
           </div>
           <div class="figure-shell">
-            <img src="static/images/figs/kof-rollout.png" alt="KOF generated rollout under the same architecture" />
-            <p class="caption">KOF rollout under the same architecture and training recipe.</p>
+            <img src="static/images/figs/kof-rollout.png" alt="King of Fighters generated rollout under the same architecture" />
+            <p class="caption">King of Fighters rollout under the same architecture and training recipe.</p>
           </div>
         </div>
 
@@ -455,7 +455,7 @@
             <div class="text-panel">
               <h3>Claim</h3>
               <p class="callout">The online student keeps the action interface usable beyond a short clip, because the cache slides while positions stay local.</p>
-              <p>The appendix reports five independent roughly 118-minute Margit rollouts. Across 2,025 evaluated windows, FVD stays stable instead of degrading monotonically with horizon.</p>
+              <p>The appendix reports five independent roughly 118-minute Margit rollouts. Across 2,025 evaluated windows, Fréchet video distance stays stable instead of degrading monotonically with horizon.</p>
             </div>
           </div>
         </div>
@@ -467,8 +467,8 @@
                 <th>World</th>
                 <th>Model</th>
                 <th>Steps</th>
-                <th>FVD down</th>
-                <th>ACA up</th>
+                <th>Fréchet video distance down</th>
+                <th>Action-control accuracy</th>
                 <th>Latency</th>
               </tr>
             </thead>
@@ -490,7 +490,7 @@
                 <td><strong>163.4 ms/frame</strong></td>
               </tr>
               <tr>
-                <td>KOF</td>
+                <td>King of Fighters</td>
                 <td>Teacher (bidirectional)</td>
                 <td>50</td>
                 <td>170.1</td>
@@ -498,7 +498,7 @@
                 <td>10986.0 ms/frame</td>
               </tr>
               <tr>
-                <td>KOF</td>
+                <td>King of Fighters</td>
                 <td><strong>Student (causal)</strong></td>
                 <td><strong>2</strong></td>
                 <td><strong>162.9</strong></td>
@@ -523,21 +523,21 @@
             <p>30 h of Margit and 15 h of Crucible Knight boss-fight footage with player and boss action triplets read from engine memory.</p>
           </article>
           <article class="data-card">
-            <span class="eyebrow">KOF</span>
+            <span class="eyebrow">King of Fighters</span>
             <h3>83 hours</h3>
             <p>About 5,000 one-minute fighter-pair clips, collected with the same per-frame action-labeling protocol.</p>
           </article>
           <article class="data-card">
             <span class="eyebrow">Granularity</span>
             <h3>0.25 s</h3>
-            <p>Each VAE-compressed latent frame receives per-entity action prompts and aligned supervision.</p>
+            <p>Each autoencoder-compressed latent frame receives per-entity action prompts and aligned supervision.</p>
           </article>
         </div>
 
         <div class="asset-grid" style="margin-top:30px;">
           <div class="figure-shell">
             <img src="static/images/figs/annotator.png" alt="Local annotation interface for Incantation" />
-            <p class="caption">Blinded ACA interface. Annotators see the generated clip and per-entity target action, but not whether it came from NL or Action-Index.</p>
+            <p class="caption">Blinded action-control accuracy interface. Annotators see the generated clip and per-entity target action, but not whether it came from natural language or the Action-ID baseline.</p>
           </div>
           <div class="text-panel">
             <h3>From raw animation state to language timelines</h3>
@@ -572,13 +572,13 @@
           <div class="asset-grid">
             <article class="demo-card">
               <video controls preload="metadata" src="static/videos/kof-annotation.mp4"></video>
-              <h3>KOF annotation example</h3>
+              <h3>King of Fighters annotation example</h3>
               <p>A two-entity fighting scene with rapid action changes at the same 0.25 s supervision granularity.</p>
             </article>
             <div class="text-panel">
               <h3>Why this belongs in the dataset section</h3>
               <p class="callout">The dataset is not just a pile of clips. It is a frame-accurate control substrate: each participant has its own action timeline, and evaluation asks blinded raters whether the generated action actually happened.</p>
-              <p>The appendix reports three-annotator ACA ratings, high within-1 ordinal agreement, and matched-prompt tests that keep NL and Action-Index comparisons on the same starts and seeds.</p>
+              <p>The appendix reports three-annotator action-control accuracy ratings, high within-1 ordinal agreement, and matched-prompt tests that keep natural language and Action-ID comparisons on the same starts and seeds.</p>
             </div>
           </div>
         </div>
@@ -587,12 +587,12 @@
           <article class="credibility-card">
             <span class="eyebrow">Evaluation protocol</span>
             <h3>Matched prompt injection</h3>
-            <p>For interface tests, the model first runs 2 s with neutral prompts, then receives the target action for 3 s. NL and Action-Index use the same starting frames and seeds.</p>
+            <p>For interface tests, the model first runs 2 s with neutral prompts, then receives the target action for 3 s. Natural language and the Action-ID baseline use the same starting frames and seeds.</p>
           </article>
           <article class="credibility-card">
             <span class="eyebrow">Human rating</span>
             <h3>400 clips, three blinded annotators</h3>
-            <p>Each clip is rated on a 0/1/2 scale. The final ACA decision uses the median of three ratings, then thresholds at partial-or-better execution.</p>
+            <p>Each clip is rated on a 0/1/2 scale. The final action-control accuracy decision uses the median of three ratings, then thresholds at partial-or-better execution.</p>
           </article>
           <article class="credibility-card">
             <span class="eyebrow">Agreement</span>
@@ -602,7 +602,7 @@
           <article class="credibility-card">
             <span class="eyebrow">Significance</span>
             <h3>49 vs. 3 matched wins</h3>
-            <p>On cross-entity trials where the interfaces differ, NL succeeds on 49 matched triples and Action-Index on 3. McNemar: Z=6.38, p&lt;1e-10.</p>
+            <p>On cross-entity trials where the interfaces differ, natural language succeeds on 49 matched triples and the Action-ID baseline on 3. McNemar: Z=6.38, p&lt;1e-10.</p>
           </article>
         </div>
       </div>
