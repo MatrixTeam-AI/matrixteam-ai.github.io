@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MAMBO-G: Magnitude-Aware Mitigation for Boosted Guidance</title>
+  <meta name="description" content="MAMBO-G is a training-free, plug-and-play adaptive guidance schedule for fast text-to-image and text-to-video generation. It damps risky early guidance updates by measuring the update-to-prediction magnitude ratio." />
+  <meta property="og:title" content="MAMBO-G: Magnitude-Aware Mitigation for Boosted Guidance" />
+  <meta property="og:description" content="Training-free guidance acceleration: up to 3x on SD3.5, 4x on Lumina, and 2x on Wan2.1-14B while preserving generation quality." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="static/images/figs/0_unify_guidance_10.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="citation_title" content="MAMBO-G: Magnitude-Aware Mitigation for Boosted Guidance" />
+  <meta name="citation_pdf_url" content="static/paper/mambo-g.pdf" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;600;700&amp;family=Newsreader:opsz,wght@6..72,500;6..72,650&amp;display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="static/css/main.css" />
+  <link rel="icon" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='12' fill='%230d1218'/><path d='M12 42c10-18 18-18 28 0 5 9 9 7 12-5' fill='none' stroke='%233fd2a0' stroke-width='6' stroke-linecap='round'/><circle cx='20' cy='24' r='5' fill='%23ffb44c'/><circle cx='42' cy='24' r='5' fill='%23e8f1ff'/></svg>" />
+</head>
+
+<body>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <a class="brand" href="#top"><span class="brand-mark"></span><span>MAMBO-G</span></a>
+      <nav aria-label="Page navigation">
+        <a href="#usage">Usage</a>
+        <a href="#idea">Idea</a>
+        <a href="#method">Method</a>
+        <a href="#diagnosis">Diagnosis</a>
+        <a href="#results">Results</a>
+        <a href="#release">Release</a>
+        <a href="#bibtex">Cite</a>
+      </nav>
+      <a class="matrix-chip" href="https://matrixteam-ai.github.io/" target="_blank" rel="noopener" title="Visit Matrix Team">
+        <img src="static/images/logos/matrix-ink.svg" alt="Matrix Team" />
+      </a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="top">
+      <div class="container">
+        <div class="venue">2026 Preprint · ICML submission</div>
+        <h1><span>MAMBO-G</span>: Magnitude-Aware Mitigation for Boosted Guidance</h1>
+        <p class="tagline">Fast conditional generation by damping the guidance updates that are too large for the current denoising state.</p>
+
+        <div class="hero-claim" aria-label="Core claim">
+          <p>Training-free.</p>
+          <p>Plug-and-play with CFG.</p>
+          <p><strong>3x</strong> sampling speedup on SD3.5, <strong>4x</strong> on Lumina, <strong>2x</strong> on Wan2.1-14B.</p>
+        </div>
+
+        <p class="authors">
+          Shangwen Zhu<sup>*</sup>, Qianyu Peng<sup>*</sup>, Zhilei Shu<sup>*</sup>, Yuting Hu, Zhantao Yang, Han Zhang,
+          Zhao Pu, Andy Zheng, Xinyu Cui, Jian Zhao, Ruili Feng<sup>†</sup>, Fan Cheng<sup>†</sup>
+        </p>
+        <p class="affiliations">
+          Shanghai Jiao Tong University · The University of Hong Kong · University of Science and Technology of China · University of Waterloo · Chinese Academy of Sciences · Zhongguancun Academy
+        </p>
+
+        <a class="presented-by" href="https://matrixteam-ai.github.io/" target="_blank" rel="noopener">
+          <span>Presented by</span>
+          <img src="static/images/logos/matrix-ink.svg" alt="Matrix Team" />
+        </a>
+
+        <div class="cta-row">
+          <a class="btn primary" href="static/paper/mambo-g.pdf" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M9 13h6M9 17h6"/></svg>
+            Paper PDF
+          </a>
+          <a class="btn" href="https://github.com/huggingface/diffusers/pull/12862" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2.2c-3.3.7-4-1.4-4-1.4-.5-1.4-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1.1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.3.5-2.4 1.2-3.2-.1-.4-.5-1.6.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.6.2 2.8.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .3"/></svg>
+            Diffusers PR
+          </a>
+          <a class="btn" href="#results">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 5-7"/></svg>
+            Results
+          </a>
+          <a class="btn" href="#bibtex">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l-7 6 7 6M15 6l7 6-7 6"/></svg>
+            BibTeX
+          </a>
+        </div>
+
+        <div class="usage-card" id="usage">
+          <div class="usage-copy">
+            <p class="usage-kicker">Diffusers quickstart</p>
+            <h2>Use MAMBO-G by swapping the guider</h2>
+            <p>In a Diffusers build that includes PR #12862, the only workflow change is the guider. Build or load your pipeline as usual, then replace CFG with <code>MagnitudeAwareGuidance</code> before calling it.</p>
+          </div>
+          <div class="usage-code-stack">
+            <div class="code-mini">
+              <span>Minimal change</span>
+              <pre class="usage-code compact"><code>from diffusers.guiders import MagnitudeAwareGuidance
+
+pipeline.update_components(
+    guider=MagnitudeAwareGuidance(
+        guidance_scale=10.0,
+        alpha=8.0,
+        guidance_rescale=1.0,
+    )
+)</code></pre>
+            </div>
+            <details class="code-details">
+              <summary>Full Qwen-Image modular pipeline example</summary>
+              <pre class="usage-code"><code>import torch
+from diffusers.guiders import ClassifierFreeGuidance, MagnitudeAwareGuidance
+from diffusers.modular_pipelines import SequentialPipelineBlocks
+from diffusers.modular_pipelines.qwenimage import TEXT2IMAGE_BLOCKS
+
+# 1. Build the Qwen-Image modular pipeline.
+blocks = SequentialPipelineBlocks.from_blocks_dict(TEXT2IMAGE_BLOCKS)
+pipeline = blocks.init_pipeline("YiYiXu/QwenImage-modular")
+pipeline.load_components(torch_dtype=torch.bfloat16)
+pipeline.to("cuda")
+
+# 2. Keep the same prompt, size, steps, and seed for a fair comparison.
+prompt = "a comic portrait of a female necromancer with big cute eyes, fine face, realistic shaded lighting, anime style"
+width, height = 1328, 1328
+num_inference_steps = 10
+seed = 1
+generator = torch.Generator("cuda").manual_seed(seed)
+
+# 3. Baseline: standard Classifier-Free Guidance.
+pipeline.update_components(
+    guider=ClassifierFreeGuidance(guidance_scale=4.0)
+)
+image = pipeline(
+    prompt=prompt,
+    width=width,
+    height=height,
+    output="images",
+    num_inference_steps=num_inference_steps,
+    generator=generator,
+)[0]
+image.save(f"t2i_cfg_{num_inference_steps}_steps.png")
+
+# 4. MAMBO-G: swap only the guider, then run the same workflow.
+generator = torch.Generator("cuda").manual_seed(seed)
+pipeline.update_components(
+    guider=MagnitudeAwareGuidance(
+        guidance_scale=10.0,
+        alpha=8.0,
+        guidance_rescale=1.0,
+    )
+)
+image = pipeline(
+    prompt=prompt,
+    width=width,
+    height=height,
+    output="images",
+    num_inference_steps=num_inference_steps,
+    generator=generator,
+)[0]
+image.save(f"t2i_mambo_g_{num_inference_steps}_steps.png")</code></pre>
+            </details>
+          </div>
+        </div>
+
+        <div class="hero-stats">
+          <div><strong>0</strong><span>training needed</span></div>
+          <div><strong>1 ratio</strong><span>guidance-update magnitude divided by unconditional velocity magnitude</span></div>
+          <div><strong>10 steps</strong><span>matches slow CFG quality in the paper's image examples</span></div>
+          <div><strong>Merged</strong><span>implemented following mainstream Diffusers standards</span></div>
+        </div>
+
+        <div class="teaser-board">
+          <div class="teaser-grid" aria-label="Text-to-image comparison">
+            <div class="teaser-label">CFG · 20 NFE</div>
+            <div class="teaser-label">CFG · 60 NFE</div>
+            <div class="teaser-label highlight">MAMBO-G · 20 NFE</div>
+            <img src="static/images/figs/0_org_10.png" alt="CFG 20 NFE Cirno sample" />
+            <img src="static/images/figs/0_org_30.png" alt="CFG 60 NFE Cirno sample" />
+            <img src="static/images/figs/0_unify_guidance_10.png" alt="MAMBO-G 20 NFE Cirno sample" />
+            <img src="static/images/figs/0_org_10_1.png" alt="CFG 20 NFE astronaut sample" />
+            <img src="static/images/figs/0_org_30_1.png" alt="CFG 60 NFE astronaut sample" />
+            <img src="static/images/figs/0_unify_guidance_10_1.png" alt="MAMBO-G 20 NFE astronaut sample" />
+          </div>
+          <p class="caption">
+            <strong>MAMBO-G narrows the speed-quality gap.</strong>
+            In the paper teaser, MAMBO-G reaches the quality of longer CFG image sampling using fewer function evaluations.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="idea">
+      <div class="container">
+        <p class="section-kicker">Idea</p>
+        <h2>Guidance should be strong only when the state can absorb it</h2>
+        <p class="section-sub">Classifier-Free Guidance improves prompt alignment, but early sampling states are dominated by noise. MAMBO-G watches the relative guidance magnitude and automatically damps high-risk updates.</p>
+
+        <div class="tldr-grid">
+          <article class="text-panel">
+            <h3>The failure mode</h3>
+            <p>At initialization, guidance directions for different seeds are almost identical for the same prompt. Pushing every random noise sample along this generic direction with a large scale can overshoot the data manifold.</p>
+          </article>
+          <article class="text-panel formula-panel">
+            <h3>The signal</h3>
+            <div class="ratio-formula" aria-label="r t equals the norm of conditional velocity minus unconditional velocity divided by the norm of unconditional velocity">
+              <span class="lhs">r<sub>t</sub></span>
+              <span class="equals">=</span>
+              <span class="fraction">
+                <span class="numerator">|| v<sub>cond</sub> - v<sub>uncond</sub> ||</span>
+                <span class="denominator">|| v<sub>uncond</sub> ||</span>
+              </span>
+            </div>
+            <p>A high ratio means the conditional update is large compared with the model's own denoising velocity.</p>
+          </article>
+          <article class="text-panel">
+            <h3>The fix</h3>
+            <p>MAMBO-G maps that ratio to a sample-wise guidance scale: aggressive when the update is safe, exponentially damped when the update is disproportionate.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="dark-band" id="method">
+      <div class="container">
+        <p class="section-kicker">Method</p>
+        <h2>A small ratio gate in the sampling loop</h2>
+        <p class="section-sub">No retraining, no new model branch, no architectural change. MAMBO-G only changes how strongly CFG is applied at each step and for each sample.</p>
+
+        <div class="method-grid">
+          <div class="method-card">
+            <span class="step">01</span>
+            <h3>Measure relative guidance strength</h3>
+            <p>Compute the magnitude ratio between the CFG update and the unconditional velocity at the current denoising step.</p>
+          </div>
+          <div class="method-card">
+            <span class="step">02</span>
+            <h3>Damp risky outliers</h3>
+            <p>Use an exponential schedule so large ratios receive stronger suppression, while normal updates retain boosted guidance.</p>
+          </div>
+          <div class="method-card">
+            <span class="step">03</span>
+            <h3>Keep the pipeline unchanged</h3>
+            <p>The method remains compatible with existing flow and diffusion samplers and can stack with other guidance stabilization methods.</p>
+          </div>
+        </div>
+
+        <div class="equation-band">
+          <div>
+            <span>Adaptive guidance scale</span>
+            <strong>w(r<sub>t</sub>) = 1 + (w<sub>max</sub> - 1) · exp(-αr<sub>t</sub>)</strong>
+          </div>
+          <p>When <code>r_t</code> is small, the scale approaches <code>w_max</code>. When <code>r_t</code> is large, the scale relaxes toward 1 to prevent unstable early amplification.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="diagnosis">
+      <div class="container">
+        <p class="section-kicker">Diagnosis</p>
+        <h2>The ratio identifies when guidance is unsafe</h2>
+        <p class="section-sub">The paper backs the schedule with a compact chain of measurements: generic initial directions, a large early ratio, lower quality for high-ratio samples, and an exponential relation between ratio and optimal guidance scale.</p>
+
+        <div class="figure-grid">
+          <figure>
+            <img src="static/images/figs/cosine_similarity_analysis.png" alt="Cosine similarity of guidance updates across seeds" />
+            <figcaption>Initial guidance updates collapse to nearly the same direction across random seeds.</figcaption>
+          </figure>
+          <figure>
+            <img src="static/images/figs/ratio_distribution_by_step.png" alt="Ratio dynamics over sampling steps" />
+            <figcaption>The relative guidance ratio peaks early, exactly where zero-SNR sampling is most fragile.</figcaption>
+          </figure>
+          <figure>
+            <img src="static/images/figs/professional_kde.png" alt="ImageReward distributions for low-ratio and high-ratio groups" />
+            <figcaption>Low-ratio samples score higher, validating the ratio as a stability indicator.</figcaption>
+          </figure>
+          <figure>
+            <img src="static/images/figs/ratio_vs_guidance_ci.png" alt="Optimal guidance scale versus ratio" />
+            <figcaption>The best guidance scale decays as the ratio grows, motivating the exponential gate.</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section id="results">
+      <div class="container">
+        <p class="section-kicker">Results</p>
+        <h2>Lower-step generation without giving up quality</h2>
+        <p class="section-sub">MAMBO-G is evaluated on text-to-image models, text-to-video models, high-resolution generation, scheduler variants, and combinations with other guidance methods.</p>
+
+        <div class="metric-strip">
+          <div><strong>3x</strong><span>speedup on SD3.5</span></div>
+          <div><strong>4x</strong><span>speedup on Lumina</span></div>
+          <div><strong>2x</strong><span>speedup on Wan2.1-14B</span></div>
+          <div><strong>1024²</strong><span>stable high-resolution Qwen-Image samples</span></div>
+        </div>
+
+        <div class="result-block">
+          <div class="block-heading">
+            <p class="block-kicker">Text-to-image</p>
+            <h3>SD3.5 and Lumina improve in low-step regimes</h3>
+          </div>
+          <div class="chart-grid">
+            <figure><img src="static/images/figs/SD35_ImageReward_comparison.png" alt="SD3.5 ImageReward comparison" /><figcaption>SD3.5 · ImageReward</figcaption></figure>
+            <figure><img src="static/images/figs/SD35_CLIPScore_comparison.png" alt="SD3.5 CLIPScore comparison" /><figcaption>SD3.5 · CLIPScore</figcaption></figure>
+            <figure><img src="static/images/figs/LUMINA_ImageReward_comparison.png" alt="Lumina ImageReward comparison" /><figcaption>Lumina · ImageReward</figcaption></figure>
+            <figure><img src="static/images/figs/LUMINA_CLIPScore_comparison.png" alt="Lumina CLIPScore comparison" /><figcaption>Lumina · CLIPScore</figcaption></figure>
+          </div>
+        </div>
+
+        <div class="result-block">
+          <div class="block-heading">
+            <p class="block-kicker">Text-to-video</p>
+            <h3>Video quality benefits from the same magnitude-aware damping</h3>
+          </div>
+          <div class="wide-compare">
+            <figure><img src="static/images/figs/UniPC_Aesthetic_Quality_comparison.png" alt="vBench aesthetic quality comparison" /><figcaption>vBench · Aesthetic quality</figcaption></figure>
+            <figure><img src="static/images/figs/UniPC_Imaging_Quality_comparison.png" alt="vBench imaging quality comparison" /><figcaption>vBench · Imaging quality</figcaption></figure>
+          </div>
+          <div class="film-pair">
+            <figure><img src="static/images/figs/film_strip_result_org.png" alt="CFG video strip" /><figcaption>CFG video sample</figcaption></figure>
+            <figure><img src="static/images/figs/film_strip_result_raag.png" alt="MAMBO-G video strip" /><figcaption>MAMBO-G video sample</figcaption></figure>
+          </div>
+        </div>
+
+        <div class="result-block">
+          <div class="block-heading">
+            <p class="block-kicker">Resolution stress test</p>
+            <h3>Baseline CFG degrades with dimensionality; MAMBO-G stays coherent</h3>
+          </div>
+          <div class="resolution-grid">
+            <div class="res-label"></div>
+            <div class="res-label">256</div>
+            <div class="res-label">512</div>
+            <div class="res-label">768</div>
+            <div class="res-label">1024</div>
+            <div class="row-label">CFG</div>
+            <img src="static/images/figs/007749-0112_org_step10_res256.png" alt="CFG 256 resolution sample" />
+            <img src="static/images/figs/007749-0112_org_step10_res512.png" alt="CFG 512 resolution sample" />
+            <img src="static/images/figs/007749-0112_org_step10_res768.png" alt="CFG 768 resolution sample" />
+            <img src="static/images/figs/007749-0112_org_step10_res1024.png" alt="CFG 1024 resolution sample" />
+            <div class="row-label good">MAMBO-G</div>
+            <img src="static/images/figs/007749-0112_unify_guidance_step10_res256.png" alt="MAMBO-G 256 resolution sample" />
+            <img src="static/images/figs/007749-0112_unify_guidance_step10_res512.png" alt="MAMBO-G 512 resolution sample" />
+            <img src="static/images/figs/007749-0112_unify_guidance_step10_res768.png" alt="MAMBO-G 768 resolution sample" />
+            <img src="static/images/figs/007749-0112_unify_guidance_step10_res1024.png" alt="MAMBO-G 1024 resolution sample" />
+          </div>
+          <div class="mini-table-wrap">
+            <table class="mini-table">
+              <thead>
+                <tr><th>Resolution</th><th>CFG ImageReward</th><th>MAMBO-G ImageReward</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>256 x 256</td><td>0.53</td><td><strong>0.83</strong></td></tr>
+                <tr><td>512 x 512</td><td>0.63</td><td><strong>1.10</strong></td></tr>
+                <tr><td>768 x 768</td><td>0.30</td><td><strong>1.07</strong></td></tr>
+                <tr><td>1024 x 1024</td><td>0.20</td><td><strong>1.02</strong></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="release" class="soft-band">
+      <div class="container">
+        <p class="section-kicker">Release</p>
+        <h2>Designed for practical adoption</h2>
+        <p class="section-sub">The method is intentionally small: it only needs the conditional and unconditional predictions already computed by CFG.</p>
+
+        <div class="release-grid">
+          <article class="release-card">
+            <h3>Plug-and-play API path</h3>
+            <p>The paper notes that the implementation follows mainstream open-source standards and has been merged into the Hugging Face Diffusers workflow. The quickstart at the top of this page shows the guider swap.</p>
+            <a href="https://github.com/huggingface/diffusers/pull/12862" target="_blank" rel="noopener">View Diffusers PR</a>
+          </article>
+          <article class="release-card">
+            <h3>Orthogonal to guidance rescaling</h3>
+            <p>MAMBO-G stacks with Guidance Rescale and Adaptive Projection Guidance because it controls scale rather than redesigning the guidance direction.</p>
+            <div class="mini-table-wrap">
+              <table class="mini-table compact">
+                <tbody>
+                  <tr><td>Baseline CFG</td><td>0.12</td></tr>
+                  <tr><td>Rescale</td><td>0.73</td></tr>
+                  <tr><td>Rescale + MAMBO-G</td><td><strong>1.12</strong></td></tr>
+                  <tr><td>APG</td><td>0.85</td></tr>
+                  <tr><td>APG + MAMBO-G</td><td><strong>0.96</strong></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </article>
+          <article class="release-card">
+            <h3>Robust defaults</h3>
+            <p>Ablations show that the exponential mapping works best among tested schedules, while performance stays stable over broad hyperparameter regions.</p>
+            <div class="paired-charts">
+              <img src="static/images/figs/function_comparison_ImageReward.png" alt="Function comparison ImageReward" />
+              <img src="static/images/figs/function_comparison_CLIPScore.png" alt="Function comparison CLIPScore" />
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="bibtex">
+      <div class="container">
+        <p class="section-kicker">Citation</p>
+        <h2>BibTeX</h2>
+        <pre class="bibtex"><code>@misc{zhu2026mambog,
+  title        = {MAMBO-G: Magnitude-Aware Mitigation for Boosted Guidance},
+  author       = {Shangwen Zhu and Qianyu Peng and Zhilei Shu and Yuting Hu and Zhantao Yang and Han Zhang and Zhao Pu and Andy Zheng and Xinyu Cui and Jian Zhao and Ruili Feng and Fan Cheng},
+  year         = {2026},
+  note         = {Preprint}
+}</code></pre>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">Project page for MAMBO-G. Static page built from the paper source and release assets.</div>
+  </footer>
+</body>
+</html>
