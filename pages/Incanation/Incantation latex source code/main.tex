@@ -1,0 +1,150 @@
+\documentclass{article}
+
+\PassOptionsToPackage{numbers,compress}{natbib}
+\usepackage{neurips_2025}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{hyperref}
+\usepackage{url}
+\usepackage{booktabs}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{amsthm}
+\usepackage{nicefrac}
+\usepackage{microtype}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{multirow}
+\usepackage{array}
+\usepackage{enumitem}
+\usepackage{xspace}
+\usepackage{pifont}
+\usepackage[capitalize,noabbrev]{cleveref}
+\usepackage{tikz}
+\usepackage{wrapfig}
+\usetikzlibrary{decorations.pathreplacing, arrows.meta, positioning, shapes.geometric}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+%% Theorem environments
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{assumption}[theorem]{Assumption}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+%% Custom commands
+\newcommand{\methodname}{\textbf{Incantation}\xspace}
+\newcommand{\cmark}{\ding{51}}
+\newcommand{\xmark}{\ding{55}}
+
+\definecolor{darkgreen}{HTML}{4CAF50}
+\definecolor{lightgreen}{HTML}{C8E6C9}
+% 蓝色系
+\definecolor{medblue}{HTML}{5B9BD5}
+\definecolor{lightblue}{HTML}{BBDEFB}
+% 橙色系
+\definecolor{warmorange}{HTML}{E07B39}
+\definecolor{lightpeach}{HTML}{FCE4D6}
+
+% ---------------------------------------------------------------
+\title{Incantation: Natural Language as the Action Interface\\
+for Multi-Entity Video World Models}
+
+\author{%
+  Anonymous Authors\\
+  Anonymous Institution\\
+  \texttt{anonymous@institution.edu}
+}
+% ---------------------------------------------------------------
+
+\begin{document}
+
+\maketitle
+
+\vspace{-3.5em}
+\begin{center}
+    \includegraphics[width=1.0\textwidth]{figures/fig_teaser_optm.pdf}
+    \vspace{0em}
+    \captionof{figure}{\textbf{Demonstrations of \methodname's cross-entity action
+    transfer and multi-entity control in the game \textit{Elden Ring}.} \textbf{\textit{(i)}} Two
+    bosses, \textbf{Margit} and \textbf{Crucible Knight}, each possessing
+    character-exclusive moves, are conditioned via natural language to perform each
+    other's actions, each executed by both its native character and the other:
+    \textbf{\textit{Light Blade Attack}} (Margit-exclusive,
+    \textcolor{darkgreen}{green rows}) and \textbf{\textit{Tail of the Crucible}}
+    (Crucible Knight-exclusive, \textcolor{medblue}{blue rows}), demonstrating
+    \methodname's cross-entity generalization. \textbf{\textit{(ii)}} \methodname simultaneously
+    controls three entities (two bosses and one player) each via a distinct
+    natural-language prompt (\textcolor{warmorange}{orange rows}),
+    trained on two-entity scenarios only.}
+    \label{fig:demo}
+\end{center}
+
+\begin{abstract}
+    Modern interactive video world models have achieved impressive 
+    visual fidelity, yet lack fine-grained multi-entity control 
+    and cross-entity, cross-world generalization. 
+    We trace this gap to the \emph{action interface}:
+    standard control protocols
+    (e.g. animation IDs, device inputs, scene-level captions) 
+    bind action semantics to specific entities or engines 
+    at design time. 
+    We propose \textit{natural language as the interface} to unlock 
+    expressiveness that 
+    no prior interface can achieve, and we present \methodname, 
+    the first interactive video world model with per-latent-frame 
+    ($0.25$\,s) natural-language conditioning that supports 
+    simultaneous multi-entity control and \emph{concept-level} 
+    cross-entity transfer beyond any fixed rendering pipeline. 
+    We pair a pretrained bidirectional video backbone with 
+    frame-local text cross-attention, and enable real-time 
+    long-horizon streaming through ODE-initialized Self-Forcing 
+    distillation with a RoPE-decoupled sliding KV-cache. 
+    We surpass the Action-Index baseline on cross-entity transfer 
+    ($89\%$ vs.\ $43\%$) and out-of-vocabulary prompts 
+    ($90\%$ vs.\ $0\%$), and our $2$-step student sustains 
+    $19.7$\,FPS at $480$p with stable FVD over 
+    $2$-hour rollouts. 
+    We further apply the same architecture and training recipe to
+    \textit{The King of Fighters}, changing only the per-entity action vocabulary slots. 
+    We will release code, checkpoints, and a $128$-hour frame-accurate multi-entity action dataset, establishing 
+    natural language as a general, scalable action interface 
+    for video world models.
+\end{abstract}
+% ==========================================================
+% \begin{abstract}
+% Interactive video world models to date control video through animation IDs, keyboard inputs, or scene-level captions, all of which tie action semantics to a specific entity, body, or engine at design time. We argue this is a property of the \emph{action interface}, not of the underlying video model, and that replacing it with natural language unlocks capabilities that no prior interface can express. We present \methodname, the first interactive video world model that conditions each entity per frame ($0.25$\,s) through a short natural-language caption inside a shared prompt template, supporting independent and simultaneous control of multiple entities under a single viewpoint. The interface produces compositions no current rendering pipeline can produce, for example Margit executing the Crucible Knight's signature tail attack and the Knight wielding Margit's exclusive light blades (Figure~\ref{fig:demo}); from a textual phrase alone, the model must synthesize both the motion and the visual concept on a body that has never produced them, a \emph{concept-level} cross-entity transfer. Architecturally, we pair a pretrained bidirectional video backbone with decoupled text cross-attention restricted to the noisy target frame, and reach real-time streaming inference via ODE-initialized Self-Forcing distillation with a RoPE-decoupled KV-cache sliding window for long-horizon stability. Held to identical architecture, data, and compute, our natural-language interface widens the gap with a hash-projected discrete-ID baseline as the task moves outside its design assumptions: $95\%$ vs.\ $89\%$ on in-distribution control, $89\%$ vs.\ $43\%$ on cross-entity transfer (uniform baseline ${\sim}6\%$), and $90\%$ vs.\ $0\%$ on out-of-vocabulary prompts. The same architecture replicates this behavior on the visually unrelated \textit{King of Fighters} world by vocabulary substitution alone, and the two-step student sustains $0.16$\,s per frame at $480$p on a single H100 with stable FVD over continuous $\mathbf{2}$-hour rollouts. We will release code, checkpoints, and a $128$-hour frame-accurate multi-entity action dataset, establishing natural language as a general, scalable action interface for multi-entity video world models.
+% \end{abstract}
+% =======================================================
+% \begin{abstract}
+% We present \methodname, a real-time interactive video world model for the \emph{single-viewpoint multi-entity} setting, in which two independently controllable entities share a single camera, as in player--boss combat and fighter pairs. Each entity is conditioned per frame by a short natural-language caption, replacing the keyboard inputs, mouse trajectories, and per-game discrete action IDs that drive prior controllable video models. The model couples a bidirectional video backbone with text cross-attention decoupled to the noisy target, and is reduced to two-step inference by ODE-initialised Self-Forcing distillation paired with a RoPE-decoupled KV-cache sliding window. \methodname{} sustains $480$p video at $16$\,fps on a single H100 for $10$+ minutes per session, and operates without modification in two visually unrelated worlds: \textit{Elden Ring} player--boss combat (3D action RPG, photorealistic) and \textit{The King of Fighters} fighter pairs (2D pixel-art, side-scrolling). To isolate the contribution of the language interface, we conduct a controlled comparison against a hash-projected discrete-ID baseline trained under identical architecture, data, and compute. NL leads ID by $6$ percentage points on in-distribution control ($95\%$ vs.\ $89\%$ Action Control Accuracy on the densest part of each entity's training distribution) and by $46$ percentage points on cross-entity transfer ($89\%$ vs.\ $43\%$, against a ${\sim}6\%$ uniform baseline); the discrete-ID interface additionally admits no out-of-vocabulary prompt by construction. The cross-entity gap localises the language interface's contribution at the level of input representation rather than at scale or training dynamics. We will release all code, trained checkpoints, and the frame-accurate multi-entity action dataset.
+% \end{abstract}
+
+\input{section/0_introduction}
+\input{section/1_related_work}
+\input{section/2_method}
+\input{section/3_experiments}
+\input{section/4_conclusion}
+
+\begin{ack}
+We thank the open-source community for tools enabling memory-accurate data collection. Elden Ring is a trademark of FromSoftware, Inc.\ and Bandai Namco Entertainment Inc.; this work is purely academic.
+\end{ack}
+
+\bibliographystyle{plainnat}
+\bibliography{references}
+
+\appendix
+\input{section/5_appendix}
+\input{checklist}
+
+\end{document}

@@ -1,0 +1,296 @@
+%%%%%%%% ICML 2026 EXAMPLE LATEX SUBMISSION FILE %%%%%%%%%%%%%%%%%
+
+\documentclass{article}
+
+% Recommended, but optional, packages for figures and better typesetting:
+\usepackage{microtype}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{booktabs} % for professional tables
+\usepackage{multirow}
+\usepackage{algorithmic}
+
+% hyperref makes hyperlinks in the resulting PDF.
+% If your build breaks (sometimes temporarily if a hyperlink spans a page)
+% please comment out the following usepackage line and replace
+% \usepackage{icml2026} with \usepackage[nohyperref]{icml2026} above.
+\usepackage{hyperref}
+
+% Attempt to make hyperref and algorithmic work together better:
+\newcommand{\theHalgorithm}{\arabic{algorithm}}
+
+\newcommand{\x}{\textbf{x}}
+\newcommand{\vel}{\textbf{v}}
+\newcommand{\z}{\textbf{z}}
+\newcommand{\noise}{\boldsymbol{\epsilon}}
+\newcommand{\Zero}{\textbf{O}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\mean}{\boldsymbol{\mu}}
+\newcommand{\cond}{{\text{cond}}}
+\newcommand{\uncond}{{\text{uncond}}}
+\newcommand{\One}{\textbf{I}}
+\newcommand{\norm}[2][]{\left\Vert #2 \right\Vert_{#1}}
+\newcommand{\mtd}{\textbf{MAMBO-G}}
+\newcommand{\mtdbk}{\textbf{MAMBO-G}~}
+\newcommand{\Data}{\mathcal X}
+
+% Use the following line for the initial blind version submitted for review:
+% \usepackage{icml2026}
+
+% For preprint, use
+\usepackage[preprint]{icml2026}
+
+% If accepted, instead use the following line for the camera-ready submission:
+% \usepackage[accepted]{icml2026}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{amsthm}
+
+
+% if you use cleveref..
+\usepackage[capitalize,noabbrev]{cleveref}
+\usepackage{enumitem}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% THEOREMS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{assumption}[theorem]{Assumption}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\methodabbr}{\textbf{MAMBO-G}}
+\usepackage{xspace}
+
+% Todonotes is useful during development; simply uncomment the next line
+%    and comment out the line below the next line to turn off comments
+%\usepackage[disable,textsize=tiny]{todonotes}
+\usepackage[textsize=tiny]{todonotes}
+
+\usepackage{caption}
+% \usepackage{subcaption}
+
+% The \icmltitle you define below is probably too long as a header.
+% Therefore, a short form for the running title is supplied here:
+\icmltitlerunning{}
+
+\newcommand{\teasercode}{
+    \vspace{10pt}
+    \begin{center}
+    \captionsetup{type=figure}
+      
+      \begin{minipage}{0.49\textwidth}
+          \centering
+          
+          \begin{minipage}{0.32\linewidth} \centering \scriptsize \textbf{CFG ($\mathbf{20}$ NFE)} \end{minipage}%
+          \hfill
+          \begin{minipage}{0.32\linewidth} \centering \scriptsize \textbf{CFG ($\mathbf{60}$ NFE)} \end{minipage}%
+          \hfill
+          \begin{minipage}{0.32\linewidth} \centering \scriptsize \textbf{\mtdbk ($\mathbf{20}$ NFE)} \end{minipage}
+          \vspace{2pt}
+          
+          
+          \includegraphics[width=0.32\linewidth]{fig_tab/0_org_10.pdf}%
+          \hfill
+          \includegraphics[width=0.32\linewidth]{fig_tab/0_org_30.pdf}%
+          \hfill
+          \includegraphics[width=0.32\linewidth]{fig_tab/0_unify_guidance_10.pdf}
+          
+          \vspace{2pt}
+          \small (a)  Cirno from the Touhou Project (Seed 0 in Qwen-Image).
+      \end{minipage}%
+      \hfill
+      \begin{minipage}{0.49\textwidth}
+          \centering
+         
+          \begin{minipage}{0.32\linewidth} \centering \scriptsize \textbf{CFG ($\mathbf{20}$ NFE)} \end{minipage}%
+          \hfill
+          \begin{minipage}{0.32\linewidth} \centering \scriptsize \textbf{CFG ($\mathbf{60}$ NFE)} \end{minipage}%
+          \hfill
+          \begin{minipage}{0.32\linewidth} \centering \scriptsize \textbf{\mtdbk ($\mathbf{20}$ NFE)} \end{minipage}
+          \vspace{2pt}
+          
+          
+          \includegraphics[width=0.32\linewidth]{fig_tab/0_org_10_1.pdf}%
+          \hfill
+          \includegraphics[width=0.32\linewidth]{fig_tab/0_org_30_1.pdf}%
+          \hfill
+          \includegraphics[width=0.32\linewidth]{fig_tab/0_unify_guidance_10_1.pdf}
+          
+          \vspace{2pt}
+          \small (b) Classic astronaut riding a horse (Seed 0 in Qwen-Image).
+      \end{minipage}
+      \vspace{0.3cm}
+
+      \begin{minipage}{1.0\textwidth}
+          \centering
+          \includegraphics[width=\linewidth]{fig_tab/film_strip_result_org.pdf}
+          % \vspace{2pt}
+          \\ \small (c) CFG(30NFE). Two cats fight on a spotlighted stage (Seed 0 in Wan2.2-5B, prompt from wan2.2 example).
+      \end{minipage}
+      
+      \vspace{0.1cm}
+
+      \begin{minipage}{1.0\textwidth}
+          \centering
+          \includegraphics[width=\linewidth]{fig_tab/film_strip_result_raag.pdf}
+          % \vspace{2pt}
+          \\ \small (d) \mtdbk(30NFE). Two cats fight on a spotlighted stage (Seed 0 in Wan2.2-5B).
+      \end{minipage}
+      \vspace{0.2cm}
+      \captionof{figure}{\textbf{Superior efficiency of \mtdbk:} Our method achieves comparable quality to $60$-NFE ($30$-step) CFG image generation with only $20$ NFE ($10$ steps), demonstrating a $3.0\times$ speedup over the standard CFG sampling (guidance scale = 4.0). The examples we demonstrate are \textbf{not cherry-picked}, and the seeds are also marked. Specific prompts can be found in \Cref{app:prompts}.}
+      \label{fig:display}
+    \end{center}
+    \vspace{20pt}
+}
+
+\begin{document}
+
+\twocolumn[
+  \icmltitle{MAMBO-G: Magnitude-Aware Mitigation for Boosted Guidance}
+
+  % It is OKAY to include author information, even for blind submissions: the
+  % style file will automatically remove it for you unless you've provided
+  % the [accepted] option to the icml2026 package.
+
+  % List of affiliations: The first argument should be a (short) identifier you
+  % will use later to specify author affiliations Academic affiliations
+  % should list Department, University, City, Region, Country Industry
+  % affiliations should list Company, City, Region, Country
+
+  % You can specify symbols, otherwise they are numbered in order. Ideally, you
+  % should not use this facility. Affiliations will be numbered in order of
+  % appearance and this is the preferred way.
+  \icmlsetsymbol{equal}{*}
+  % \icmlsetsymbol{Lcorresponding}{$\dagger$}
+  \icmlsetsymbol{corresponding}{$\dagger$}
+
+  \icmlaffiliation{sjtu}{Shanghai Jiao Tong University}
+  \icmlaffiliation{hku}{The University of Hong Kong}
+  \icmlaffiliation{ustc}{University of Science and Technology of China}
+  \icmlaffiliation{waterloo}{University of Waterloo}
+  \icmlaffiliation{cas}{Chinese Academy of Sciences}
+  \icmlaffiliation{zgc}{Zhongguancun Academy}
+
+  \begin{icmlauthorlist}
+    \icmlauthor{Shangwen Zhu}{equal,sjtu}
+    \icmlauthor{Qianyu Peng}{equal,hku}
+    \icmlauthor{Zhilei Shu}{equal,ustc}
+    \icmlauthor{Yuting Hu}{sjtu}
+    \icmlauthor{Zhantao Yang}{sjtu}
+    \icmlauthor{Han Zhang}{sjtu}
+    \icmlauthor{Zhao Pu}{sjtu}
+    \icmlauthor{Andy Zheng}{waterloo}
+    \icmlauthor{Xinyu Cui}{cas}
+    \icmlauthor{Jian Zhao}{zgc}
+    \icmlauthor{Ruili Feng}{corresponding,waterloo}
+    \icmlauthor{Fan Cheng}{corresponding,sjtu}
+    %\icmlauthor{}{sch}
+    %\icmlauthor{}{sch}
+  \end{icmlauthorlist}
+  \icmlprintaffiliations 
+  % \printAffiliationsAndNotice{}
+  % \icmlaffiliation{sjtu}{Shanghai Jiao Tong University}
+  % \icmlaffiliation{hku}{The University of Hong Kong}
+  % \icmlaffiliation{ustc}{University of Science and Technology of China}
+  % \icmlaffiliation{waterloo}{University of Waterloo}
+  % \icmlaffiliation{cas}{Chinese Academy of Sciences}
+  % \icmlaffiliation{zgc}{Zhongguancun Academy}
+
+  % \icmlcorrespondingauthor{Ruili Feng}{}
+  % \icmlcorrespondingauthor{Fan Cheng}{}
+
+  % You may provide any keywords that you find helpful for describing your
+  % paper; these are used to populate the "keywords" metadata in the PDF but
+  % will not be shown in the document
+  \icmlkeywords{}
+
+  \vskip 0.3in
+
+  \teasercode
+]
+
+% this must go after the closing bracket ] following \twocolumn[ ...
+
+% This command actually creates the footnote in the first column listing the
+% affiliations and the copyright notice. The command takes one argument, which
+% is text to display at the start of the footnote. The \icmlEqualContribution
+% command is standard text for equal contribution. Remove it (just {}) if you
+% do not need this facility.
+
+% Use ONE of the following lines. DO NOT remove the command.
+% If you have no special notice, KEEP empty braces:
+\printAffiliationsAndNotice{%
+  \begin{tabular}[t]{@{}r@{\,}l@{}}
+    $^{*}$ & Equal contribution. \\
+    $^{\dagger}$ & Corresponding authors.
+    % $^{\dagger}$ & Lead corresponding author.
+  \end{tabular}%
+}  % author contribution notice
+% Or, if applicable, use the standard equal contribution text:
+% \printAffiliationsAndNotice{\icmlEqualContribution}
+
+\begin{abstract}
+  High-fidelity text-to-image and text-to-video generation typically relies on Classifier-Free Guidance (CFG), but achieving optimal results often demands computationally expensive sampling schedules. In this work, we propose \textbf{MAMBO-G}, a training-free acceleration framework that significantly reduces computational cost by dynamically optimizing guidance magnitudes. We observe that standard CFG schedules are inefficient, applying disproportionately large updates in early steps that hinder convergence speed. \textbf{MAMBO-G} mitigates this by modulating the guidance scale based on the update-to-prediction magnitude ratio, effectively stabilizing the trajectory and enabling rapid convergence. This efficiency is particularly vital for resource-intensive tasks like video generation. Our method serves as a universal plug-and-play accelerator, achieving up to 3$\times$ speedup on Stable Diffusion v3.5 (SD3.5) and 4$\times$ on Lumina. Most notably, \textbf{MAMBO-G} accelerates the 14B-parameter Wan2.1 video model by 2$\times$ while preserving visual fidelity, offering a practical solution for efficient large-scale video synthesis. 
+  % Our implementation follows a mainstream open-source diffusion framework and is plug-and-play with existing pipelines.
+  Our implementation follows mainstream open-source standards and is officially merged into the \href{https://github.com/huggingface/diffusers/pull/12862}{Diffusers} library, ensuring seamless plug-and-play integration with existing pipelines.
+\end{abstract}
+
+\input{section/0_introduction}
+\input{section/1_relatework}
+\input{section/2_method}
+\input{section/3_experiment}
+\input{section/4_conclusion}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% IMPACT STATEMENT TEMPLATE
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \section*{Impact Statements}
+
+% This paper presents work whose goal is to advance the field of machine learning, specifically focusing on \textbf{optimizing conditional generation}. 
+% % --- 模块 A: 正面影响（所有论文通用） ---
+% Our proposed methods contribute to the broader scientific community by \textbf{improving the efficiency and coherence of conditional generative models}, which has potential applications in \textbf{text-to-image and text-to-video generation}. 
+
+% % --- 模块 B: 针对生成模型/视觉类（若是生成类论文，必选） ---
+% \textbf{[如果是视频/图像生成类，插入以下内容：]}
+% While our research is primarily aimed at enhancing creative tools, we acknowledge that high-fidelity generative technology carries potential risks, such as the creation of misleading content or "deepfakes." To address these ethical concerns, we advocate for the development of robust content authentication and watermarking techniques. Our work is intended for ethical research purposes and we encourage the community to deploy such models responsibly.
+
+% % --- 模块 C: 针对算法优化/绿色 AI（若是效率提升类，可选） ---
+% \textbf{[如果是优化类论文，插入以下内容：]}
+% By significantly reducing the computational overhead and energy consumption required for \textbf{[任务名称]}, our work also contributes to the "Green AI" initiative, potentially lowering the carbon footprint of large-scale model training and inference.
+
+% % --- 模块 D: 标准结尾（必选，对齐官网原文） ---
+% There are many other potential societal consequences of our work, none of which we feel must be specifically highlighted here beyond these general considerations.
+\bibliography{example_paper}
+\bibliographystyle{icml2026}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% APPENDIX
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\appendix
+\onecolumn
+\input{section/5_appendix}
+% \section{You \emph{can} have an appendix here.}
+
+% You can have as much text here as you want. The main body must be at most $8$
+% pages long. For the final version, one more page can be added. If you want, you
+% can use an appendix like this one.
+
+% The $\mathtt{\backslash onecolumn}$ command above can be kept in place if you
+% prefer a one-column appendix, or can be removed if you prefer a two-column
+% appendix.  Apart from this possible change, the style (font size, spacing,
+% margins, page numbering, etc.) should be kept the same as the main body.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}
