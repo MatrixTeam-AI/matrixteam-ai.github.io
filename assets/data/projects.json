@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-14T07:21:22.848Z",
+  "generatedAt": "2026-05-14T08:01:10.845Z",
   "source": "scripts/generate-project-index.mjs",
   "projects": [
     {
@@ -7,7 +7,7 @@
       "title": "Incantation: Natural Language as the Action Interface for Multi-Entity Video World Models",
       "description": "Incantation shows that per-frame, per-entity natural language is a stronger action interface than closed action IDs for multi-entity video world models, enabling cross-entity transfer, out-of-vocabulary action prompts, and parallel control.",
       "url": "pages/Incanation/",
-      "image": "pages/Incanation/static/images/figs/teaser.png",
+      "image": "pages/Incanation/static/images/figs/teaser.jpg",
       "status": "2026 preprint",
       "tags": [
         "world models",
@@ -19,7 +19,7 @@
     {
       "slug": "Mambo-g",
       "title": "MAMBO-G: Magnitude-Aware Mitigation for Boosted Guidance",
-      "description": "MAMBO-G is a training-free, plug-and-play adaptive guidance schedule for fast text-to-image and text-to-video generation. It damps risky early guidance updates by measuring the update-to-prediction magnitude ratio.",
+      "description": "ICML 2026 poster. MAMBO-G is a training-free, plug-and-play adaptive guidance schedule for fast text-to-image and text-to-video generation. It damps risky early guidance updates by measuring the update-to-prediction magnitude ratio.",
       "url": "pages/Mambo-g/",
       "image": "pages/Mambo-g/static/images/figs/0_unify_guidance_10.png",
       "status": "2026 preprint",
@@ -41,6 +41,20 @@
         "animation",
         "video stream",
         "avatars"
+      ],
+      "updatedAt": "2026-05-14"
+    },
+    {
+      "slug": "TheMatrixDataset",
+      "title": "The Matrix Dataset",
+      "description": "Dataset documentation for Matrix world-model research, covering collection, processing, source games, controls, and release information.",
+      "url": "pages/TheMatrixDataset/",
+      "image": "pages/TheMatrixDataset/matrix.jpg",
+      "status": "",
+      "tags": [
+        "dataset",
+        "world models",
+        "game data"
       ],
       "updatedAt": "2026-05-14"
     },
@@ -71,20 +85,6 @@
         "events"
       ],
       "updatedAt": "2026-05-14"
-    },
-    {
-      "slug": "TheMatrixDataset",
-      "title": "The Matrix Dataset",
-      "description": "Dataset documentation for Matrix world-model research, covering collection, processing, source games, controls, and release information.",
-      "url": "pages/TheMatrixDataset/",
-      "image": "pages/TheMatrixDataset/matrix.jpg",
-      "status": "",
-      "tags": [
-        "dataset",
-        "world models",
-        "game data"
-      ],
-      "updatedAt": "2026-05-13"
     }
   ]
 }
