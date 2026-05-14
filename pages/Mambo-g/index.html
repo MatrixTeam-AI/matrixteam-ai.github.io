@@ -4,18 +4,16 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>MAMBO-G: Magnitude-Aware Mitigation for Boosted Guidance</title>
-  <meta name="description" content="MAMBO-G is a training-free, plug-and-play adaptive guidance schedule for fast text-to-image and text-to-video generation. It damps risky early guidance updates by measuring the update-to-prediction magnitude ratio." />
+  <meta name="description" content="ICML 2026 poster. MAMBO-G is a training-free, plug-and-play adaptive guidance schedule for fast text-to-image and text-to-video generation. It damps risky early guidance updates by measuring the update-to-prediction magnitude ratio." />
   <meta property="og:title" content="MAMBO-G: Magnitude-Aware Mitigation for Boosted Guidance" />
-  <meta property="og:description" content="Training-free guidance acceleration: up to 3x on SD3.5, 4x on Lumina, and 2x on Wan2.1-14B while preserving generation quality." />
+  <meta property="og:description" content="Training-free, lossless guidance acceleration: up to 3x on SD3.5, 4x on Lumina, and 2x on Wan2.1-14B while preserving generation quality." />
   <meta property="og:type" content="website" />
   <meta property="og:image" content="static/images/figs/0_unify_guidance_10.png" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="citation_title" content="MAMBO-G: Magnitude-Aware Mitigation for Boosted Guidance" />
-  <meta name="citation_pdf_url" content="static/paper/mambo-g.pdf" />
+  <meta name="citation_arxiv_id" content="2508.03442" />
+  <meta name="citation_pdf_url" content="https://arxiv.org/pdf/2508.03442" />
 
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;600;700&amp;family=Newsreader:opsz,wght@6..72,500;6..72,650&amp;display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="static/css/main.css" />
   <link rel="icon" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='12' fill='%230d1218'/><path d='M12 42c10-18 18-18 28 0 5 9 9 7 12-5' fill='none' stroke='%233fd2a0' stroke-width='6' stroke-linecap='round'/><circle cx='20' cy='24' r='5' fill='%23ffb44c'/><circle cx='42' cy='24' r='5' fill='%23e8f1ff'/></svg>" />
 </head>
@@ -23,8 +21,9 @@
 <body>
   <header class="topbar">
     <div class="container topbar-inner">
-      <a class="brand" href="#top"><span class="brand-mark"></span><span>MAMBO-G</span></a>
+      <a class="brand" href="#top"><span class="dot"></span><span>MAMBO-G&nbsp;·&nbsp;ICML 2026</span></a>
       <nav aria-label="Page navigation">
+        <a href="#news">News</a>
         <a href="#usage">Usage</a>
         <a href="#idea">Idea</a>
         <a href="#method">Method</a>
@@ -33,8 +32,9 @@
         <a href="#release">Release</a>
         <a href="#bibtex">Cite</a>
       </nav>
-      <a class="matrix-chip" href="https://matrixteam-ai.github.io/" target="_blank" rel="noopener" title="Visit Matrix Team">
-        <img src="static/images/logos/matrix-ink.svg" alt="Matrix Team" />
+      <a class="team-chip" href="https://matrixteam-ai.github.io/" target="_blank" rel="noopener" title="Visit Matrix Team">
+        <img src="static/images/logos/matrix-white.svg" alt="Matrix Team"  decoding="async" />
+        <span class="text">Matrix Team</span>
       </a>
     </div>
   </header>
@@ -42,33 +42,42 @@
   <main>
     <section class="hero" id="top">
       <div class="container">
-        <div class="venue">2026 Preprint · ICML submission</div>
+        <div class="venue">ICML 2026 · Poster</div>
         <h1><span>MAMBO-G</span>: Magnitude-Aware Mitigation for Boosted Guidance</h1>
-        <p class="tagline">Fast conditional generation by damping the guidance updates that are too large for the current denoising state.</p>
+        <p class="tagline">Lossless conditional generation speedup by damping guidance updates that are too large for the current denoising state.</p>
 
         <div class="hero-claim" aria-label="Core claim">
           <p>Training-free.</p>
           <p>Plug-and-play with CFG.</p>
-          <p><strong>3x</strong> sampling speedup on SD3.5, <strong>4x</strong> on Lumina, <strong>2x</strong> on Wan2.1-14B.</p>
+          <p><strong>3x</strong> lossless acceleration on SD3.5, <strong>4x</strong> on Lumina, <strong>2x</strong> on Wan2.1-14B.</p>
         </div>
 
-        <p class="authors">
-          Shangwen Zhu<sup>*</sup>, Qianyu Peng<sup>*</sup>, Zhilei Shu<sup>*</sup>, Yuting Hu, Zhantao Yang, Han Zhang,
-          Zhao Pu, Andy Zheng, Xinyu Cui, Jian Zhao, Ruili Feng<sup>†</sup>, Fan Cheng<sup>†</sup>
-        </p>
-        <p class="affiliations">
-          Shanghai Jiao Tong University · The University of Hong Kong · University of Science and Technology of China · University of Waterloo · Chinese Academy of Sciences · Zhongguancun Academy
-        </p>
+        <div class="hero-proof">
+          <div><strong>3x</strong><span>SD3.5 lossless speedup</span></div>
+          <div><strong>4x</strong><span>Lumina lossless speedup</span></div>
+          <div><strong>2x</strong><span>Wan2.1-14B lossless speedup</span></div>
+          <div><strong>0</strong><span>training needed</span></div>
+        </div>
 
         <a class="presented-by" href="https://matrixteam-ai.github.io/" target="_blank" rel="noopener">
-          <span>Presented by</span>
-          <img src="static/images/logos/matrix-ink.svg" alt="Matrix Team" />
+          <span class="pb-logo">
+            <img src="static/images/logos/matrix-white.svg" alt=""  decoding="async" />
+          </span>
+          <span>Presented by <strong>Matrix Team</strong> — Efficient Generative Inference</span>
         </a>
 
         <div class="cta-row">
-          <a class="btn primary" href="static/paper/mambo-g.pdf" target="_blank" rel="noopener">
+          <a class="btn primary" href="https://icml.cc/virtual/2026/poster/60516" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v14H7l-3 3V4z"/><path d="M8 8h8M8 12h5"/></svg>
+            ICML Poster
+          </a>
+          <a class="btn" href="https://arxiv.org/html/2508.03442v4" target="_blank" rel="noopener">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M9 13h6M9 17h6"/></svg>
-            Paper PDF
+            arXiv HTML
+          </a>
+          <a class="btn" href="https://arxiv.org/pdf/2508.03442" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z"/></svg>
+            PDF
           </a>
           <a class="btn" href="https://github.com/huggingface/diffusers/pull/12862" target="_blank" rel="noopener">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2.2c-3.3.7-4-1.4-4-1.4-.5-1.4-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1.1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.3.5-2.4 1.2-3.2-.1-.4-.5-1.6.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.6.2 2.8.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .3"/></svg>
@@ -84,15 +93,94 @@
           </a>
         </div>
 
+        <div class="badges" aria-label="Project badges">
+          <a class="data-badge" href="https://icml.cc/virtual/2026/poster/60516" target="_blank" rel="noopener"><strong>Status</strong><span>ICML 2026 poster</span></a>
+          <a class="data-badge" href="https://arxiv.org/html/2508.03442v4" target="_blank" rel="noopener"><strong>arXiv</strong><span>2508.03442 v4</span></a>
+          <span class="data-badge"><strong>Method</strong><span>training-free guidance</span></span>
+          <span class="data-badge"><strong>Diffusers</strong><span>MagnitudeAwareGuidance</span></span>
+        </div>
+
+        <div id="authors" class="authors-panel">
+          <h2>Authors &amp; Affiliations</h2>
+
+          <p class="authors author-list">
+            Shangwen Zhu<sup>1,</sup><span class="star">*</span>,
+            Qianyu Peng<sup>2,</sup><span class="star">*</span>,
+            Zhilei Shu<sup>3,</sup><span class="star">*</span>,
+            Yuting Hu<sup>1</sup>,
+            Zhantao Yang<sup>1</sup>,
+            Han Zhang<sup>1</sup>,
+            Zhao Pu<sup>1</sup>,
+            Andy Zheng<sup>4</sup>,
+            Xinyu Cui<sup>5</sup>,
+            Jian Zhao<sup>6</sup>,
+            Ruili Feng<sup>4,</sup><span class="dagger">†</span>,
+            Fan Cheng<sup>1,</sup><span class="dagger">†</span>
+          </p>
+
+          <p class="affiliations">
+            <sup>1</sup>Shanghai Jiao Tong University &nbsp;·&nbsp;
+            <sup>2</sup>The University of Hong Kong &nbsp;·&nbsp;
+            <sup>3</sup>University of Science and Technology of China &nbsp;·&nbsp;
+            <sup>4</sup>University of Waterloo &nbsp;·&nbsp;
+            <sup>5</sup>Chinese Academy of Sciences &nbsp;·&nbsp;
+            <sup>6</sup>Zhongguancun Academy
+          </p>
+
+          <p class="legend">
+            <span class="star">*</span> Equal contribution. &nbsp;
+            <span class="dagger">†</span> Corresponding authors.
+          </p>
+
+          <div class="affil-strip">
+            <div class="affil-strip-label">Affiliated institutions</div>
+            <a class="aff-logo logo-ink logo-wide" href="https://en.sjtu.edu.cn/" target="_blank" rel="noopener" title="Shanghai Jiao Tong University">
+              <img src="static/images/logos/sjtu-white.png" alt="SJTU"  width="285" height="83"  decoding="async" />
+            </a>
+            <a class="aff-logo logo-wide" href="https://www.hku.hk/" target="_blank" rel="noopener" title="The University of Hong Kong">
+              <img src="static/images/logos/hku.svg" alt="HKU"  decoding="async" />
+            </a>
+            <a class="aff-logo logo-ink logo-wide" href="https://en.ustc.edu.cn/" target="_blank" rel="noopener" title="University of Science and Technology of China">
+              <img src="static/images/logos/ustc.png" alt="USTC"  width="1322" height="240"  decoding="async" />
+            </a>
+            <a class="aff-logo logo-wide" href="https://uwaterloo.ca/" target="_blank" rel="noopener" title="University of Waterloo">
+              <img src="static/images/logos/waterloo.svg" alt="University of Waterloo"  decoding="async" />
+            </a>
+            <a class="aff-logo logo-extra-wide" href="https://english.cas.cn/" target="_blank" rel="noopener" title="Chinese Academy of Sciences">
+              <img src="static/images/logos/cas.png" alt="Chinese Academy of Sciences" width="360" height="82" decoding="async" />
+            </a>
+            <a class="aff-logo logo-wide" href="https://www.bza.edu.cn/en/" target="_blank" rel="noopener" title="Zhongguancun Academy">
+              <img src="static/images/logos/zgc.png" alt="Zhongguancun Academy"  width="382" height="100"  decoding="async" />
+            </a>
+          </div>
+        </div>
+
         <div class="usage-card" id="usage">
           <div class="usage-copy">
             <p class="usage-kicker">Diffusers quickstart</p>
             <h2>Use MAMBO-G by swapping the guider</h2>
-            <p>In a Diffusers build that includes PR #12862, the only workflow change is the guider. Build or load your pipeline as usual, then replace CFG with <code>MagnitudeAwareGuidance</code> before calling it.</p>
+            <div class="usage-quality">
+              <strong>0 quality loss</strong>
+              <span>No drop in qualitative examples or quantitative metrics.</span>
+            </div>
+            <div class="usage-punch">
+              <div><strong>1</strong><span>guider swap</span></div>
+              <div><strong>2</strong><span>API calls</span></div>
+              <div><strong>4x</strong><span>lossless speedup</span></div>
+              <div><strong>0</strong><span>training required</span></div>
+            </div>
+            <div class="usage-support">
+              <strong>Validated on SD3.5, Lumina, and Wan2.1-14B; Qwen-Image workflow included below.</strong>
+              <span>Broad Diffusers CFG coverage: Stable Diffusion/SDXL/SD3, FLUX, Qwen-Image, Lumina, Hunyuan-DiT, PixArt, Sana, Kolors, Wan, CogVideoX, and related pipelines.</span>
+            </div>
+            <p>Keep your pipeline unchanged. Replace CFG with <code>MagnitudeAwareGuidance</code>.</p>
           </div>
           <div class="usage-code-stack">
             <div class="code-mini">
-              <span>Minimal change</span>
+              <div class="code-head">
+                <span>Minimal change</span>
+                <button class="copy-code" type="button" aria-label="Copy minimal MAMBO-G Diffusers code">Copy</button>
+              </div>
               <pre class="usage-code compact"><code>from diffusers.guiders import MagnitudeAwareGuidance
 
 pipeline.update_components(
@@ -159,11 +247,10 @@ image.save(f"t2i_mambo_g_{num_inference_steps}_steps.png")</code></pre>
           </div>
         </div>
 
-        <div class="hero-stats">
-          <div><strong>0</strong><span>training needed</span></div>
-          <div><strong>1 ratio</strong><span>guidance-update magnitude divided by unconditional velocity magnitude</span></div>
-          <div><strong>10 steps</strong><span>matches slow CFG quality in the paper's image examples</span></div>
-          <div><strong>Merged</strong><span>implemented following mainstream Diffusers standards</span></div>
+        <div class="claim-strip" aria-label="MAMBO-G implementation claims">
+          <div><span>No retraining.</span><em>Use the same model weights.</em></div>
+          <div><span>No sampler rewrite.</span><em>Swap the guider only.</em></div>
+          <div><span>No extra branch.</span><em>Ratio comes from CFG predictions.</em></div>
         </div>
 
         <div class="teaser-board">
@@ -171,18 +258,43 @@ image.save(f"t2i_mambo_g_{num_inference_steps}_steps.png")</code></pre>
             <div class="teaser-label">CFG · 20 NFE</div>
             <div class="teaser-label">CFG · 60 NFE</div>
             <div class="teaser-label highlight">MAMBO-G · 20 NFE</div>
-            <img src="static/images/figs/0_org_10.png" alt="CFG 20 NFE Cirno sample" />
-            <img src="static/images/figs/0_org_30.png" alt="CFG 60 NFE Cirno sample" />
-            <img src="static/images/figs/0_unify_guidance_10.png" alt="MAMBO-G 20 NFE Cirno sample" />
-            <img src="static/images/figs/0_org_10_1.png" alt="CFG 20 NFE astronaut sample" />
-            <img src="static/images/figs/0_org_30_1.png" alt="CFG 60 NFE astronaut sample" />
-            <img src="static/images/figs/0_unify_guidance_10_1.png" alt="MAMBO-G 20 NFE astronaut sample" />
+            <img src="static/images/figs/0_org_10.webp" alt="CFG 20 NFE Cirno sample"  width="1024" height="1024"  decoding="async"  loading="lazy" />
+            <img src="static/images/figs/0_org_30.webp" alt="CFG 60 NFE Cirno sample"  width="1024" height="1024"  decoding="async"  loading="lazy" />
+            <img src="static/images/figs/0_unify_guidance_10.webp" alt="MAMBO-G 20 NFE Cirno sample"  width="1024" height="1024"  decoding="async"  loading="lazy" />
+            <img src="static/images/figs/0_org_10_1.webp" alt="CFG 20 NFE astronaut sample"  width="1024" height="1024"  decoding="async"  loading="lazy" />
+            <img src="static/images/figs/0_org_30_1.webp" alt="CFG 60 NFE astronaut sample"  width="1024" height="1024"  decoding="async"  loading="lazy" />
+            <img src="static/images/figs/0_unify_guidance_10_1.webp" alt="MAMBO-G 20 NFE astronaut sample"  width="1024" height="1024"  decoding="async"  loading="lazy" />
           </div>
           <p class="caption">
             <strong>MAMBO-G narrows the speed-quality gap.</strong>
             In the paper teaser, MAMBO-G reaches the quality of longer CFG image sampling using fewer function evaluations.
           </p>
         </div>
+      </div>
+    </section>
+
+    <section id="news" class="news-section">
+      <div class="container">
+        <h2>News</h2>
+        <p class="section-sub">Latest updates on MAMBO-G.</p>
+        <ul class="news-list">
+          <li>
+            <span class="date">ICML 2026</span>
+            <strong>MAMBO-G accepted as an ICML 2026 poster.</strong>
+            <a href="https://icml.cc/virtual/2026/poster/60516" target="_blank" rel="noopener">Poster page</a>.
+            <span class="pill-new">NEW</span>
+          </li>
+          <li>
+            <span class="date">arXiv v4</span>
+            The latest HTML version is available at
+            <a href="https://arxiv.org/html/2508.03442v4" target="_blank" rel="noopener">arXiv:2508.03442v4</a>.
+          </li>
+          <li>
+            <span class="date">Diffusers</span>
+            <strong>MagnitudeAwareGuidance is available through the Diffusers API path.</strong>
+            The quickstart above shows the guider swap.
+          </li>
+        </ul>
       </div>
     </section>
 
@@ -259,19 +371,19 @@ image.save(f"t2i_mambo_g_{num_inference_steps}_steps.png")</code></pre>
 
         <div class="figure-grid">
           <figure>
-            <img src="static/images/figs/cosine_similarity_analysis.png" alt="Cosine similarity of guidance updates across seeds" />
+            <img src="static/images/figs/cosine_similarity_analysis.png" alt="Cosine similarity of guidance updates across seeds"  width="568" height="423"  decoding="async"  loading="lazy" />
             <figcaption>Initial guidance updates collapse to nearly the same direction across random seeds.</figcaption>
           </figure>
           <figure>
-            <img src="static/images/figs/ratio_distribution_by_step.png" alt="Ratio dynamics over sampling steps" />
+            <img src="static/images/figs/ratio_distribution_by_step.png" alt="Ratio dynamics over sampling steps"  width="792" height="576"  decoding="async"  loading="lazy" />
             <figcaption>The relative guidance ratio peaks early, exactly where zero-SNR sampling is most fragile.</figcaption>
           </figure>
           <figure>
-            <img src="static/images/figs/professional_kde.png" alt="ImageReward distributions for low-ratio and high-ratio groups" />
+            <img src="static/images/figs/professional_kde.png" alt="ImageReward distributions for low-ratio and high-ratio groups"  width="713" height="533"  decoding="async"  loading="lazy" />
             <figcaption>Low-ratio samples score higher, validating the ratio as a stability indicator.</figcaption>
           </figure>
           <figure>
-            <img src="static/images/figs/ratio_vs_guidance_ci.png" alt="Optimal guidance scale versus ratio" />
+            <img src="static/images/figs/ratio_vs_guidance_ci.png" alt="Optimal guidance scale versus ratio"  width="712" height="533"  decoding="async"  loading="lazy" />
             <figcaption>The best guidance scale decays as the ratio grows, motivating the exponential gate.</figcaption>
           </figure>
         </div>
@@ -281,13 +393,13 @@ image.save(f"t2i_mambo_g_{num_inference_steps}_steps.png")</code></pre>
     <section id="results">
       <div class="container">
         <p class="section-kicker">Results</p>
-        <h2>Lower-step generation without giving up quality</h2>
+        <h2>Lossless acceleration with fewer sampling steps</h2>
         <p class="section-sub">MAMBO-G is evaluated on text-to-image models, text-to-video models, high-resolution generation, scheduler variants, and combinations with other guidance methods.</p>
 
         <div class="metric-strip">
-          <div><strong>3x</strong><span>speedup on SD3.5</span></div>
-          <div><strong>4x</strong><span>speedup on Lumina</span></div>
-          <div><strong>2x</strong><span>speedup on Wan2.1-14B</span></div>
+          <div><strong>3x</strong><span>lossless speedup on SD3.5</span></div>
+          <div><strong>4x</strong><span>lossless speedup on Lumina</span></div>
+          <div><strong>2x</strong><span>lossless speedup on Wan2.1-14B</span></div>
           <div><strong>1024²</strong><span>stable high-resolution Qwen-Image samples</span></div>
         </div>
 
@@ -297,10 +409,10 @@ image.save(f"t2i_mambo_g_{num_inference_steps}_steps.png")</code></pre>
             <h3>SD3.5 and Lumina improve in low-step regimes</h3>
           </div>
           <div class="chart-grid">
-            <figure><img src="static/images/figs/SD35_ImageReward_comparison.png" alt="SD3.5 ImageReward comparison" /><figcaption>SD3.5 · ImageReward</figcaption></figure>
-            <figure><img src="static/images/figs/SD35_CLIPScore_comparison.png" alt="SD3.5 CLIPScore comparison" /><figcaption>SD3.5 · CLIPScore</figcaption></figure>
-            <figure><img src="static/images/figs/LUMINA_ImageReward_comparison.png" alt="Lumina ImageReward comparison" /><figcaption>Lumina · ImageReward</figcaption></figure>
-            <figure><img src="static/images/figs/LUMINA_CLIPScore_comparison.png" alt="Lumina CLIPScore comparison" /><figcaption>Lumina · CLIPScore</figcaption></figure>
+            <figure><img src="static/images/figs/SD35_ImageReward_comparison.png" alt="SD3.5 ImageReward comparison"  width="568" height="424"  decoding="async"  loading="lazy" /><figcaption>SD3.5 · ImageReward</figcaption></figure>
+            <figure><img src="static/images/figs/SD35_CLIPScore_comparison.png" alt="SD3.5 CLIPScore comparison"  width="568" height="424"  decoding="async"  loading="lazy" /><figcaption>SD3.5 · CLIPScore</figcaption></figure>
+            <figure><img src="static/images/figs/LUMINA_ImageReward_comparison.png" alt="Lumina ImageReward comparison"  width="568" height="424"  decoding="async"  loading="lazy" /><figcaption>Lumina · ImageReward</figcaption></figure>
+            <figure><img src="static/images/figs/LUMINA_CLIPScore_comparison.png" alt="Lumina CLIPScore comparison"  width="568" height="424"  decoding="async"  loading="lazy" /><figcaption>Lumina · CLIPScore</figcaption></figure>
           </div>
         </div>
 
@@ -310,12 +422,12 @@ image.save(f"t2i_mambo_g_{num_inference_steps}_steps.png")</code></pre>
             <h3>Video quality benefits from the same magnitude-aware damping</h3>
           </div>
           <div class="wide-compare">
-            <figure><img src="static/images/figs/UniPC_Aesthetic_Quality_comparison.png" alt="vBench aesthetic quality comparison" /><figcaption>vBench · Aesthetic quality</figcaption></figure>
-            <figure><img src="static/images/figs/UniPC_Imaging_Quality_comparison.png" alt="vBench imaging quality comparison" /><figcaption>vBench · Imaging quality</figcaption></figure>
+            <figure><img src="static/images/figs/UniPC_Aesthetic_Quality_comparison.png" alt="vBench aesthetic quality comparison"  width="704" height="523"  decoding="async"  loading="lazy" /><figcaption>vBench · Aesthetic quality</figcaption></figure>
+            <figure><img src="static/images/figs/UniPC_Imaging_Quality_comparison.png" alt="vBench imaging quality comparison"  width="704" height="523"  decoding="async"  loading="lazy" /><figcaption>vBench · Imaging quality</figcaption></figure>
           </div>
           <div class="film-pair">
-            <figure><img src="static/images/figs/film_strip_result_org.png" alt="CFG video strip" /><figcaption>CFG video sample</figcaption></figure>
-            <figure><img src="static/images/figs/film_strip_result_raag.png" alt="MAMBO-G video strip" /><figcaption>MAMBO-G video sample</figcaption></figure>
+            <figure><img src="static/images/figs/film_strip_result_org.webp" alt="CFG video strip"  width="2200" height="232"  decoding="async"  loading="lazy" /><figcaption>CFG video sample</figcaption></figure>
+            <figure><img src="static/images/figs/film_strip_result_raag.webp" alt="MAMBO-G video strip"  width="2200" height="232"  decoding="async"  loading="lazy" /><figcaption>MAMBO-G video sample</figcaption></figure>
           </div>
         </div>
 
@@ -331,15 +443,15 @@ image.save(f"t2i_mambo_g_{num_inference_steps}_steps.png")</code></pre>
             <div class="res-label">768</div>
             <div class="res-label">1024</div>
             <div class="row-label">CFG</div>
-            <img src="static/images/figs/007749-0112_org_step10_res256.png" alt="CFG 256 resolution sample" />
-            <img src="static/images/figs/007749-0112_org_step10_res512.png" alt="CFG 512 resolution sample" />
-            <img src="static/images/figs/007749-0112_org_step10_res768.png" alt="CFG 768 resolution sample" />
-            <img src="static/images/figs/007749-0112_org_step10_res1024.png" alt="CFG 1024 resolution sample" />
+            <img src="static/images/figs/007749-0112_org_step10_res256.webp" alt="CFG 256 resolution sample"  width="256" height="256"  decoding="async"  loading="lazy" />
+            <img src="static/images/figs/007749-0112_org_step10_res512.webp" alt="CFG 512 resolution sample"  width="512" height="512"  decoding="async"  loading="lazy" />
+            <img src="static/images/figs/007749-0112_org_step10_res768.webp" alt="CFG 768 resolution sample"  width="768" height="768"  decoding="async"  loading="lazy" />
+            <img src="static/images/figs/007749-0112_org_step10_res1024.webp" alt="CFG 1024 resolution sample"  width="1024" height="1024"  decoding="async"  loading="lazy" />
             <div class="row-label good">MAMBO-G</div>
-            <img src="static/images/figs/007749-0112_unify_guidance_step10_res256.png" alt="MAMBO-G 256 resolution sample" />
-            <img src="static/images/figs/007749-0112_unify_guidance_step10_res512.png" alt="MAMBO-G 512 resolution sample" />
-            <img src="static/images/figs/007749-0112_unify_guidance_step10_res768.png" alt="MAMBO-G 768 resolution sample" />
-            <img src="static/images/figs/007749-0112_unify_guidance_step10_res1024.png" alt="MAMBO-G 1024 resolution sample" />
+            <img src="static/images/figs/007749-0112_unify_guidance_step10_res256.webp" alt="MAMBO-G 256 resolution sample"  width="256" height="256"  decoding="async"  loading="lazy" />
+            <img src="static/images/figs/007749-0112_unify_guidance_step10_res512.webp" alt="MAMBO-G 512 resolution sample"  width="512" height="512"  decoding="async"  loading="lazy" />
+            <img src="static/images/figs/007749-0112_unify_guidance_step10_res768.webp" alt="MAMBO-G 768 resolution sample"  width="768" height="768"  decoding="async"  loading="lazy" />
+            <img src="static/images/figs/007749-0112_unify_guidance_step10_res1024.webp" alt="MAMBO-G 1024 resolution sample"  width="1024" height="1024"  decoding="async"  loading="lazy" />
           </div>
           <div class="mini-table-wrap">
             <table class="mini-table">
@@ -389,8 +501,8 @@ image.save(f"t2i_mambo_g_{num_inference_steps}_steps.png")</code></pre>
             <h3>Robust defaults</h3>
             <p>Ablations show that the exponential mapping works best among tested schedules, while performance stays stable over broad hyperparameter regions.</p>
             <div class="paired-charts">
-              <img src="static/images/figs/function_comparison_ImageReward.png" alt="Function comparison ImageReward" />
-              <img src="static/images/figs/function_comparison_CLIPScore.png" alt="Function comparison CLIPScore" />
+              <img src="static/images/figs/function_comparison_ImageReward.png" alt="Function comparison ImageReward"  width="645" height="447"  decoding="async"  loading="lazy" />
+              <img src="static/images/figs/function_comparison_CLIPScore.png" alt="Function comparison CLIPScore"  width="655" height="447"  decoding="async"  loading="lazy" />
             </div>
           </article>
         </div>
@@ -401,11 +513,14 @@ image.save(f"t2i_mambo_g_{num_inference_steps}_steps.png")</code></pre>
       <div class="container">
         <p class="section-kicker">Citation</p>
         <h2>BibTeX</h2>
-        <pre class="bibtex"><code>@misc{zhu2026mambog,
+        <pre class="bibtex"><code>@misc{zhu2025mambog,
   title        = {MAMBO-G: Magnitude-Aware Mitigation for Boosted Guidance},
   author       = {Shangwen Zhu and Qianyu Peng and Zhilei Shu and Yuting Hu and Zhantao Yang and Han Zhang and Zhao Pu and Andy Zheng and Xinyu Cui and Jian Zhao and Ruili Feng and Fan Cheng},
-  year         = {2026},
-  note         = {Preprint}
+  year         = {2025},
+  eprint       = {2508.03442},
+  archivePrefix = {arXiv},
+  primaryClass = {cs.CV},
+  url          = {https://arxiv.org/abs/2508.03442}
 }</code></pre>
       </div>
     </section>
@@ -414,5 +529,40 @@ image.save(f"t2i_mambo_g_{num_inference_steps}_steps.png")</code></pre>
   <footer>
     <div class="container">Project page for MAMBO-G. Static page built from the paper source and release assets.</div>
   </footer>
+
+  <script>
+    document.querySelectorAll(".copy-code").forEach((button) => {
+      button.addEventListener("click", async () => {
+        const code = button.closest(".code-mini")?.querySelector("code")?.innerText;
+        if (!code) return;
+
+        const original = button.textContent;
+        try {
+          if (navigator.clipboard && window.isSecureContext) {
+            await navigator.clipboard.writeText(code);
+          } else {
+            const textarea = document.createElement("textarea");
+            textarea.value = code;
+            textarea.setAttribute("readonly", "");
+            textarea.style.position = "fixed";
+            textarea.style.opacity = "0";
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand("copy");
+            textarea.remove();
+          }
+          button.textContent = "Copied";
+          button.classList.add("is-copied");
+        } catch (error) {
+          button.textContent = "Copy failed";
+        }
+
+        window.setTimeout(() => {
+          button.textContent = original;
+          button.classList.remove("is-copied");
+        }, 1400);
+      });
+    });
+  </script>
 </body>
 </html>
