@@ -81,6 +81,9 @@
                             <a class="page-scroll" href="#about">About</a>
                         </li>
                         <li>
+                            <a class="page-scroll" href="#projects">Projects</a>
+                        </li>
+                        <li>
                             <a class="page-scroll" href="#Services">Vision</a>
                         </li>
                         <!--
@@ -131,7 +134,7 @@
                         <div class="btn btn-primary btn-lg btn-ornge wow bounceIn animated" data-wow-delay="1s" onclick="location.href='/pages/TheMatrix'"><i class="hbtn"></i> <span>Go to Webpage</span></i>
                         </div>
                     </p>
-					</div>               
+					</div>
 				</div>
 				 <div>
 				  <div class="col-xs-12 col-sm-6 col-md-6 header-text">
@@ -147,7 +150,7 @@
                         <div class="btn btn-primary btn-lg btn-ornge wow bounceIn animated" data-wow-delay="1s" onclick="location.href='/pages/RAIN'"><i class="hbtn"></i> <span>Go to Webpage</span></i>
                         </div>
                     </p>
-					</div>               
+					</div>
 				</div>
 				
 				<div>
@@ -163,9 +166,8 @@
 						  <div class="btn btn-primary btn-lg btn-ornge wow bounceIn animated" data-wow-delay="1s" onclick="location.href='https://ztyang23.github.io/bacon-page/'"><i class="hbtn"></i> <span>Go to Webpage</span></i>
 						  </div>
 					  </p>
-					  </div>               
+					  </div>
 				  </div>
-				</div>				 
 				</div>
 
 
@@ -235,7 +237,7 @@
 					 </div>
 					</div>
 					<div class="col-xs-12 col-sm-6 col-md-3 wow fadeInUp animated" data-wow-delay=".4s">
-					  <div class="timg"><img src="assets/img/avatar7.jpg	"/></div>
+					  <div class="timg"><img src="assets/img/avatar7.jpg"/></div>
 					  <div class="t-box">
 					 <h3>Shangwen Zu</h3>
 					 <span>Research Member</span>
@@ -273,7 +275,7 @@
                   </div>
 				  
 				  <div class="col-xs-12 col-sm-6 col-md-3 wow fadeInUp animated" data-wow-delay=".5s" style="display: none;">
-                    <div class="timg"><img src="assets/img/avatar5.jpg	"/></div>
+                    <div class="timg"><img src="assets/img/avatar5.jpg"/></div>
 				    <div class="t-box">
 				   <h3>Zhilei Shu</h3>
 				   <span>Research Member</span>
@@ -365,6 +367,22 @@
 			</div>
 		</div>
 	 </div>
+	</section>
+
+	<section id="projects" class="project-index-section">
+		<div class="container">
+			<div class="row">
+				<div class="title">
+					<h2>Projects</h2>
+					<p>Automatically gathered.</p>
+					<span id="project-index-updated" class="project-index-updated"></span>
+				</div>
+				<div id="project-index-grid" class="project-index-grid" aria-live="polite">
+					<div class="project-index-loading">Loading projects...</div>
+				</div>
+				<p id="project-index-empty" class="project-index-empty">No project index found yet. Run <code>node scripts/generate-project-index.mjs</code> to generate it.</p>
+			</div>
+		</div>
 	</section>
 
 	<!-- =============== Services =============== -->
@@ -677,6 +695,8 @@ As a non-official research interest group, we are actively seeking support and r
 <script src="assets/js/baguetteBox.js" async></script>
 <script src="assets/js/plugins.js" async></script>
  
+<script src="assets/data/projects.js"></script>
+<script src="assets/js/project-index.js"></script>
     <!-- =============== Custom Theme JavaScript =============== -->
     <script src="assets/js/creative.js">	</script> 
 <script src="assets/js/jquery.nicescroll.min.js"></script>

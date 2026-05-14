@@ -1,0 +1,6 @@
+{
+  "title": "The Matrix: Infinite-Horizon World Generation with Real-Time Moving Control",
+  "description": "A neural interactive simulation project for infinite-horizon world generation, real-time motion control, and AAA-game-scale visual environments.",
+  "image": "img/thematrix.png",
+  "tags": ["world models", "real-time control", "simulation"]
+}

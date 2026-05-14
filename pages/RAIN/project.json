@@ -1,0 +1,6 @@
+{
+  "title": "RAIN: Real-time Animation Of Infinite Video Stream",
+  "description": "A real-time animation system for infinite video streams, enabling low-latency virtual avatar animation from a single image on consumer-grade devices.",
+  "image": "images/pipeline.png",
+  "tags": ["animation", "video stream", "avatars"]
+}
