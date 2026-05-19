@@ -25,7 +25,7 @@
 
   function card(project) {
     var image = project.image
-      ? '<div class="project-card-media"><img src="' + escapeHtml(project.image) + '" alt=""></div>'
+      ? '<div class="project-card-media"><img src="' + escapeHtml(project.image) + '" alt="' + escapeHtml(project.title) + ' cover" loading="lazy" decoding="async"></div>'
       : '<div class="project-card-media project-card-fallback"><span>' + escapeHtml(projectInitials(project.title)) + "</span></div>";
     var tags = Array.isArray(project.tags) && project.tags.length
       ? '<div class="project-tags">' + project.tags.slice(0, 4).map(function (tag) {

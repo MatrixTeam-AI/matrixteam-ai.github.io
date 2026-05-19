@@ -21,7 +21,7 @@
       "title": "MAMBO-G: Magnitude-Aware Mitigation for Boosted Guidance",
       "description": "MAMBO-G is a training-free, plug-and-play adaptive guidance schedule for fast text-to-image and text-to-video generation. It damps risky early guidance updates by measuring the update-to-prediction magnitude ratio.",
       "url": "pages/Mambo-g/",
-      "image": "pages/Mambo-g/static/images/figs/0_unify_guidance_10.png",
+      "image": "pages/Mambo-g/static/images/mambo-g-cover-preview.gif",
       "status": "2026 preprint",
       "tags": [
         "diffusion",
@@ -35,7 +35,7 @@
       "title": "RAIN: Real-time Animation Of Infinite Video Stream",
       "description": "A real-time animation system for infinite video streams, enabling low-latency virtual avatar animation from a single image on consumer-grade devices.",
       "url": "pages/RAIN/",
-      "image": "pages/RAIN/images/pipeline.png",
+      "image": "pages/RAIN/static/images/rain-home-preview.gif",
       "status": "",
       "tags": [
         "animation",
@@ -49,7 +49,7 @@
       "title": "The Matrix: Infinite-Horizon World Generation with Real-Time Moving Control",
       "description": "A neural interactive simulation project for infinite-horizon world generation, real-time motion control, and AAA-game-scale visual environments.",
       "url": "pages/TheMatrix/",
-      "image": "pages/TheMatrix/img/thematrix.png",
+      "image": "pages/TheMatrix/static/images/the-matrix-home-preview.gif",
       "status": "",
       "tags": [
         "world models",
@@ -77,7 +77,7 @@
       "title": "The Matrix Dataset",
       "description": "Dataset documentation for Matrix world-model research, covering collection, processing, source games, controls, and release information.",
       "url": "pages/TheMatrixDataset/",
-      "image": "pages/TheMatrixDataset/matrix.jpg",
+      "image": "pages/TheMatrixDataset/static/images/matrix-dataset-home-preview.gif",
       "status": "",
       "tags": [
         "dataset",

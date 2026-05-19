@@ -999,8 +999,9 @@ blockquote {
     overflow: hidden;
 }
 .project-card-media img {
+    background: #f7faf8;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
     width: 100%;
 }
 .project-card-fallback {
