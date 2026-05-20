@@ -1,5 +1,5 @@
 window.MATRIX_PROJECT_INDEX = {
-  "generatedAt": "2026-05-14T08:01:10.845Z",
+  "generatedAt": "2026-05-20T10:29:13.446Z",
   "source": "scripts/generate-project-index.mjs",
   "projects": [
     {
@@ -14,7 +14,7 @@ window.MATRIX_PROJECT_INDEX = {
         "language control",
         "multi-entity"
       ],
-      "updatedAt": "2026-05-14"
+      "updatedAt": "2026-05-20"
     },
     {
       "slug": "Mambo-g",
@@ -28,7 +28,7 @@ window.MATRIX_PROJECT_INDEX = {
         "guidance",
         "acceleration"
       ],
-      "updatedAt": "2026-05-14"
+      "updatedAt": "2026-05-20"
     },
     {
       "slug": "RAIN",
@@ -42,7 +42,7 @@ window.MATRIX_PROJECT_INDEX = {
         "video stream",
         "avatars"
       ],
-      "updatedAt": "2026-05-14"
+      "updatedAt": "2026-05-20"
     },
     {
       "slug": "TheMatrixDataset",
@@ -56,7 +56,7 @@ window.MATRIX_PROJECT_INDEX = {
         "world models",
         "game data"
       ],
-      "updatedAt": "2026-05-14"
+      "updatedAt": "2026-05-20"
     },
     {
       "slug": "TheMatrix",
@@ -70,7 +70,7 @@ window.MATRIX_PROJECT_INDEX = {
         "real-time control",
         "simulation"
       ],
-      "updatedAt": "2026-05-14"
+      "updatedAt": "2026-05-20"
     },
     {
       "slug": "TIE",
@@ -84,7 +84,7 @@ window.MATRIX_PROJECT_INDEX = {
         "time intervals",
         "events"
       ],
-      "updatedAt": "2026-05-14"
+      "updatedAt": "2026-05-20"
     }
   ]
 };
