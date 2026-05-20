@@ -193,7 +193,7 @@
     <div class="teaser">
       <p class="teaser-kicker">One prompt. Multiple events. Explicit time intervals.</p>
       <div class="figure-frame hero-figure" id="teaser-video">
-        <img src="static/images/figs/teaser.jpg" alt="TIE teaser showing event-conditioned video generation with explicit time intervals" width="1892" height="928" decoding="async" />
+        <img src="static/images/figs/teaser.png" alt="TIE teaser showing event-conditioned video generation with explicit time intervals" width="1892" height="928" decoding="async" />
       </div>
       <p class="caption">
         <strong>TIE turns event descriptions into temporally grounded video control.</strong>
@@ -714,47 +714,52 @@
   <div class="container">
     <h2>See it in action</h2>
     <p class="section-sub">Concurrent events, multi-subject interactions, controllable future editing.</p>
+    <div class="demo-result-control" aria-label="Demo result source">
+      <button class="demo-result-toggle" type="button" data-result-toggle aria-pressed="false">
+        Show Seedance results
+      </button>
+    </div>
 
     <div class="gallery">
 
       <div class="item">
         <div class="video-frame">
-          <video class="lazy-video" autoplay muted loop playsinline preload="none" poster="static/videos/posters/example1.jpg" width="872" height="480">
-            <source data-src="static/videos/example1.mp4" type="video/mp4" />
+          <video class="lazy-video" data-demo-id="example1" autoplay muted loop controls playsinline preload="none" poster="static/videos/posters/example1.jpg" width="872" height="480">
+            <source data-src="static/videos/example1.mp4" data-tie-src="static/videos/example1.mp4" data-seedance-src="static/videos/example1_seedance.mp4" type="video/mp4" />
           </video>
         </div>
         <h3>General concurrent events</h3>
-        <p class="desc">Two simultaneous prompts respected: "the train enters at 7.0s" while "the man waves" — both onset times correct.</p>
+        <div class="desc event-desc" data-event-output></div>
       </div>
 
       <div class="item">
         <div class="video-frame">
-          <video class="lazy-video" autoplay muted loop playsinline preload="none" poster="static/videos/posters/long_robotic_task.jpg" width="640" height="480">
-            <source data-src="static/videos/long_robotic_task.mp4" type="video/mp4" />
+          <video class="lazy-video" data-demo-id="example3" autoplay muted loop controls playsinline preload="none" poster="static/videos/posters/cover1.jpg" width="640" height="480">
+            <source data-src="static/videos/example3.mp4" data-tie-src="static/videos/example3.mp4" data-seedance-src="static/videos/example3_seedance.mp4" type="video/mp4" />
           </video>
         </div>
         <h3>Bimanual robot manipulation</h3>
-        <p class="desc">Two arms execute overlapping sub-tasks at specified intervals — exactly the regime where temporal precision matters for policy pretraining.</p>
+        <div class="desc event-desc" data-event-output></div>
       </div>
 
       <div class="item">
         <div class="video-frame">
-          <video class="lazy-video" autoplay muted loop playsinline preload="none" poster="static/videos/posters/example3.jpg" width="640" height="480">
-            <source data-src="static/videos/example3.mp4" type="video/mp4" />
+          <video class="lazy-video" data-demo-id="example5" autoplay muted loop controls playsinline preload="none" poster="static/videos/posters/cover2.jpg" width="640" height="480">
+            <source data-src="static/videos/example5.mp4" data-tie-src="static/videos/example5.mp4" data-seedance-src="static/videos/example5_seedance.mp4" type="video/mp4" />
           </video>
         </div>
         <h3>Multi-subject combat (Elden Ring)</h3>
-        <p class="desc">Player and boss carry independent event timelines. Modify a future event — the early trajectory is preserved, only the future diverges.</p>
+        <div class="desc event-desc" data-event-output></div>
       </div>
 
       <div class="item">
         <div class="video-frame">
-          <video class="lazy-video" autoplay muted loop playsinline preload="none" poster="static/videos/posters/example4.jpg" width="872" height="480">
-            <source data-src="static/videos/example4.mp4" type="video/mp4" />
+          <video class="lazy-video" data-demo-id="example4" autoplay muted loop controls playsinline preload="none" poster="static/videos/posters/example4.jpg" width="872" height="480">
+            <source data-src="static/videos/example4.mp4" data-tie-src="static/videos/example4.mp4" data-seedance-src="static/videos/example4_seedance.mp4" type="video/mp4" />
           </video>
         </div>
         <h3>Localized future-event editing</h3>
-        <p class="desc">Three variants share the same first 3 seconds, then branch into different futures based on a single edited interval prompt.</p>
+        <div class="desc event-desc" data-event-output></div>
       </div>
 
     </div>
@@ -1044,21 +1049,127 @@
   // Load demo videos only when the gallery is close to the viewport.
   (function () {
     const videos = Array.from(document.querySelectorAll('video.lazy-video'));
+    const toggle = document.querySelector('[data-result-toggle]');
+    let activeResult = 'tie';
+
     if (!videos.length) return;
 
-    const loadVideo = (video) => {
-      if (video.dataset.loaded) return;
-      video.querySelectorAll('source[data-src]').forEach((source) => {
-        source.src = source.dataset.src;
-        source.removeAttribute('data-src');
+    const eventTimelines = {
+      example1: [
+        { start: 0, end: 5, text: 'A flock of black geese flies across the sky.' },
+        { start: 0, end: 2, text: 'A man stands still on the dirt path.' },
+        { start: 2, end: 8, text: 'The man raises his hand to shield his eyes from the sun.' },
+        { start: 7, end: 10, text: 'An passenger train comes into view..' },
+        { start: 8, end: 10, text: 'The man lowers his hand.' }
+      ],
+      example3: [
+        { start: 0, end: 3.5, text: 'The left arm moves slightly forward, upward, and backward' },
+        { start: 3.5, end: 6.6, text: 'the left arm extends toward the right arm to receive the wooden spoon.' },
+        { start: 4, end: 7, text: 'The left arm reaches toward the spoon from the left as the right arm holds it steady near the center.' },
+        { start: 7, end: 10, text: 'Both grippers meet over the sink and keep the spoon aligned between them, forming a coordinated handoff pose.' }
+      ],
+      example5: [
+        { start: 0, end: 2, text: 'The red-cloaked player stands close to the towering boss as the boss lifts its heavy weapon.' },
+        { start: 2, end: 4, text: 'The boss swings and advances while the player dodges around the impact area.' },
+        { start: 4, end: 6, text: 'The player circles near the boss\'s legs and repositions along the stone arena wall.' },
+        { start: 6, end: 8, text: 'The player retreats and raises a glowing attack or spell while the boss moves out of frame.' },
+        { start: 8, end: 10, text: 'The player runs forward carrying a large weapon as the glowing effect remains ahead in the arena.' }
+      ],
+      example4: [
+        { start: 0, end: 3, text: 'An orange tabby cat lies on the sunlit floor while a small cream-colored puppy sits beside it and watches.' },
+        { start: 3, end: 5, text: 'The puppy leans closer and turns toward the cat\'s face.' },
+        { start: 5, end: 7, text: 'The puppy nuzzles the side of the cat\'s head while the cat remains lying down.' },
+        { start: 7, end: 10, text: 'The puppy rises onto its front paws and continues pressing close to the cat, while the cat looks forward and stays mostly still.' }
+      ]
+    };
+
+    const formatTime = (seconds) => seconds.toFixed(1);
+
+    const renderActiveEvents = (video) => {
+      const output = video.closest('.item')?.querySelector('[data-event-output]');
+      const events = eventTimelines[video.dataset.demoId] || [];
+      if (!output || !events.length) return;
+
+      const duration = Number.isFinite(video.duration) ? video.duration : 10;
+      const currentTime = Math.min(video.currentTime || 0, duration);
+      const activeEvents = events.filter((event) => {
+        const inOpenInterval = currentTime >= event.start && currentTime < event.end;
+        const atVideoEnd = currentTime >= duration - 0.1 && event.end >= duration - 0.1;
+        return inOpenInterval || atVideoEnd;
       });
-      video.dataset.loaded = 'true';
-      video.load();
+
+      output.replaceChildren();
+      activeEvents.forEach((event) => {
+        const line = document.createElement('span');
+        line.className = 'event-desc-line';
+        const time = document.createElement('strong');
+        time.textContent = `${formatTime(event.start)}s-${formatTime(event.end)}s`;
+        line.append(time, document.createTextNode(` ${event.text}`));
+        output.append(line);
+      });
+    };
+
+    const sourceForResult = (source, result) => {
+      return result === 'seedance'
+        ? source.dataset.seedanceSrc
+        : source.dataset.tieSrc;
+    };
+
+    const playVideo = (video) => {
       const playPromise = video.play();
       if (playPromise && typeof playPromise.catch === 'function') {
         playPromise.catch(() => {});
       }
     };
+
+    const updateVideoSource = (video, result) => {
+      let changed = false;
+      video.querySelectorAll('source').forEach((source) => {
+        const nextSrc = sourceForResult(source, result);
+        if (!nextSrc) return;
+        source.dataset.src = nextSrc;
+        if (video.dataset.loaded && source.getAttribute('src') !== nextSrc) {
+          source.src = nextSrc;
+          changed = true;
+        }
+      });
+      if (changed) {
+        video.load();
+        renderActiveEvents(video);
+        playVideo(video);
+      }
+    };
+
+    const loadVideo = (video) => {
+      if (video.dataset.loaded) return;
+      video.querySelectorAll('source').forEach((source) => {
+        const nextSrc = sourceForResult(source, activeResult) || source.dataset.src;
+        if (!nextSrc) return;
+        source.src = nextSrc;
+        source.removeAttribute('data-src');
+      });
+      video.dataset.loaded = 'true';
+      video.load();
+      renderActiveEvents(video);
+      playVideo(video);
+    };
+
+    videos.forEach((video) => {
+      renderActiveEvents(video);
+      video.addEventListener('loadedmetadata', () => renderActiveEvents(video));
+      video.addEventListener('timeupdate', () => renderActiveEvents(video));
+      video.addEventListener('seeking', () => renderActiveEvents(video));
+      video.addEventListener('play', () => renderActiveEvents(video));
+    });
+
+    if (toggle) {
+      toggle.addEventListener('click', () => {
+        activeResult = activeResult === 'tie' ? 'seedance' : 'tie';
+        toggle.setAttribute('aria-pressed', activeResult === 'seedance' ? 'true' : 'false');
+        toggle.textContent = activeResult === 'seedance' ? 'Show TIE results' : 'Show Seedance results';
+        videos.forEach((video) => updateVideoSource(video, activeResult));
+      });
+    }
 
     if (!('IntersectionObserver' in window)) {
       videos.forEach(loadVideo);
