@@ -754,11 +754,11 @@
 
       <div class="item">
         <div class="video-frame">
-          <video class="lazy-video" data-demo-id="example4" autoplay muted loop controls playsinline preload="none" poster="static/videos/posters/example4.jpg" width="872" height="480">
-            <source data-src="static/videos/example4.mp4" data-tie-src="static/videos/example4.mp4" data-seedance-src="static/videos/example4_seedance.mp4" type="video/mp4" />
+          <video class="lazy-video" data-demo-id="example4" autoplay muted loop controls playsinline preload="none" poster="static/videos/posters/long_robotic_task.jpg" width="872" height="480">
+            <source data-src="static/videos/long_robotic_task.mp4" data-tie-src="static/videos/long_robotic_task.mp4" data-seedance-src="static/videos/long_robotic_task.mp4" type="video/mp4" />
           </video>
         </div>
-        <h3>Localized future-event editing</h3>
+        <h3>Long Video Scenario (No Seedance 2.0 Comparison)</h3>
         <div class="desc event-desc" data-event-output></div>
       </div>
 
@@ -1063,23 +1063,180 @@
         { start: 8, end: 10, text: 'The man lowers his hand.' }
       ],
       example3: [
-        { start: 0, end: 3.5, text: 'The left arm moves slightly forward, upward, and backward' },
-        { start: 3.5, end: 6.6, text: 'the left arm extends toward the right arm to receive the wooden spoon.' },
-        { start: 4, end: 7, text: 'The left arm reaches toward the spoon from the left as the right arm holds it steady near the center.' },
-        { start: 7, end: 10, text: 'Both grippers meet over the sink and keep the spoon aligned between them, forming a coordinated handoff pose.' }
+        { start: 0, end: 2.5, text: 'The left arm makes small positioning adjustments.' },
+        { start: 2.5, end: 3.6, text: 'The left arm aligns itself with the spoon.' },
+        { start: 3.6, end: 8.1, text: 'The left arm extends forward to grasp the spoon.' },
+        { start: 8.1, end: 9.4, text: 'The left arm securely holds the spoon.' },
+        { start: 9.4, end: 10.0, text: 'The left arm repositions the spoon.' },
+        { start: 0.0, end: 7.2, text: 'The left gripper remains open.' },
+        { start: 7.2, end: 8.5, text: 'The left gripper gradually closes around the spoon.' },
+        { start: 8.5, end: 10.0, text: 'The left gripper maintains a firm hold.' },
+        { start: 0.0, end: 4.3, text: 'The right arm moves the spoon toward the left arm.' },
+        { start: 4.3, end: 9.5, text: 'The right arm stays mostly steady.' },
+        { start: 9.5, end: 10.0, text: 'The right arm retracts slightly backwar.' },
+        { start: 0.0, end: 0.5, text: 'The right gripper closes around the spoon to secure it.' },
+        { start: 0.5, end: 9.3, text: 'The right gripper maintains control of the spoon.' },
+        { start: 9.3, end: 10.0, text: 'The right gripper gradually opens.' },
+
       ],
       example5: [
-        { start: 0, end: 2, text: 'The red-cloaked player stands close to the towering boss as the boss lifts its heavy weapon.' },
-        { start: 2, end: 4, text: 'The boss swings and advances while the player dodges around the impact area.' },
-        { start: 4, end: 6, text: 'The player circles near the boss\'s legs and repositions along the stone arena wall.' },
-        { start: 6, end: 8, text: 'The player retreats and raises a glowing attack or spell while the boss moves out of frame.' },
-        { start: 8, end: 10, text: 'The player runs forward carrying a large weapon as the glowing effect remains ahead in the arena.' }
+        { start: 0, end: 3.0, text: 'The player performs a powerful critical hit attack against the boss.' },
+        { start: 3.0, end: 4.5, text: 'The player performs a hit.' },
+        { start: 4.5, end: 6.0, text: 'The player executes a backward evasive roll.' },
+        { start: 6.0, end: 7.75, text: 'The player advances forward toward the boss again.' },
+        { start: 7.75, end: 10.0, text: 'The player retreats backward cautiously while maintaining focus on the boss.' },
+        {start: 0, end: 3.5, text: 'The boss is staggered to the player character’s critical execution attack.' },
+        { start: 3.5, end: 4.5, text: 'The boss takes damage accompanied by visible blood splatter effects.' },
+        { start: 4.5, end: 6.25, text: 'The boss retaliates with a wide horizontal slash attack.' },
+        { start: 6.25, end: 6.75, text: 'The boss performs a backward jump.' },
+        { start: 6.75, end: 10.0, text: 'The boss remains at a distance and utter a curse.' }
       ],
       example4: [
-        { start: 0, end: 3, text: 'An orange tabby cat lies on the sunlit floor while a small cream-colored puppy sits beside it and watches.' },
-        { start: 3, end: 5, text: 'The puppy leans closer and turns toward the cat\'s face.' },
-        { start: 5, end: 7, text: 'The puppy nuzzles the side of the cat\'s head while the cat remains lying down.' },
-        { start: 7, end: 10, text: 'The puppy rises onto its front paws and continues pressing close to the cat, while the cat looks forward and stays mostly still.' }
+        // segment 1 : 0 - 10
+        { start: 0.0, end: 0.8, text: 'The left arm remains stationary.' },
+        { start: 0.8, end: 3.6, text: 'The left arm moves toward the microwave door and grips it.' },
+        { start: 3.6, end: 10.0, text: 'The left arm holds the microwave door steady.' },
+
+        { start: 0.0, end: 4.4, text: 'The right arm remains stationary.' },
+        { start: 4.4, end: 7.7, text: 'The right arm reaches toward the microwave handle and grasps it.' },
+        { start: 7.7, end: 8.8, text: 'The right arm pulls the microwave door open.' },
+        { start: 8.8, end: 10.0, text: 'The right arm keeps the door partially open.' },
+
+        { start: 0.0, end: 2.0, text: 'The left gripper remains open.' },
+        { start: 2.0, end: 2.7, text: 'The left gripper closes around the microwave door.' },
+        { start: 2.7, end: 10.0, text: 'The left gripper firmly holds the microwave door.' },
+
+        { start: 0.0, end: 4.4, text: 'The right gripper remains open and inactive.' },
+        { start: 4.4, end: 7.7, text: 'The right gripper closes around the microwave handle.' },
+        { start: 7.7, end: 10.0, text: 'The right gripper pulls and holds the microwave handle.' },
+
+        { start: 0.0, end: 10.0, text: 'The human operator stabilizes the microwave with both hands.' },
+
+        // segment 2 : 10 - 20
+        { start: 10.0, end: 12.2, text: 'The left arm moves slightly forward toward the microwave.' },
+        { start: 12.2, end: 20.0, text: 'The left arm remains idle beside the microwave.' },
+
+        { start: 10.0, end: 12.3, text: 'The right arm stays near the microwave handle.' },
+        { start: 12.3, end: 20.0, text: 'The right arm pulls the microwave door open and extends inward.' },
+
+        { start: 10.0, end: 11.8, text: 'The left gripper stays closed while holding an object.' },
+        { start: 11.8, end: 12.4, text: 'The left gripper opens and releases the object.' },
+        { start: 12.4, end: 20.0, text: 'The left gripper remains open and inactive.' },
+
+        { start: 10.0, end: 13.5, text: 'The right gripper securely holds the microwave handle.' },
+        { start: 13.5, end: 17.9, text: 'The right gripper tightens and maintains its grasp while opening the door.' },
+        { start: 17.9, end: 18.5, text: 'The right gripper releases the handle.' },
+        { start: 18.5, end: 20.0, text: 'The right gripper remains open and inactive.' },
+
+        { start: 10.0, end: 20.0, text: 'The human operator observes the robotic actions.' },
+
+        // segment 3 : 20 - 30
+        { start: 20.0, end: 30.0, text: 'The left arm holds the microwave door open.' },
+
+        { start: 20.0, end: 23.0, text: 'The right arm moves toward the plate and grasps the food item.' },
+        { start: 23.0, end: 26.2, text: 'The right arm lifts the food item upward and backward.' },
+        { start: 26.2, end: 30.0, text: 'The right arm places the food item near the bottle.' },
+
+        { start: 20.0, end: 30.0, text: 'The left gripper maintains its hold on the microwave door.' },
+
+        { start: 20.0, end: 22.4, text: 'The right gripper approaches the food item.' },
+        { start: 22.4, end: 23.0, text: 'The right gripper grasps the food item.' },
+        { start: 23.0, end: 26.4, text: 'The right gripper transports the food item.' },
+        { start: 26.4, end: 27.2, text: 'The right gripper releases the food item.' },
+        { start: 27.2, end: 30.0, text: 'The right gripper remains open and idle.' },
+
+        { start: 20.0, end: 23.0, text: 'The human operator keeps the microwave door open.' },
+        { start: 23.0, end: 27.0, text: 'The human operator observes the robotic actions.' },
+        { start: 27.0, end: 30.0, text: 'The human operator adjusts the plate position.' },
+
+        // segment 4 : 30 - 40
+        { start: 30.0, end: 40.0, text: 'The left arm remains stationary beside the microwave.' },
+
+        { start: 30.0, end: 31.3, text: 'The right arm approaches the pink plate with the burger.' },
+        { start: 31.3, end: 32.6, text: 'The right arm grasps the plate.' },
+        { start: 32.6, end: 40.0, text: 'The right arm transports the plate across the table.' },
+
+        { start: 30.0, end: 31.3, text: 'The right gripper extends toward the plate.' },
+        { start: 31.3, end: 32.6, text: 'The right gripper closes around the plate.' },
+        { start: 32.6, end: 40.0, text: 'The right gripper firmly holds the plate during transport.' },
+
+        { start: 30.0, end: 40.0, text: 'The human operator observes the robotic actions.' },
+
+        // segment 5 : 40 - 50
+        { start: 40.0, end: 48.0, text: 'The right arm moves the burger plate toward the microwave.' },
+        { start: 48.2, end: 50.0, text: 'The right arm retracts slightly after the insertion attempt.' },
+
+        { start: 40.0, end: 42.7, text: 'The right gripper firmly holds the plate.' },
+        { start: 42.7, end: 45.0, text: 'The right gripper opens during repositioning.' },
+        { start: 45.0, end: 48.9, text: 'The right gripper grasps the plate again for insertion.' },
+        { start: 48.9, end: 50.0, text: 'The right gripper releases the plate.' },
+
+        { start: 40.0, end: 50.0, text: 'The left arm remains inactive beside the microwave.' },
+        { start: 40.0, end: 50.0, text: 'The left gripper remains inactive.' },
+
+        { start: 40.0, end: 50.0, text: 'The human operator observes the robot.' },
+
+        // segment 6 : 50 - 60
+        { start: 50.0, end: 52.1, text: 'The left arm waits beside the microwave.' },
+        { start: 52.1, end: 59.9, text: 'The left arm grasps the handle and closes the microwave door.' },
+        { start: 59.9, end: 60.0, text: 'The left arm becomes idle after closing the door.' },
+
+        { start: 50.0, end: 52.6, text: 'The left gripper stays open near the microwave door.' },
+        { start: 52.6, end: 53.3, text: 'The left gripper closes around the microwave handle.' },
+        { start: 53.3, end: 58.7, text: 'The left gripper pulls the microwave door closed.' },
+        { start: 58.7, end: 59.4, text: 'The left gripper releases the handle.' },
+        { start: 59.4, end: 60.0, text: 'The left gripper remains open and inactive.' },
+
+        { start: 50.0, end: 51.4, text: 'The right arm makes a small adjustment.' },
+        { start: 51.4, end: 60.0, text: 'The right arm remains stationary.' },
+
+        { start: 50.0, end: 51.4, text: 'The right gripper slightly moves while open.' },
+        { start: 51.4, end: 60.0, text: 'The right gripper remains open and idle.' },
+
+        { start: 50.0, end: 60.0, text: 'The human operator observes the robot closing the microwave door.' },
+
+        // segment 7 : 60 - 70
+        { start: 60.0, end: 65.3, text: 'The left arm remains idle near the microwave.' },
+        { start: 65.3, end: 70.0, text: 'The left arm extends toward the microwave interior.' },
+
+        { start: 60.0, end: 65.2, text: 'The right arm makes small positional adjustments.' },
+        { start: 65.2, end: 70.0, text: 'The right arm remains stationary away from the microwave.' },
+
+        { start: 60.0, end: 65.8, text: 'The left gripper remains open.' },
+        { start: 65.8, end: 66.4, text: 'The left gripper closes around the microwave handle.' },
+        { start: 66.4, end: 70.0, text: 'The left gripper maintains its grip.' },
+
+        { start: 60.0, end: 70.0, text: 'The right gripper remains open and inactive.' },
+
+        { start: 62.0, end: 64.0, text: 'The human operator opens the microwave door and reveals the food inside.' },
+
+        // segment 8 : 70 - 80
+        { start: 70.0, end: 70.4, text: 'The left arm holds the microwave handle.' },
+        { start: 70.4, end: 71.1, text: 'The left arm releases the microwave handle.' },
+        { start: 71.1, end: 72.4, text: 'The left arm moves slightly away from the microwave.' },
+        { start: 72.4, end: 80.0, text: 'The left arm remains stationary beside the microwave.' },
+
+        { start: 70.0, end: 73.0, text: 'The right arm remains idle away from the microwave.' },
+        { start: 73.0, end: 78.0, text: 'The right arm approaches the microwave control panel.' },
+        { start: 78.0, end: 78.1, text: 'The right arm pauses near the control panel.' },
+        { start: 78.1, end: 78.2, text: 'The right arm makes a slight positional adjustment.' },
+        { start: 78.2, end: 78.5, text: 'The right arm remains stationary near the control panel.' },
+        { start: 78.5, end: 80.0, text: 'The right arm retracts slightly backward.' },
+
+        { start: 70.0, end: 70.4, text: 'The left gripper grips the microwave handle.' },
+        { start: 70.4, end: 71.1, text: 'The left gripper opens and releases the handle.' },
+        { start: 71.1, end: 80.0, text: 'The left gripper remains open and inactive.' },
+
+        { start: 70.0, end: 73.0, text: 'The right gripper remains open and idle.' },
+        { start: 73.0, end: 78.0, text: 'The right gripper approaches the microwave control panel.' },
+        { start: 78.0, end: 78.1, text: 'The right gripper pauses near the control panel.' },
+        { start: 78.1, end: 78.2, text: 'The right gripper makes small adjustments.' },
+        { start: 78.2, end: 78.5, text: 'The right gripper hovers near the control panel.' },
+        { start: 78.5, end: 80.0, text: 'The right gripper retracts away from the microwave.' },
+
+        { start: 70.0, end: 74.0, text: 'The human operator observes the robotic actions.' },
+        { start: 74.0, end: 76.0, text: 'The human operator places a bottle near the microwave.' },
+        { start: 76.0, end: 78.0, text: 'The human operator adjusts the bottle position.' }
       ]
     };
 
