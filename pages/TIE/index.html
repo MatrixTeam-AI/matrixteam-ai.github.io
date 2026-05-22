@@ -713,46 +713,37 @@
 <section id="demos">
   <div class="container">
     <h2>See it in action</h2>
-    <p class="section-sub">Concurrent events, multi-subject interactions, controllable future editing.</p>
-    <div class="demo-result-control" aria-label="Demo result source">
-      <button class="demo-result-toggle" type="button" data-result-toggle aria-pressed="false">
-        Show Seedance results
-      </button>
-    </div>
-
+    <p class="section-sub">Concurrent events, multi-subject interactions. We compare <strong style="color:black">TIE</strong> with existing <strong style="color:black">prompt-based</strong> time control SoTA (Seedance 2.0), to see their time response performance under complex scenarios. We show videos with their accurate text prompts and timestamps in the below. We pick a few <strong style="color:black">key visual changes</strong> for reader to better understand the differences. Traditional prompt-based methods struggle with temporal accuracy while TIE maintains robust performance.</p>
     <div class="gallery">
 
       <div class="item">
         <div class="video-frame">
-          <video class="lazy-video" data-demo-id="example1" autoplay muted loop controls playsinline preload="none" poster="static/videos/posters/example1.jpg" width="872" height="480">
-            <source data-src="static/videos/example1.mp4" data-tie-src="static/videos/example1.mp4" data-seedance-src="static/videos/example1_seedance.mp4" type="video/mp4" />
+          <video class="lazy-video comparison-video" data-demo-id="example1" autoplay muted loop controls playsinline preload="none" width="1920" height="1080">
+            <source data-src="static/videos/timestamp_comparison_example1.mp4" type="video/mp4" />
           </video>
         </div>
         <h3>General concurrent events</h3>
-        <div class="desc event-desc" data-event-output></div>
       </div>
 
       <div class="item">
         <div class="video-frame">
-          <video class="lazy-video" data-demo-id="example3" autoplay muted loop controls playsinline preload="none" poster="static/videos/posters/cover1.jpg" width="640" height="480">
-            <source data-src="static/videos/example3.mp4" data-tie-src="static/videos/example3.mp4" data-seedance-src="static/videos/example3_seedance.mp4" type="video/mp4" />
+          <video class="lazy-video comparison-video" data-demo-id="example3" autoplay muted loop controls playsinline preload="none" width="1920" height="1080">
+            <source data-src="static/videos/timestamp_comparison_example3.mp4" type="video/mp4" />
           </video>
         </div>
         <h3>Bimanual robot manipulation</h3>
-        <div class="desc event-desc" data-event-output></div>
       </div>
 
       <div class="item">
         <div class="video-frame">
-          <video class="lazy-video" data-demo-id="example5" autoplay muted loop controls playsinline preload="none" poster="static/videos/posters/cover2.jpg" width="640" height="480">
-            <source data-src="static/videos/example5.mp4" data-tie-src="static/videos/example5.mp4" data-seedance-src="static/videos/example5_seedance.mp4" type="video/mp4" />
+          <video class="lazy-video comparison-video" data-demo-id="example5" autoplay muted loop controls playsinline preload="none" width="1920" height="1080">
+            <source data-src="static/videos/timestamp_comparison_example5.mp4" type="video/mp4" />
           </video>
         </div>
         <h3>Multi-subject combat (Elden Ring)</h3>
-        <div class="desc event-desc" data-event-output></div>
       </div>
 
-      <div class="item">
+      <div class="item long-video-item">
         <div class="video-frame">
           <video class="lazy-video" data-demo-id="example4" autoplay muted loop controls playsinline preload="none" poster="static/videos/posters/long_robotic_task.jpg" width="872" height="480">
             <source data-src="static/videos/long_robotic_task.mp4" data-tie-src="static/videos/long_robotic_task.mp4" data-seedance-src="static/videos/long_robotic_task.mp4" type="video/mp4" />
@@ -1057,10 +1048,10 @@
     const eventTimelines = {
       example1: [
         { start: 0, end: 5, text: 'A flock of black geese flies across the sky.' },
-        { start: 0, end: 2, text: 'A man stands still on the dirt path.' },
-        { start: 2, end: 8, text: 'The man raises his hand to shield his eyes from the sun.' },
+        { start: 0, end: 3, text: 'A man stands still on the dirt path.' },
+        { start: 3, end: 8.5, text: 'The man raises his hand to shield his eyes from the sun.' },
         { start: 7, end: 10, text: 'An passenger train comes into view..' },
-        { start: 8, end: 10, text: 'The man lowers his hand.' }
+        { start: 8.5, end: 10, text: 'The man lowers his hand.' }
       ],
       example3: [
         { start: 0, end: 2.5, text: 'The left arm makes small positioning adjustments.' },
@@ -1082,14 +1073,15 @@
       example5: [
         { start: 0, end: 3.0, text: 'The player performs a powerful critical hit attack against the boss.' },
         { start: 3.0, end: 4.5, text: 'The player performs a hit.' },
-        { start: 4.5, end: 6.0, text: 'The player executes a backward evasive roll.' },
+        { start: 4.5, end: 5.25, text: 'The player executes a backward evasive roll.' },
+        { start: 5.25, end: 6.0, text: 'The player executes a backward evasive roll.' },
         { start: 6.0, end: 7.75, text: 'The player advances forward toward the boss again.' },
         { start: 7.75, end: 10.0, text: 'The player retreats backward cautiously while maintaining focus on the boss.' },
         {start: 0, end: 3.5, text: 'The boss is staggered to the player character’s critical execution attack.' },
-        { start: 3.5, end: 4.5, text: 'The boss takes damage accompanied by visible blood splatter effects.' },
-        { start: 4.5, end: 6.25, text: 'The boss retaliates with a wide horizontal slash attack.' },
-        { start: 6.25, end: 6.75, text: 'The boss performs a backward jump.' },
-        { start: 6.75, end: 10.0, text: 'The boss remains at a distance and utter a curse.' }
+        { start: 3.5, end: 4.25, text: 'The boss takes damage accompanied by visible blood splatter effects.' },
+        { start: 4.25, end: 5.5, text: 'The boss retaliates with a wide horizontal slash attack.' },
+        { start: 5.5, end: 6.0, text: 'The boss performs a backward jump.' },
+        { start: 6.0, end: 10.0, text: 'The boss remains at a distance and utter a curse.' }
       ],
       example4: [
         // segment 1 : 0 - 10

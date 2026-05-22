@@ -1149,11 +1149,13 @@ h1.title .accent {
    ========================================================= */
 .gallery {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
+  grid-template-columns: 1fr;
+  gap: 28px;
   margin-top: 28px;
+  max-width: 1040px;
+  margin-left: auto;
+  margin-right: auto;
 }
-@media (max-width: 720px) { .gallery { grid-template-columns: 1fr; } }
 
 .demo-result-control {
   display: flex;
@@ -1192,9 +1194,21 @@ h1.title .accent {
   display: flex;
   flex-direction: column;
 }
+.gallery .long-video-item {
+  width: 50%;
+  justify-self: center;
+}
 .gallery .item h3 {
   font-size: 16px;
   margin: 14px 0 4px;
+}
+.gallery .comparison-video {
+  aspect-ratio: 16 / 9;
+}
+@media (max-width: 720px) {
+  .gallery .long-video-item {
+    width: 100%;
+  }
 }
 .gallery .item .desc {
   color: var(--text-muted);
