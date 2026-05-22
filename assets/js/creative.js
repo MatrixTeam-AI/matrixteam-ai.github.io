@@ -68,10 +68,38 @@ $(document).ready(function() {
 	 * Preloader
 	/* ---------------------------------------------- */
 
-	$(window).load(function() {
-		$('#loading').fadeOut();
-		$('#preloader').delay(300).fadeOut('slow');
-	});
+	var preloaderHidden = false;
+
+	function hidePreloader() {
+		if (preloaderHidden) return;
+		preloaderHidden = true;
+
+		var $preloader = $('#preloader');
+		if (!$preloader.length) return;
+
+		$('#loading').addClass('is-hidden');
+		$preloader.addClass('is-hidden');
+
+		window.setTimeout(function() {
+			$preloader.addClass('is-gone').hide();
+		}, 420);
+	}
+
+	function schedulePreloaderHide() {
+		window.setTimeout(function() {
+			if (window.requestAnimationFrame) {
+				window.requestAnimationFrame(function() {
+					window.requestAnimationFrame(hidePreloader);
+				});
+			} else {
+				hidePreloader();
+			}
+		}, 180);
+	}
+
+	$(schedulePreloaderHide);
+	$(window).on('load', hidePreloader);
+	window.setTimeout(hidePreloader, 1800);
 
     "use strict"; // Start of use strict
 

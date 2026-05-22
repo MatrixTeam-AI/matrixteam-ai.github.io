@@ -38,6 +38,26 @@ a:focus {
 
 #preloader {
     background: var(--mx-bg);
+    opacity: 1;
+    transition: opacity 0.28s ease;
+    will-change: opacity;
+}
+
+#loading {
+    transition: opacity 0.2s ease;
+}
+
+#loading.is-hidden,
+#preloader.is-hidden {
+    opacity: 0;
+}
+
+#preloader.is-hidden {
+    pointer-events: none;
+}
+
+#preloader.is-gone {
+    display: none !important;
 }
 
 #mainNav {
