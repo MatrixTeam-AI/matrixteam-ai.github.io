@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-14T07:21:22.848Z",
+  "generatedAt": "2026-05-22T00:40:25+08:00",
   "source": "scripts/generate-project-index.mjs",
   "projects": [
     {
@@ -7,19 +7,35 @@
       "title": "Incantation: Natural Language as the Action Interface for Multi-Entity Video World Models",
       "description": "Incantation shows that per-frame, per-entity natural language is a stronger action interface than closed action IDs for multi-entity video world models, enabling cross-entity transfer, out-of-vocabulary action prompts, and parallel control.",
       "url": "pages/Incanation/",
-      "image": "pages/Incanation/static/images/figs/teaser.png",
+      "image": "pages/Incanation/static/images/covers/incantation-cover-v6.gif",
       "status": "2026 preprint",
       "tags": [
         "world models",
         "language control",
         "multi-entity"
       ],
-      "updatedAt": "2026-05-14"
+      "updatedAt": "2026-05-20",
+      "imageWebp": "pages/Incanation/static/images/covers/incantation-cover-v6.webp"
+    },
+    {
+      "slug": "TIE",
+      "title": "TIE: Time Interval Encoding for Video Generation over Events",
+      "description": "TIE elevates time intervals to first-class primitives in DiT cross-attention. A principled, plug-and-play interval-aware extension of RoPE that unlocks concurrent and overlapping events in video generation.",
+      "url": "pages/TIE/",
+      "image": "pages/TIE/static/images/cover/tie-cover-v2.gif",
+      "status": "arXiv 2605.10543",
+      "tags": [
+        "video generation",
+        "time intervals",
+        "events"
+      ],
+      "updatedAt": "2026-05-20",
+      "imageWebp": "pages/TIE/static/images/cover/tie-cover-v2.webp"
     },
     {
       "slug": "Mambo-g",
       "title": "MAMBO-G: Magnitude-Aware Mitigation for Boosted Guidance",
-      "description": "MAMBO-G is a training-free, plug-and-play adaptive guidance schedule for fast text-to-image and text-to-video generation. It damps risky early guidance updates by measuring the update-to-prediction magnitude ratio.",
+      "description": "ICML 2026 poster. MAMBO-G is a training-free, plug-and-play adaptive guidance schedule for fast text-to-image and text-to-video generation. It damps risky early guidance updates by measuring the update-to-prediction magnitude ratio.",
       "url": "pages/Mambo-g/",
       "image": "pages/Mambo-g/static/images/mambo-g-cover-preview.gif",
       "status": "2026 preprint",
@@ -28,7 +44,8 @@
         "guidance",
         "acceleration"
       ],
-      "updatedAt": "2026-05-14"
+      "updatedAt": "2025-11-23",
+      "imageWebp": "pages/Mambo-g/static/images/mambo-g-cover-preview.webp"
     },
     {
       "slug": "RAIN",
@@ -42,7 +59,8 @@
         "video stream",
         "avatars"
       ],
-      "updatedAt": "2026-05-14"
+      "updatedAt": "2024-12-27",
+      "imageWebp": "pages/RAIN/static/images/rain-home-preview.webp"
     },
     {
       "slug": "TheMatrix",
@@ -56,21 +74,8 @@
         "real-time control",
         "simulation"
       ],
-      "updatedAt": "2026-05-14"
-    },
-    {
-      "slug": "TIE",
-      "title": "TIE: Time Interval Encoding for Video Generation over Events",
-      "description": "TIE elevates time intervals to first-class primitives in DiT cross-attention. A principled, plug-and-play interval-aware extension of RoPE that unlocks concurrent and overlapping events in video generation.",
-      "url": "pages/TIE/",
-      "image": "pages/TIE/static/images/figs/teaser.png",
-      "status": "arXiv 2605.10543",
-      "tags": [
-        "video generation",
-        "time intervals",
-        "events"
-      ],
-      "updatedAt": "2026-05-14"
+      "updatedAt": "2024-11-10",
+      "imageWebp": "pages/TheMatrix/static/images/the-matrix-home-preview.webp"
     },
     {
       "slug": "TheMatrixDataset",
@@ -84,7 +89,8 @@
         "world models",
         "game data"
       ],
-      "updatedAt": "2026-05-13"
+      "updatedAt": "2024-11-10",
+      "imageWebp": "pages/TheMatrixDataset/static/images/matrix-dataset-home-preview.webp"
     }
   ]
 }

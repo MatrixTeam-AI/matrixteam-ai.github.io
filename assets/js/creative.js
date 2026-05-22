@@ -9,6 +9,37 @@
 	 * owl header
 	/* ---------------------------------------------- */
 $(document).ready(function() {
+      function loadFeaturedMedia($scope) {
+        $scope.find("source[data-srcset]").each(function() {
+          var $source = $(this);
+          $source.attr("srcset", $source.attr("data-srcset"));
+          $source.removeAttr("data-srcset");
+        });
+        $scope.find("img[data-src]").each(function() {
+          var $img = $(this);
+          $img.attr("src", $img.attr("data-src"));
+          $img.removeAttr("data-src");
+          $img.removeClass("featured-lazy-media");
+        });
+      }
+
+      function loadFeaturedMediaAt($elem, index) {
+        var $items = $elem.find(".owl-item");
+        var itemCount = $items.length;
+        if (!itemCount) return;
+        var safeIndex = ((index % itemCount) + itemCount) % itemCount;
+        loadFeaturedMedia($items.eq(safeIndex));
+      }
+
+      function loadCurrentFeaturedMedia($elem, includeNext) {
+        var carousel = $elem.data("owlCarousel");
+        var current = carousel && typeof carousel.currentItem === "number" ? carousel.currentItem : 0;
+        loadFeaturedMediaAt($elem, current);
+        if (includeNext) {
+          loadFeaturedMediaAt($elem, current + 1);
+        }
+      }
+
       $(".header1").owlCarousel({
         autoPlay : 3000,
         stopOnHover : true,
@@ -18,6 +49,15 @@ $(document).ready(function() {
         singleItem : true,
         autoHeight : true,
         navigationText:["<i class='fa fa-angle-left'></i>","<i class='fa fa-angle-right'></i>"],
+        afterInit : function($elem) {
+          loadCurrentFeaturedMedia($elem, false);
+          window.setTimeout(function() {
+            loadCurrentFeaturedMedia($elem, true);
+          }, 1200);
+        },
+        afterAction : function($elem) {
+          loadCurrentFeaturedMedia($elem, true);
+        },
 		itemsDesktop : [1199,2],
 	  itemsDesktopSmall : [980,2],
 	  itemsTablet: [768,1],
@@ -79,18 +119,21 @@ $(document).ready(function() {
  =============================================*/
 ;
 (function ($) {
-    include('../../js/jquery.rd-parallax.js');
-})(jQuery); 
+    if (typeof include === "function") {
+        include('../../js/jquery.rd-parallax.js');
+    }
+})(jQuery);
 
 /* filter
  =============================================*/
 /*--------------------------
 	scrollUp
----------------------------- */	
-	$.scrollUp({
-        scrollText: '<i class="fa fa-angle-up"></i>',
-        easingType: 'linear',
-        scrollSpeed: 900,
-        animation: 'fade'
-    });
-	   
+---------------------------- */
+	if ($.scrollUp) {
+		$.scrollUp({
+	        scrollText: '<i class="fa fa-angle-up"></i>',
+	        easingType: 'linear',
+	        scrollSpeed: 900,
+	        animation: 'fade'
+	    });
+	}

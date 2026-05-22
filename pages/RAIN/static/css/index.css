@@ -110,6 +110,20 @@ body {
 .publication-body img {
 }
 
+.rain-overview-figure {
+  margin: 1.5rem auto 1.75rem;
+  max-width: 900px;
+}
+
+.rain-overview-figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid #d8dee8;
+  border-radius: 10px;
+  box-shadow: 0 16px 45px rgba(10, 20, 35, 0.12);
+}
+
 .results-carousel {
   overflow: hidden;
 }

@@ -1,5 +1,11 @@
 {
   "image": "static/images/mambo-g-cover-preview.gif",
-  "tags": ["diffusion", "guidance", "acceleration"],
-  "status": "2026 preprint"
+  "tags": [
+    "diffusion",
+    "guidance",
+    "acceleration"
+  ],
+  "status": "2026 preprint",
+  "updatedAt": "2025-11-23",
+  "imageWebp": "static/images/mambo-g-cover-preview.webp"
 }

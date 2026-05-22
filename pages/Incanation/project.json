@@ -1,4 +1,10 @@
 {
-  "tags": ["world models", "language control", "multi-entity"],
-  "status": "2026 preprint"
+  "image": "static/images/covers/incantation-cover-v6.gif",
+  "tags": [
+    "world models",
+    "language control",
+    "multi-entity"
+  ],
+  "status": "2026 preprint",
+  "imageWebp": "static/images/covers/incantation-cover-v6.webp"
 }

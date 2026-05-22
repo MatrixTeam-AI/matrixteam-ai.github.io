@@ -11,6 +11,7 @@ const outputFile = path.join(siteRoot, "assets", "data", "projects.json");
 const outputScriptFile = path.join(siteRoot, "assets", "data", "projects.js");
 
 const MAX_DESCRIPTION_LENGTH = 260;
+const PROJECT_ORDER = new Map(["Incanation", "TIE", "Mambo-g", "RAIN", "TheMatrix", "TheMatrixDataset"].map((slug, index) => [slug, index]));
 
 function decodeEntities(value) {
   return value
@@ -158,6 +159,7 @@ async function projectFromDirectory(dirent) {
   const htmlDescription = html ? pickHtmlDescription(html) : "";
   const readmeDescription = readme ? pickReadmeDescription(readme) : "";
   const image = custom.image ? normalizeProjectPath(custom.image, slug) : (html ? pickHtmlImage(html, slug) : "");
+  const imageWebp = custom.imageWebp ? normalizeProjectPath(custom.imageWebp, slug) : "";
 
   return {
     slug,
@@ -165,6 +167,7 @@ async function projectFromDirectory(dirent) {
     description: truncate(custom.description || htmlDescription || readmeDescription || "Project page from Matrix Team."),
     url: normalizeProjectUrl(custom.url, slug),
     image: image || "",
+    imageWebp,
     status: custom.status || "",
     tags: Array.isArray(custom.tags) ? custom.tags : [],
     updatedAt: custom.updatedAt || stats.mtime.toISOString().slice(0, 10),
@@ -185,7 +188,11 @@ async function main() {
   }))).filter(Boolean);
 
   const projects = await Promise.all(projectDirectories.map(projectFromDirectory));
-  projects.sort((a, b) => b.updatedAt.localeCompare(a.updatedAt) || a.title.localeCompare(b.title));
+  projects.sort((a, b) => (
+    b.updatedAt.localeCompare(a.updatedAt)
+    || (PROJECT_ORDER.get(a.slug) ?? 999) - (PROJECT_ORDER.get(b.slug) ?? 999)
+    || a.title.localeCompare(b.title)
+  ));
 
   const payload = {
     generatedAt: new Date().toISOString(),
