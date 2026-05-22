@@ -69,6 +69,7 @@ $(document).ready(function() {
 	/* ---------------------------------------------- */
 
 	var preloaderHidden = false;
+	var preloaderHideScheduled = false;
 
 	function hidePreloader() {
 		if (preloaderHidden) return;
@@ -82,10 +83,13 @@ $(document).ready(function() {
 
 		window.setTimeout(function() {
 			$preloader.addClass('is-gone').hide();
-		}, 420);
+		}, 760);
 	}
 
 	function schedulePreloaderHide() {
+		if (preloaderHidden || preloaderHideScheduled) return;
+		preloaderHideScheduled = true;
+
 		window.setTimeout(function() {
 			if (window.requestAnimationFrame) {
 				window.requestAnimationFrame(function() {
@@ -94,12 +98,12 @@ $(document).ready(function() {
 			} else {
 				hidePreloader();
 			}
-		}, 180);
+		}, 640);
 	}
 
 	$(schedulePreloaderHide);
-	$(window).on('load', hidePreloader);
-	window.setTimeout(hidePreloader, 1800);
+	$(window).on('load', schedulePreloaderHide);
+	window.setTimeout(hidePreloader, 2400);
 
     "use strict"; // Start of use strict
 

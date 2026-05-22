@@ -39,12 +39,12 @@ a:focus {
 #preloader {
     background: var(--mx-bg);
     opacity: 1;
-    transition: opacity 0.28s ease;
+    transition: opacity 0.42s cubic-bezier(0.22, 1, 0.36, 1);
     will-change: opacity;
 }
 
 #loading {
-    transition: opacity 0.2s ease;
+    transition: opacity 0.32s ease;
 }
 
 #loading.is-hidden,
