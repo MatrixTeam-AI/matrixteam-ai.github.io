@@ -163,27 +163,27 @@
 
   <section class="section">
     <div class="container is-max-desktop">
-      <!--
-      <div class="columns is-centered">
-
+      <div id="rain-overview" class="columns is-centered">
         <div class="column">
           <div class="content">
-            <h2 class="title" style="text-align: center;">Framework</h2>
-            <img src="images/pipeline.png" style="max-width: 85%;margin: auto; display: block;" />
+            <h2 class="title" style="text-align: center;">RAIN at a Glance</h2>
+            <figure class="rain-overview-figure">
+              <img src="static/images/rain-home-preview.gif"
+                alt="RAIN overview animation showing avatar creation, hand-drawn driving, realtime synthesis, streaming inference, and GPU utilization." />
+            </figure>
             <p>
-              <i>RAIN</i> adopts a pipeline-like design for inferencing on streaming video. The latent states are filled
-              with frames with stepped noise levels. Each time the denoising process will be performed on a group of
-              frames. Therefore <i>RAIN</i> supports generation of infinite long video.
+              <i>RAIN</i> turns a single hand-drawn, retrieved, or AI-generated image into a live, controllable avatar.
+              The overview above summarizes the end-to-end value: fast avatar creation, motion driven by facial
+              landmarks, realtime synthesis on a consumer GPU, and an infinite streaming design for long video.
             </p>
             <p>
-              For speeding up, <i>RAIN</i> adopts several methods of acceleration. We perform LCM Distillation on the
-              UNet model, and adopts <a href="https://github.com/madebyollin/taesdv">TAESDV</a> as VAE Decoder. With
-              TensorRT acceleration, <i>RAIN</i> generally runs at 18 fps with latency ~ 1.5s on single RTX 4090 with
-              resolution of 512x512 and DWPose as feature extractor.
+              The method uses grouped stream denoising to keep long-running animation stable, while acceleration
+              choices such as LCM distillation, TAESDV decoding, and TensorRT help maintain low-latency generation on a
+              single RTX 4090.
             </p>
           </div>
         </div>
-      </div>-->
+      </div>
 
       <div class="column">
         <h2 class="title" style="text-align: center;">Cross Domain Face Morphing</h2>

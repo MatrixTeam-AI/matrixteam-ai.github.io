@@ -1,6 +1,12 @@
 {
   "title": "The Matrix Dataset",
   "description": "Dataset documentation for Matrix world-model research, covering collection, processing, source games, controls, and release information.",
-  "image": "matrix.jpg",
-  "tags": ["dataset", "world models", "game data"]
+  "image": "static/images/matrix-dataset-home-preview.gif",
+  "tags": [
+    "dataset",
+    "world models",
+    "game data"
+  ],
+  "updatedAt": "2024-11-10",
+  "imageWebp": "static/images/matrix-dataset-home-preview.webp"
 }
