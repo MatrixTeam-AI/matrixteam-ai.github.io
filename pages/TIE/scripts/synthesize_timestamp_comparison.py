@@ -13,6 +13,7 @@ import html
 import math
 import re
 import subprocess
+from dataclasses import dataclass
 from pathlib import Path
 
 import cv2
@@ -31,6 +32,54 @@ DEFAULT_KEY_LABELS = {
         (5.5, "boss jumps back"),
         (7.75, "player goes back"),
     ],
+    "example1": [
+        (3.0, "the man raises his arm"),
+        (7.0, "a train appears"),
+        (8.5, "the man lowers hand"),
+    ],
+    "example3": [
+        (4.3, "right arm stops"),
+        (7.2, "left gripper closes"),
+        (9.3, "right gripper opens"),
+    ],
+}
+DEFAULT_KEY_TARGETS = {
+    "example1": {
+        "tie": [
+            (3.0, 0.38, 0.28, 0.18, 0.42, True),
+            (7.0, 0.0023,0.0150,0.4634,0.3580, True),
+            (8.5, 0.38, 0.28, 0.18, 0.42, True),
+        ],
+        "seedance": [
+            (3.0, 0.38, 0.28, 0.18, 0.42, False),
+            (7.0, 0.0023,0.0150,0.4634,0.3580, True),
+            (8.5, 0.38, 0.28, 0.18, 0.42, False),
+        ],
+    },
+    "example3": {
+        "tie": [
+            (4.3, 0.4925,0.1736,0.4963,0.4219, True),
+            (7.2, 0.2394,0.1944,0.3878,0.4801, True),
+            (9.3, 0.5287,0.2035,0.3491,0.4568, True),
+        ],
+        "seedance": [
+            (4.3, 0.4925,0.1736,0.4963,0.4219, True),
+            (7.2, 0.2394,0.1944,0.3878,0.4801, False),
+            (9.3, 0.5287,0.2035,0.3491,0.4568, False),
+        ],
+    },
+    "example5": {
+        "tie": [
+            (3.0, 0.2572,0.1860,0.5091,0.5033, True),
+            (5.5,0.2802,0.0249,0.4055,0.5631, True),
+            (7.75,0.3695,0.3929,0.2428,0.4842, True),
+        ],
+        "seedance": [
+            (3.0, 0.2730,0.2625,0.5409,0.5257, False),
+            (5.5, 0.3740,0.0772,0.3399,0.484, False),
+            (7.75, 0.1300,0.2915,0.4100,0.6985, True),
+        ],
+    },
 }
 
 CANVAS_BG = (248, 249, 251)
@@ -51,6 +100,20 @@ EVENT_COLORS = [
     (121, 110, 235),
     (94, 124, 32),
 ]
+SUCCESS = (22, 163, 74)
+FAILURE = (220, 38, 38)
+KEY_BOX_PRE_WINDOW = 0.5
+KEY_BOX_POST_WINDOW = 1.0
+
+
+@dataclass(frozen=True)
+class KeyTarget:
+    time: float
+    x: float
+    y: float
+    w: float
+    h: float
+    success: bool
 
 
 def parse_args() -> argparse.Namespace:
@@ -82,6 +145,22 @@ def parse_args() -> argparse.Namespace:
         "--no-default-key-labels",
         action="store_true",
         help="Disable built-in key labels for demos that define them.",
+    )
+    parser.add_argument(
+        "--key-box",
+        action="append",
+        default=[],
+        metavar="SIDE:TIME:X,Y,W,H:STATE",
+        help=(
+            "Add a key-component overlay box in normalized video coordinates. "
+            "SIDE is tie, seedance, or both; STATE is success/fail. "
+            "Example: --key-box \"tie:7.0:0.55,0.37,0.40,0.20:success\"."
+        ),
+    )
+    parser.add_argument(
+        "--no-default-key-boxes",
+        action="store_true",
+        help="Disable built-in key-component overlay boxes for demos that define them.",
     )
     parser.add_argument("--width", type=int, default=1920, help="Output width.")
     parser.add_argument("--height", type=int, default=1080, help="Output height.")
@@ -124,6 +203,38 @@ def parse_key_labels(args: argparse.Namespace) -> list[tuple[float, str]]:
         labels.append((float(raw_time.strip()), text))
 
     return sorted(labels, key=lambda item: item[0])
+
+
+def parse_key_targets(args: argparse.Namespace) -> dict[str, list[KeyTarget]]:
+    targets: dict[str, list[KeyTarget]] = {"tie": [], "seedance": []}
+    if not args.no_default_key_boxes:
+        for side, side_targets in DEFAULT_KEY_TARGETS.get(args.demo_id, {}).items():
+            targets[side].extend(KeyTarget(*target) for target in side_targets)
+
+    for raw_box in args.key_box:
+        parts = raw_box.split(":")
+        if len(parts) != 4:
+            raise ValueError(
+                f"Invalid --key-box {raw_box!r}; expected SIDE:TIME:X,Y,W,H:STATE."
+            )
+        side, raw_time, raw_box_values, raw_state = (part.strip().lower() for part in parts)
+        if side not in {"tie", "seedance", "both"}:
+            raise ValueError(f"Invalid --key-box side {side!r}; expected tie, seedance, or both.")
+        box_values = [float(value.strip()) for value in raw_box_values.split(",")]
+        if len(box_values) != 4:
+            raise ValueError(f"Invalid --key-box box {raw_box_values!r}; expected X,Y,W,H.")
+        if any(value < 0 for value in box_values) or box_values[0] > 1 or box_values[1] > 1:
+            raise ValueError(f"Invalid --key-box coordinates {raw_box_values!r}; use normalized values.")
+        state_map = {"success": True, "pass": True, "ok": True, "fail": False, "failure": False}
+        if raw_state not in state_map:
+            raise ValueError(f"Invalid --key-box state {raw_state!r}; expected success or fail.")
+
+        target = KeyTarget(float(raw_time), *box_values, state_map[raw_state])
+        sides = ("tie", "seedance") if side == "both" else (side,)
+        for target_side in sides:
+            targets[target_side].append(target)
+
+    return {side: sorted(side_targets, key=lambda target: target.time) for side, side_targets in targets.items()}
 
 
 def load_font(size: int, bold: bool = False) -> ImageFont.FreeTypeFont | ImageFont.ImageFont:
@@ -173,6 +284,94 @@ def draw_rounded(draw: ImageDraw.ImageDraw, box, radius: int, fill, outline=None
     draw.rounded_rectangle(box, radius=radius, fill=fill, outline=outline, width=width)
 
 
+def label_for_key_time(key_labels: list[tuple[float, str]], key_time: float) -> str:
+    for label_time, label_text in key_labels:
+        if abs(label_time - key_time) <= 1e-3:
+            return label_text
+    return f"{key_time:g}s"
+
+
+def draw_status_mark(draw: ImageDraw.ImageDraw, center: tuple[int, int], radius: int, success: bool):
+    cx, cy = center
+    color = SUCCESS if success else FAILURE
+    draw.ellipse((cx - radius, cy - radius, cx + radius, cy + radius), fill=color)
+    if success:
+        draw.line(
+            (
+                cx - radius * 0.55,
+                cy,
+                cx - radius * 0.18,
+                cy + radius * 0.38,
+                cx + radius * 0.58,
+                cy - radius * 0.45,
+            ),
+            fill=(255, 255, 255),
+            width=max(3, radius // 3),
+            joint="curve",
+        )
+    else:
+        offset = radius * 0.48
+        draw.line((cx - offset, cy - offset, cx + offset, cy + offset), fill=(255, 255, 255), width=max(3, radius // 3))
+        draw.line((cx + offset, cy - offset, cx - offset, cy + offset), fill=(255, 255, 255), width=max(3, radius // 3))
+
+
+def draw_key_target_overlays(
+    image: Image.Image,
+    video_box: tuple[int, int, int, int],
+    key_labels: list[tuple[float, str]],
+    key_targets: list[KeyTarget],
+    current_time: float,
+):
+    draw = ImageDraw.Draw(image)
+    label_font = load_font(18, bold=True)
+    video_x, video_y, video_w, video_h = video_box
+    for target in key_targets:
+        elapsed = current_time - target.time
+        if elapsed < -KEY_BOX_PRE_WINDOW or elapsed > KEY_BOX_POST_WINDOW:
+            continue
+
+        window = KEY_BOX_PRE_WINDOW if elapsed < 0 else KEY_BOX_POST_WINDOW
+        progress = 1.0 - abs(elapsed) / window
+        outline = SUCCESS if target.success else FAILURE
+        box_x0 = video_x + int(round(target.x * video_w))
+        box_y0 = video_y + int(round(target.y * video_h))
+        box_x1 = video_x + int(round(min(1.0, target.x + target.w) * video_w))
+        box_y1 = video_y + int(round(min(1.0, target.y + target.h) * video_h))
+        box_x1 = max(box_x0 + 24, box_x1)
+        box_y1 = max(box_y0 + 24, box_y1)
+
+        glow_pad = int(round(4 + 5 * progress))
+        draw.rectangle(
+            (box_x0 - glow_pad, box_y0 - glow_pad, box_x1 + glow_pad, box_y1 + glow_pad),
+            outline=(255, 255, 255),
+            width=3,
+        )
+        draw.rectangle((box_x0, box_y0, box_x1, box_y1), outline=outline, width=5)
+
+        label_text = label_for_key_time(key_labels, target.time)
+        max_label_w = min(330, video_x + video_w - box_x0)
+        text = label_text
+        while len(text) > 6:
+            text_box = draw.textbbox((0, 0), text, font=label_font)
+            if text_box[2] - text_box[0] <= max_label_w - 52:
+                break
+            text = text[:-2].rstrip() + "."
+
+        text_box = draw.textbbox((0, 0), text, font=label_font)
+        text_w = text_box[2] - text_box[0]
+        pill_w = text_w + 50
+        pill_h = 32
+        pill_x1 = min(video_x + video_w - 6, box_x1)
+        pill_x0 = max(video_x + 6, pill_x1 - pill_w)
+        pill_y0 = max(video_y + 6, box_y0 + 6)
+        pill_x1 = pill_x0 + pill_w
+        pill_y1 = pill_y0 + pill_h
+
+        draw_rounded(draw, (pill_x0, pill_y0, pill_x1, pill_y1), 7, (255, 255, 255), outline, width=2)
+        draw_status_mark(draw, (pill_x0 + 18, pill_y0 + pill_h // 2), 11, target.success)
+        draw.text((pill_x0 + 36, pill_y0 + 6), text, fill=TEXT, font=label_font)
+
+
 def pack_events_into_lanes(
     events: list[dict[str, float | str]], duration: float
 ) -> list[list[tuple[int, dict[str, float | str]]]]:
@@ -211,6 +410,7 @@ def draw_video_panel(
     panel_w: int,
     video_h: int,
     key_labels: list[tuple[float, str]],
+    key_targets: list[KeyTarget],
 ):
     x, y = origin
     draw = ImageDraw.Draw(image)
@@ -227,6 +427,13 @@ def draw_video_panel(
     video_w = panel_w - 48
     image.paste(Image.fromarray(frame), (x + 24, video_y))
     draw.rectangle((x + 24, video_y, x + 24 + video_w, video_y + video_h), outline=(206, 213, 222), width=2)
+    draw_key_target_overlays(
+        image,
+        (x + 24, video_y, video_w, video_h),
+        key_labels,
+        key_targets,
+        current_time,
+    )
 
     timeline_x = x + 24
     timeline_y = video_y + video_h + 48
@@ -319,6 +526,7 @@ def main() -> None:
     args = parse_args()
     events = read_events(args.index, args.demo_id)
     key_labels = parse_key_labels(args)
+    key_targets = parse_key_targets(args)
     args.output.parent.mkdir(parents=True, exist_ok=True)
 
     tie_cap = cv2.VideoCapture(str(args.tie_video))
@@ -376,6 +584,7 @@ def main() -> None:
             panel_w,
             video_h,
             key_labels,
+            key_targets["tie"],
         )
         draw_video_panel(
             canvas,
@@ -390,6 +599,7 @@ def main() -> None:
             panel_w,
             video_h,
             key_labels,
+            key_targets["seedance"],
         )
 
         writer.write(cv2.cvtColor(np.asarray(canvas), cv2.COLOR_RGB2BGR))
