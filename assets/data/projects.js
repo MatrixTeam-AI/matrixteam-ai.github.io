@@ -1,5 +1,5 @@
 window.MATRIX_PROJECT_INDEX = {
-  "generatedAt": "2026-05-23T08:56:36.807Z",
+  "generatedAt": "2026-05-26T14:13:28.814Z",
   "source": "scripts/generate-project-index.mjs",
   "projects": [
     {
@@ -15,7 +15,7 @@ window.MATRIX_PROJECT_INDEX = {
         "language control",
         "multi-entity"
       ],
-      "updatedAt": "2026-05-23"
+      "updatedAt": "2026-05-26"
     },
     {
       "slug": "TIE",
@@ -30,7 +30,7 @@ window.MATRIX_PROJECT_INDEX = {
         "time intervals",
         "events"
       ],
-      "updatedAt": "2026-05-23"
+      "updatedAt": "2026-05-26"
     },
     {
       "slug": "Mambo-g",
