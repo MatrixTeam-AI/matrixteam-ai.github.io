@@ -718,7 +718,7 @@
 
       <div class="item">
         <div class="video-frame">
-          <video class="lazy-video comparison-video" data-demo-id="example1" autoplay muted loop controls playsinline preload="none" width="1920" height="1080">
+          <video class="lazy-video comparison-video" data-demo-id="example1" muted loop controls playsinline preload="none" poster="static/videos/posters/timestamp_comparison_example1.jpg" width="1920" height="1080">
             <source data-src="static/videos/timestamp_comparison_example1.mp4" type="video/mp4" />
           </video>
         </div>
@@ -727,7 +727,7 @@
 
       <div class="item">
         <div class="video-frame">
-          <video class="lazy-video comparison-video" data-demo-id="example3" autoplay muted loop controls playsinline preload="none" width="1920" height="1080">
+          <video class="lazy-video comparison-video" data-demo-id="example3" muted loop controls playsinline preload="none" poster="static/videos/posters/timestamp_comparison_example3.jpg" width="1920" height="1080">
             <source data-src="static/videos/timestamp_comparison_example3.mp4" type="video/mp4" />
           </video>
         </div>
@@ -736,7 +736,7 @@
 
       <div class="item">
         <div class="video-frame">
-          <video class="lazy-video comparison-video" data-demo-id="example5" autoplay muted loop controls playsinline preload="none" width="1920" height="1080">
+          <video class="lazy-video comparison-video" data-demo-id="example5" muted loop controls playsinline preload="none" poster="static/videos/posters/timestamp_comparison_example5.jpg" width="1920" height="1080">
             <source data-src="static/videos/timestamp_comparison_example5.mp4" type="video/mp4" />
           </video>
         </div>
@@ -745,7 +745,7 @@
 
       <div class="item long-video-item">
         <div class="video-frame">
-          <video class="lazy-video" data-demo-id="example4" autoplay muted loop controls playsinline preload="none" poster="static/videos/posters/long_robotic_task.jpg" width="872" height="480">
+          <video class="lazy-video" data-demo-id="example4" muted loop controls playsinline preload="none" poster="static/videos/posters/long_robotic_task.jpg" width="872" height="480">
             <source data-src="static/videos/long_robotic_task.mp4" data-tie-src="static/videos/long_robotic_task.mp4" data-seedance-src="static/videos/long_robotic_task.mp4" type="video/mp4" />
           </video>
         </div>
@@ -1273,6 +1273,7 @@
 
     const updateVideoSource = (video, result) => {
       let changed = false;
+      const shouldResume = !video.paused && !video.ended;
       video.querySelectorAll('source').forEach((source) => {
         const nextSrc = sourceForResult(source, result);
         if (!nextSrc) return;
@@ -1285,7 +1286,9 @@
       if (changed) {
         video.load();
         renderActiveEvents(video);
-        playVideo(video);
+        if (shouldResume) {
+          playVideo(video);
+        }
       }
     };
 
@@ -1300,11 +1303,16 @@
       video.dataset.loaded = 'true';
       video.load();
       renderActiveEvents(video);
-      playVideo(video);
     };
 
     videos.forEach((video) => {
       renderActiveEvents(video);
+      video.addEventListener('pointerdown', () => loadVideo(video), { once: true });
+      video.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          loadVideo(video);
+        }
+      });
       video.addEventListener('loadedmetadata', () => renderActiveEvents(video));
       video.addEventListener('timeupdate', () => renderActiveEvents(video));
       video.addEventListener('seeking', () => renderActiveEvents(video));
@@ -1320,20 +1328,7 @@
       });
     }
 
-    if (!('IntersectionObserver' in window)) {
-      videos.forEach(loadVideo);
-      return;
-    }
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        loadVideo(entry.target);
-        observer.unobserve(entry.target);
-      });
-    }, { rootMargin: '600px 0px' });
-
-    videos.forEach((video) => observer.observe(video));
+    // Keep the demo gallery poster-first: sources are attached on user intent.
   })();
 </script>
 
