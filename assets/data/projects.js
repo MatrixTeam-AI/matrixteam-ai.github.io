@@ -1,5 +1,5 @@
 window.MATRIX_PROJECT_INDEX = {
-  "generatedAt": "2026-05-26T14:13:28.814Z",
+  "generatedAt": "2026-05-26T20:51:45.209Z",
   "source": "scripts/generate-project-index.mjs",
   "projects": [
     {
