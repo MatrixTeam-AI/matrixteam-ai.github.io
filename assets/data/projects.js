@@ -1,5 +1,5 @@
 window.MATRIX_PROJECT_INDEX = {
-  "generatedAt": "2026-05-26T20:51:45.209Z",
+  "generatedAt": "2026-06-01T01:30:40.417Z",
   "source": "scripts/generate-project-index.mjs",
   "projects": [
     {
@@ -9,13 +9,13 @@ window.MATRIX_PROJECT_INDEX = {
       "url": "pages/Incanation/",
       "image": "pages/Incanation/static/images/covers/incantation-cover-v6.gif",
       "imageWebp": "pages/Incanation/static/images/covers/incantation-cover-v6.webp",
-      "status": "2026 preprint",
+      "status": "arXiv 2605.18601",
       "tags": [
         "world models",
         "language control",
         "multi-entity"
       ],
-      "updatedAt": "2026-05-26"
+      "updatedAt": "2026-06-01"
     },
     {
       "slug": "TIE",
